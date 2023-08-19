@@ -7,9 +7,5 @@ public interface ISeed
 {
     public static Type PlantType;
 
-    public ISoil? HostSoil { get; set; }
-
-    public bool IsSprouting { get; set; }
-
     public void Sprout();
 }

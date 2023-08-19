@@ -3,12 +3,11 @@ using BloomPrototype.GameTypes.Soils;
 
 namespace BloomPrototype.GameTypes.Seeds;
 
-public class Grain : ISeed
+public class Grain : Seed
 {
-    public ISoil? HostSoil { get; set; }
-    public bool IsSprouting { get; set; }
+    protected override ISoil? HostSoil { get; set; }
 
-    public static Type PlantType = typeof(Plants.Wheat);
+    public static Type PlantType = typeof(Wheat);
 
-    public void Sprout() => throw new NotImplementedException();
+    public override void Sprout() => throw new NotImplementedException();
 }

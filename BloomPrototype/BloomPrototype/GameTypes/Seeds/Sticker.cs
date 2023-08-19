@@ -3,12 +3,11 @@ using BloomPrototype.GameTypes.Soils;
 
 namespace BloomPrototype.GameTypes.Seeds;
 
-public class Sticker : ISeed
+public class Sticker : Seed
 {
-    public ISoil? HostSoil { get; set; }
-    public bool IsSprouting { get; set; }
+    protected override ISoil? HostSoil { get; set; }
 
     public static Type PlantType = typeof(Weed);
 
-    public void Sprout() => throw new NotImplementedException();
+    public override void Sprout() => throw new NotImplementedException();
 }
