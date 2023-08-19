@@ -3,7 +3,7 @@ using BloomPrototype.GameTypes.Seeds;
 
 namespace BloomPrototype.GameTypes.Soils;
 
-public class Clay : ISoil
+public class Soil : ISoil
 {
     public SoilWaterLevel WaterLevel { get; set; }
     public SoilFertility Fertility { get; set; }
