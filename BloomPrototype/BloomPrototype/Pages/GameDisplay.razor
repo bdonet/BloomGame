@@ -1,0 +1,34 @@
+@page "/"
+@using BloomPrototype.GameTypes
+@using BloomPrototype.GameTypes.Soils
+
+
+<table>
+	@for (int x = 0; x < Map.ViewSize; x++)
+	{
+		<tr>
+			@for (int y = 0; y < Map.ViewSize; y++)
+			{
+				<td>
+					test
+				</td>
+			}
+		</tr>
+	}
+</table>
+
+@code {
+	private Map WorldMap = new Map();
+
+	private Soil[,] MapView;
+
+	private int startX = 0;
+	private int startY = 0;
+
+	protected override void OnInitialized()
+	{
+		MapView = WorldMap.GetView(startX, startY);
+
+		base.OnInitialized();
+	}
+}

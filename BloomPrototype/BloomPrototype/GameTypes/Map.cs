@@ -9,7 +9,7 @@ public class Map
         Grid = new Soil[100, 100];
     }
 
-    private const int ViewSize = 5;
+    public const int ViewSize = 5;
 
     private Soil[,] Grid;
 
@@ -28,5 +28,5 @@ public class Map
         }
 
         return result;
-    } 
+    }
 }
