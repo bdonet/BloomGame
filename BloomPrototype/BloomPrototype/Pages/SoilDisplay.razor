@@ -23,7 +23,7 @@
 	{
 		SoilCss = "soil ";
 
-		//SetSoilCharacteristicsCss();
+		SetSoilCharacteristicsCss();
 		SetContentsCss();
 
 		SoilCss = SoilCss.Trim();
@@ -34,8 +34,8 @@
 	private void SetSoilCharacteristicsCss()
 	{
 		SoilCss += $"{Soil.Fertility.ToString().ToLower()} ";
-		SoilCss += $"{Soil.WaterLevel.ToString().ToLower()} ";
-		SoilCss += $"{Soil.Retention.ToString().ToLower()} ";
+		// SoilCss += $"{Soil.WaterLevel.ToString().ToLower()} ";
+		// SoilCss += $"{Soil.Retention.ToString().ToLower()} ";
 	}
 
 	private void SetContentsCss()

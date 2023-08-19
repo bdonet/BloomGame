@@ -13,28 +13,35 @@ public class Map
         {
             for (int y = 0; y < 100; y++)
             {
-                Grid[x, y] = new Soil();
+                Grid[x, y] = new Soil
+                {
+                    Fertility = (SoilFertility)new Random().Next(1, 6)
+                };
             }
         }
 
 		var weedSoil = new Soil();
 		var weed = new Weed(weedSoil);
 		weedSoil.GrowingPlant = weed;
+        weedSoil.Fertility = SoilFertility.Struggling;
 		Grid[1, 0] = weedSoil;
 
 		var tomatoSoil = new Soil();
 		var tomato = new Tomato(tomatoSoil);
 		tomatoSoil.GrowingPlant = tomato;
+        tomatoSoil.Fertility = SoilFertility.Alive;
 		Grid[4, 1] = tomatoSoil;
 
 		var treeSoil = new Soil();
         var tree = new Tree(treeSoil);
         treeSoil.GrowingPlant = tree;
+        treeSoil.Fertility = SoilFertility.Overgrown;
         Grid[2, 3] = treeSoil;
 
 		var wheatSoil = new Soil();
 		var wheat = new Wheat(wheatSoil);
 		wheatSoil.GrowingPlant = wheat;
+        wheatSoil.Fertility = SoilFertility.Thriving;
 		Grid[1, 4] = wheatSoil;
 	}
 

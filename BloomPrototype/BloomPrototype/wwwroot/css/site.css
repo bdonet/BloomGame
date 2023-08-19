@@ -30,8 +30,27 @@
 .soil {
     height: 100px;
     width: 100px;
-    background-color: palegreen;
     display: grid;
+}
+
+.dead {
+    background-color: beige;
+}
+
+.struggling {
+    background-color: palegreen;
+}
+
+.alive {
+    background-color: greenyellow;
+}
+
+.thriving {
+    background-color: mediumseagreen;
+}
+
+.overgrown {
+    background-color: green;
 }
 
 .player {
