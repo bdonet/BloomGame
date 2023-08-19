@@ -4,7 +4,7 @@ namespace BloomPrototype.GameTypes.Seeds;
 
 public abstract class Seed : ISeed
 {
-    protected abstract ISoil? HostSoil { get; set; }
+    protected abstract Soil? HostSoil { get; set; }
 
     public abstract void Sprout();
 }

@@ -5,7 +5,7 @@ namespace BloomPrototype.GameTypes.Plants;
 
 public class Weed : Plant
 {
-    public Weed(ISoil hostSoil)
+    public Weed(Soil hostSoil)
     {
         HostSoil = hostSoil;
         Maturity = PlantMaturity.Seedling;
@@ -24,5 +24,5 @@ public class Weed : Plant
     public override void GrowFruit() => throw new NotImplementedException();
     public override List<ISeed> GetCurrentFruit() => throw new NotImplementedException();
     public override PlantMaturity GetMaturity() => throw new NotImplementedException();
-    public override ISoil GetHostSoil() => throw new NotImplementedException();
+    public override Soil GetHostSoil() => throw new NotImplementedException();
 }

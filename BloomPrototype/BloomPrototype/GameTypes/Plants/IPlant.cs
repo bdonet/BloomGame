@@ -7,7 +7,7 @@ public interface IPlant
 {
     public PlantMaturity GetMaturity();
 
-    public ISoil GetHostSoil();
+    public Soil GetHostSoil();
 
     public void GrowFruit();
 

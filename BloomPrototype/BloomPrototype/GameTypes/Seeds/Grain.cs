@@ -5,7 +5,7 @@ namespace BloomPrototype.GameTypes.Seeds;
 
 public class Grain : Seed
 {
-    protected override ISoil? HostSoil { get; set; }
+    protected override Soil? HostSoil { get; set; }
 
     public static Type PlantType = typeof(Wheat);
 

@@ -7,10 +7,10 @@ public abstract class Plant : IPlant
 {
     protected PlantMaturity Maturity { get; set; }
 
-    protected ISoil HostSoil { get; set; }
+    protected Soil HostSoil { get; set; }
 
     public abstract PlantMaturity GetMaturity();
-    public abstract ISoil GetHostSoil();
+    public abstract Soil GetHostSoil();
     public abstract void GrowFruit();
     public abstract List<ISeed>? GetCurrentFruit();
 }
