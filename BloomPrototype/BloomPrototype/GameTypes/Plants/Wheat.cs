@@ -3,21 +3,26 @@ using BloomPrototype.GameTypes.Soils;
 
 namespace BloomPrototype.GameTypes.Plants;
 
-public class Wheat : IPlant
+public class Wheat : Plant
 {
     public Wheat(ISoil hostSoil)
     {
         HostSoil = hostSoil;
+        Maturity = PlantMaturity.Seedling;
     }
 
-    public PlantMaturity Maturity { get; set; } = PlantMaturity.Seedling;
-    public ISoil HostSoil { get; set; }
+    public const SoilFertility SoilFertilityPreference = SoilFertility.Alive;
 
-    private List<Grain?> Fruit { get; set; }
+    public const SoilRetention SoilRetentionPreference = SoilRetention.Holding;
 
-    public static ISoil SoilPreference;
-    public static int LifespanDays = 2 * 12 * 30;
+    public const SoilWaterLevel SoilWaterLevelPreference = SoilWaterLevel.Dry;
 
-    public void GrowFruit() => throw new NotImplementedException();
-    public List<ISeed>? GetCurrentFruit() => throw new NotImplementedException();
+    public const int LifespanDays = 2 * 12 * 30;
+
+    private List<Grain>? Fruit;
+
+    public override void GrowFruit() => throw new NotImplementedException();
+    public override List<ISeed>? GetCurrentFruit() => throw new NotImplementedException();
+    public override PlantMaturity GetMaturity() => throw new NotImplementedException();
+    public override ISoil GetHostSoil() => throw new NotImplementedException();
 }

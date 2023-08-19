@@ -5,17 +5,9 @@ namespace BloomPrototype.GameTypes.Plants;
 
 public interface IPlant
 {
-    public PlantMaturity Maturity { get; set; }
+    public PlantMaturity GetMaturity();
 
-    public ISoil HostSoil { get; set; }
-
-    public static SoilFertility SoilFertilityPreference;
-
-    public static SoilRetention SoilRetentionPreference;
-
-    public static SoilWaterLevel SoilWaterLevelPreference;
-
-    public static int LifespanDays;
+    public ISoil GetHostSoil();
 
     public void GrowFruit();
 
