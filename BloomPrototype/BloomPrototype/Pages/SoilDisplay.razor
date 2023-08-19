@@ -1,6 +1,8 @@
 ﻿@using BloomPrototype.GameTypes.Soils;
 
 <span class="@SoilCss">
+	<span class="@ContentsCss"/>
+
 	@if (HasPlayer)
 	{
 		<span class="player"></span>
@@ -15,13 +17,14 @@
 	public bool HasPlayer { get; set; }
 
 	private string SoilCss = "";
+	private string ContentsCss = "";
 
 	protected override void OnInitialized()
 	{
 		SoilCss = "soil ";
 
 		//SetSoilCharacteristicsCss();
-		//SetSoilContentsCss();
+		SetContentsCss();
 
 		SoilCss = SoilCss.Trim();
 
@@ -35,12 +38,15 @@
 		SoilCss += $"{Soil.Retention.ToString().ToLower()} ";
 	}
 
-	private void SetSoilContentsCss()
+	private void SetContentsCss()
 	{
 		if (Soil.GrowingPlant != null)
-			SoilCss += $"{Soil.GrowingPlant.GetType().Name.ToLower()} ";
+		{
+			ContentsCss += "plant ";
+			ContentsCss += $"{Soil.GrowingPlant.GetType().Name.ToLower()} ";
+		}
 
-		if (Soil.GrowingSeed != null)
-			SoilCss += $"{Soil.GrowingSeed.GetType().Name.ToLower()} ";
+		//if (Soil.GrowingSeed != null)
+		//	ContentsCss += $"{Soil.GrowingSeed.GetType().Name.ToLower()} ";
 	}
 }

@@ -39,3 +39,25 @@
     height: 57px;
     width: 41px;
 }
+
+.plant {
+    margin: auto;
+    height: 50%;
+    width: 50%;
+}
+
+.tomato {
+    content: url("../img/tomato.png");
+}
+
+.tree {
+    content: url("../img/tree.png");
+}
+
+.weed {
+    content: url("../img/weed.png");
+}
+
+.wheat {
+    content: url("../img/wheat.png");
+}

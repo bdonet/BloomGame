@@ -1,3 +1,4 @@
+using BloomPrototype.GameTypes.Plants;
 using BloomPrototype.GameTypes.Soils;
 
 namespace BloomPrototype.GameTypes;
@@ -7,7 +8,35 @@ public class Map
     public Map()
     {
         Grid = new Soil[100, 100];
-    }
+
+        for (int x = 0; x < 100; x++)
+        {
+            for (int y = 0; y < 100; y++)
+            {
+                Grid[x, y] = new Soil();
+            }
+        }
+
+		var weedSoil = new Soil();
+		var weed = new Weed(weedSoil);
+		weedSoil.GrowingPlant = weed;
+		Grid[1, 0] = weedSoil;
+
+		var tomatoSoil = new Soil();
+		var tomato = new Tomato(tomatoSoil);
+		tomatoSoil.GrowingPlant = tomato;
+		Grid[4, 1] = tomatoSoil;
+
+		var treeSoil = new Soil();
+        var tree = new Tree(treeSoil);
+        treeSoil.GrowingPlant = tree;
+        Grid[2, 3] = treeSoil;
+
+		var wheatSoil = new Soil();
+		var wheat = new Wheat(wheatSoil);
+		wheatSoil.GrowingPlant = wheat;
+		Grid[1, 4] = wheatSoil;
+	}
 
     public const int ViewSize = 5;
 
