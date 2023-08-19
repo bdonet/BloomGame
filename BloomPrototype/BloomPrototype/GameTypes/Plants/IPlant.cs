@@ -9,7 +9,11 @@ public interface IPlant
 
     public ISoil HostSoil { get; set; }
 
-    public static ISoil SoilPreference;
+    public static SoilFertility SoilFertilityPreference;
+
+    public static SoilRetention SoilRetentionPreference;
+
+    public static SoilWaterLevel SoilWaterLevelPreference;
 
     public static int LifespanDays;
 
