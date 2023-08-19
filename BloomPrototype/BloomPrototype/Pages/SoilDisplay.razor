@@ -1,0 +1,38 @@
+﻿@using BloomPrototype.GameTypes.Soils;
+
+<span class="@SoilCss"></span>
+
+@code {
+	[Parameter]
+	public Soil Soil { get; set; }
+
+	private string SoilCss = "";
+
+	protected override void OnInitialized()
+	{
+		SoilCss = "soil ";
+
+		//SetSoilCharacteristicsCss();
+		//SetSoilContentsCss();
+
+		SoilCss = SoilCss.Trim();
+
+		base.OnInitialized();
+	}
+
+	private void SetSoilCharacteristicsCss()
+	{
+		SoilCss += $"{Soil.Fertility.ToString().ToLower()} ";
+		SoilCss += $"{Soil.WaterLevel.ToString().ToLower()} ";
+		SoilCss += $"{Soil.Retention.ToString().ToLower()} ";
+	}
+
+	private void SetSoilContentsCss()
+	{
+		if (Soil.GrowingPlant != null)
+			SoilCss += $"{Soil.GrowingPlant.GetType().Name.ToLower()} ";
+
+		if (Soil.GrowingSeed != null)
+			SoilCss += $"{Soil.GrowingSeed.GetType().Name.ToLower()} ";
+	}
+}
