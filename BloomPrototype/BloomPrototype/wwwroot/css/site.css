@@ -33,3 +33,9 @@
     background-color: palegreen;
     display: grid;
 }
+
+.player {
+    content: url("../img/player_test.png");
+    height: 57px;
+    width: 41px;
+}
