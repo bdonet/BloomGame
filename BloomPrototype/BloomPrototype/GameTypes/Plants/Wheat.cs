@@ -22,7 +22,7 @@ public class Wheat : Plant
     private List<Grain>? Fruit;
 
     public override void GrowFruit() => throw new NotImplementedException();
-    public override List<ISeed>? GetCurrentFruit() => throw new NotImplementedException();
+    public override List<Seed>? GetCurrentFruit() => throw new NotImplementedException();
     public override PlantMaturity GetMaturity() => throw new NotImplementedException();
     public override Soil GetHostSoil() => throw new NotImplementedException();
 }

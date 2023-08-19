@@ -11,5 +11,5 @@ public interface IPlant
 
     public void GrowFruit();
 
-    public List<ISeed>? GetCurrentFruit();
+    public List<Seed>? GetCurrentFruit();
 }

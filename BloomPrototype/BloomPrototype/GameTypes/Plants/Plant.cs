@@ -12,5 +12,5 @@ public abstract class Plant : IPlant
     public abstract PlantMaturity GetMaturity();
     public abstract Soil GetHostSoil();
     public abstract void GrowFruit();
-    public abstract List<ISeed>? GetCurrentFruit();
+    public abstract List<Seed>? GetCurrentFruit();
 }
