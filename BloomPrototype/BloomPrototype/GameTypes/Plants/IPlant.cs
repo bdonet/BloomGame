@@ -11,9 +11,9 @@ public interface IPlant
 
     public static ISoil SoilPreference;
 
-    public static ISeed Fruit;
-
     public static int LifespanDays;
 
     public void GrowFruit();
+
+    public List<ISeed>? GetCurrentFruit();
 }

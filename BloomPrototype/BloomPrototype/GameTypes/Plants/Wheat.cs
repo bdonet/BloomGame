@@ -13,9 +13,11 @@ public class Wheat : IPlant
     public PlantMaturity Maturity { get; set; } = PlantMaturity.Seedling;
     public ISoil HostSoil { get; set; }
 
+    private List<Grain?> Fruit { get; set; }
+
     public static ISoil SoilPreference;
     public static int LifespanDays = 2 * 12 * 30;
-    public Grain? Fruit;
 
     public void GrowFruit() => throw new NotImplementedException();
+    public List<ISeed>? GetCurrentFruit() => throw new NotImplementedException();
 }

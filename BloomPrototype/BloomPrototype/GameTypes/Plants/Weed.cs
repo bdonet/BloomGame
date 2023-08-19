@@ -13,9 +13,12 @@ public class Weed : IPlant
     public PlantMaturity Maturity { get; set; } = PlantMaturity.Seedling;
     public ISoil HostSoil { get; set; }
 
+    private List<Sticker>? Fruit { get; set; }
+
     public static ISoil SoilPreference;
-    public static ISeed Fruit;
     public static int LifespanDays;
 
     public void GrowFruit() => throw new NotImplementedException();
+
+    public List<ISeed> GetCurrentFruit() => throw new NotImplementedException();
 }
