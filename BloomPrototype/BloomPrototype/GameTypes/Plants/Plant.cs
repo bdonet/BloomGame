@@ -3,7 +3,7 @@ using BloomPrototype.GameTypes.Soils;
 
 namespace BloomPrototype.GameTypes.Plants;
 
-public abstract class Plant : IPlant
+public abstract class Plant
 {
     protected PlantMaturity Maturity { get; set; }
 
