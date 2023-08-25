@@ -2,16 +2,16 @@
 
 namespace BloomPrototype.Services;
 
-public class SoilGenerator : ISoilGenerator
+public class SoilFactory : ISoilFactory
 {
 	readonly IRandomNumberGenerator Random;
 
-	public SoilGenerator(IRandomNumberGenerator random)
+	public SoilFactory(IRandomNumberGenerator random)
 	{
 		Random = random;
 	}
 
-	public Soil Generate()
+	public Soil GenerateSoil()
 	{
 		var randomFertility = Random.GenerateInt((int)SoilFertility.Dead, (int)SoilFertility.Overgrown);
 		return new Soil

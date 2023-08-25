@@ -1,6 +1,6 @@
 ﻿namespace BloomPrototype.Services;
 
-public interface ISoilGenerator
+public interface ISoilFactory
 {
 
 }

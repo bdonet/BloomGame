@@ -2,19 +2,18 @@
 using BloomPrototype.Services;
 using Shouldly;
 using Telerik.JustMock;
-using Telerik.JustMock.Helpers;
 
-namespace Tests.Unit.SoilGeneratorTest;
+namespace Tests.Unit.SoilFactoryTest;
 public class GenerateSoilTest
 {
 	[Fact]
 	public void GenerateSoil_GeneralCall_ReturnsNewSoil()
 	{
 		/// Arrange
-		var generator = new SoilGenerator(Mock.Create<IRandomNumberGenerator>());
+		var factory = new SoilFactory(Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
-		var result = generator.Generate();
+		var result = factory.GenerateSoil();
 
 		/// Assert
 		result.ShouldNotBeNull();
@@ -26,10 +25,10 @@ public class GenerateSoilTest
 		/// Arrange
 		var random = Mock.Create<IRandomNumberGenerator>();
 
-		var generator = new SoilGenerator(random);
+		var factory = new SoilFactory(random);
 
 		/// Act
-		generator.Generate();
+		factory.GenerateSoil();
 
 		/// Assert
 		Mock.Assert(() => random.GenerateInt((int)SoilFertility.Dead, (int)SoilFertility.Overgrown), Occurs.Once());
@@ -47,10 +46,10 @@ public class GenerateSoilTest
 		var random = Mock.Create<IRandomNumberGenerator>();
 		Mock.Arrange(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt)).Returns((int)expectedFertility);
 
-		var generator = new SoilGenerator(random);
+		var factory = new SoilFactory(random);
 
 		/// Act
-		var result = generator.Generate();
+		var result = factory.GenerateSoil();
 
 		/// Assert
 		result.Fertility.ShouldBe(expectedFertility);
