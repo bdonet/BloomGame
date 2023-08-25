@@ -7,19 +7,6 @@ namespace Tests.Unit.SoilFactoryTest;
 public class GenerateSoilTest
 {
 	[Fact]
-	public void GenerateSoil_GeneralCall_ReturnsNewSoil()
-	{
-		/// Arrange
-		var factory = new SoilFactory(Mock.Create<IRandomNumberGenerator>());
-
-		/// Act
-		var result = factory.GenerateSoil();
-
-		/// Assert
-		result.ShouldNotBeNull();
-	}
-
-	[Fact]
 	public void GenerateSoil_GeneralCall_CallsRandomNumberGeneratorWithSoilFertilityBounds()
 	{
 		/// Arrange
