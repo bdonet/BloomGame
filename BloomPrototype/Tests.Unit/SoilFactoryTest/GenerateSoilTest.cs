@@ -27,11 +27,11 @@ public class GenerateSoilTest
 	[InlineData(SoilFertility.Alive)]
 	[InlineData(SoilFertility.Thriving)]
 	[InlineData(SoilFertility.Overgrown)]
-	public void GenerateSoil_GeneralCall_UsesRandomNumberGeneratorToReturnSoilWithRandomFertility(SoilFertility expectedFertility)
+	public void GenerateSoil_GeneralCall_UsesRandomNumberGeneratorToReturnSoilWithRandomFertility(SoilFertility expectedWaterLevel)
 	{
 		/// Arrange
 		var random = Mock.Create<IRandomNumberGenerator>();
-		Mock.Arrange(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt)).Returns((int)expectedFertility);
+		Mock.Arrange(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt)).Returns((int)expectedWaterLevel);
 
 		var factory = new SoilFactory(random);
 
@@ -39,6 +39,42 @@ public class GenerateSoilTest
 		var result = factory.GenerateSoil();
 
 		/// Assert
-		result.Fertility.ShouldBe(expectedFertility);
+		result.Fertility.ShouldBe(expectedWaterLevel);
+	}
+
+	[Fact]
+	public void GenerateSoil_GeneralCall_CallsRandomNumberGeneratorWithSoilWaterLevelBounds()
+	{
+		/// Arrange
+		var random = Mock.Create<IRandomNumberGenerator>();
+
+		var factory = new SoilFactory(random);
+
+		/// Act
+		factory.GenerateSoil();
+
+		/// Assert
+		Mock.Assert(() => random.GenerateInt((int)SoilWaterLevel.Parched, (int)SoilWaterLevel.Flooded), Occurs.Once());
+	}
+
+	[Theory]
+	[InlineData(SoilWaterLevel.Parched)]
+	[InlineData(SoilWaterLevel.Dry)]
+	[InlineData(SoilWaterLevel.Moist)]
+	[InlineData(SoilWaterLevel.Wet)]
+	[InlineData(SoilWaterLevel.Flooded)]
+	public void GenerateSoil_GeneralCall_UsesRandomNumberGeneratorToReturnSoilWithRandomWaterLevel(SoilWaterLevel expectedWaterLevel)
+	{
+		/// Arrange
+		var random = Mock.Create<IRandomNumberGenerator>();
+		Mock.Arrange(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt)).Returns((int)expectedWaterLevel);
+
+		var factory = new SoilFactory(random);
+
+		/// Act
+		var result = factory.GenerateSoil();
+
+		/// Assert
+		result.WaterLevel.ShouldBe(expectedWaterLevel);
 	}
 }

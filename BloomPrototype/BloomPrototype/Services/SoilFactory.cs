@@ -16,7 +16,8 @@ public class SoilFactory : ISoilFactory
 		var randomFertility = Random.GenerateInt((int)SoilFertility.Dead, (int)SoilFertility.Overgrown);
 		return new Soil
 		{
-			Fertility = (SoilFertility)randomFertility
+			Fertility = (SoilFertility)randomFertility,
+			WaterLevel = (SoilWaterLevel)randomFertility
 		};
 	}
 }
