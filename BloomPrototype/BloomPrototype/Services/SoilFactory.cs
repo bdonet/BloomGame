@@ -17,7 +17,8 @@ public class SoilFactory : ISoilFactory
 		return new Soil
 		{
 			Fertility = (SoilFertility)randomFertility,
-			WaterLevel = (SoilWaterLevel)randomFertility
+			WaterLevel = (SoilWaterLevel)randomFertility,
+			Retention = (SoilRetention)randomFertility
 		};
 	}
 }

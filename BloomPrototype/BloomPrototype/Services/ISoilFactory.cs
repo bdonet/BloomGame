@@ -2,5 +2,5 @@
 
 public interface ISoilFactory
 {
-
+	GameTypes.Soils.Soil GenerateSoil();
 }

@@ -1,11 +1,14 @@
 using BloomPrototype.GameTypes.Plants;
 using BloomPrototype.GameTypes.Soils;
+using BloomPrototype.Services;
 
 namespace BloomPrototype.GameTypes;
 
 public class Map
 {
-    public Map()
+    readonly ISoilFactory soilFactory;
+
+    public Map(ISoilFactory soilFactory)
     {
         Grid = new Soil[100, 100];
 
@@ -13,36 +16,21 @@ public class Map
         {
             for (int y = 0; y < 100; y++)
             {
-                Grid[x, y] = new Soil
-                {
-                    Fertility = (SoilFertility)new Random().Next(1, 6)
-                };
+                Grid[x, y] = soilFactory.GenerateSoil();
             }
         }
 
-		var weedSoil = new Soil();
-		var weed = new Weed(weedSoil);
-		weedSoil.GrowingPlant = weed;
-        weedSoil.Fertility = SoilFertility.Struggling;
-		Grid[1, 0] = weedSoil;
+		var weed = new Weed(Grid[1, 0]);
+		Grid[1, 0].GrowingPlant = weed;
 
-		var tomatoSoil = new Soil();
-		var tomato = new Tomato(tomatoSoil);
-		tomatoSoil.GrowingPlant = tomato;
-        tomatoSoil.Fertility = SoilFertility.Alive;
-		Grid[4, 1] = tomatoSoil;
+		var tomato = new Tomato(Grid[4, 1]);
+		Grid[4, 1].GrowingPlant = tomato;
 
-		var treeSoil = new Soil();
-        var tree = new Tree(treeSoil);
-        treeSoil.GrowingPlant = tree;
-        treeSoil.Fertility = SoilFertility.Overgrown;
-        Grid[2, 3] = treeSoil;
+        var tree = new Tree(Grid[2, 3]);
+		Grid[2, 3].GrowingPlant = tree;
 
-		var wheatSoil = new Soil();
-		var wheat = new Wheat(wheatSoil);
-		wheatSoil.GrowingPlant = wheat;
-        wheatSoil.Fertility = SoilFertility.Thriving;
-		Grid[1, 4] = wheatSoil;
+		var wheat = new Wheat(Grid[1, 4]);
+		Grid[1, 4].GrowingPlant = wheat;
 	}
 
     public const int ViewSize = 5;

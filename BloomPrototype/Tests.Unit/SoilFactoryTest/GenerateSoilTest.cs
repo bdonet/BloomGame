@@ -27,11 +27,11 @@ public class GenerateSoilTest
 	[InlineData(SoilFertility.Alive)]
 	[InlineData(SoilFertility.Thriving)]
 	[InlineData(SoilFertility.Overgrown)]
-	public void GenerateSoil_GeneralCall_UsesRandomNumberGeneratorToReturnSoilWithRandomFertility(SoilFertility expectedWaterLevel)
+	public void GenerateSoil_GeneralCall_UsesRandomNumberGeneratorToReturnSoilWithRandomFertility(SoilFertility expectedFertility)
 	{
 		/// Arrange
 		var random = Mock.Create<IRandomNumberGenerator>();
-		Mock.Arrange(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt)).Returns((int)expectedWaterLevel);
+		Mock.Arrange(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt)).Returns((int)expectedFertility);
 
 		var factory = new SoilFactory(random);
 
@@ -39,7 +39,7 @@ public class GenerateSoilTest
 		var result = factory.GenerateSoil();
 
 		/// Assert
-		result.Fertility.ShouldBe(expectedWaterLevel);
+		result.Fertility.ShouldBe(expectedFertility);
 	}
 
 	[Fact]
@@ -76,5 +76,41 @@ public class GenerateSoilTest
 
 		/// Assert
 		result.WaterLevel.ShouldBe(expectedWaterLevel);
+	}
+
+	[Fact]
+	public void GenerateSoil_GeneralCall_CallsRandomNumberGeneratorWithSoilRetentionBounds()
+	{
+		/// Arrange
+		var random = Mock.Create<IRandomNumberGenerator>();
+
+		var factory = new SoilFactory(random);
+
+		/// Act
+		factory.GenerateSoil();
+
+		/// Assert
+		Mock.Assert(() => random.GenerateInt((int)SoilRetention.Dust, (int)SoilRetention.Packed), Occurs.Once());
+	}
+
+	[Theory]
+	[InlineData(SoilRetention.Dust)]
+	[InlineData(SoilRetention.Loose)]
+	[InlineData(SoilRetention.Holding)]
+	[InlineData(SoilRetention.Tight)]
+	[InlineData(SoilRetention.Packed)]
+	public void GenerateSoil_GeneralCall_UsesRandomNumberGeneratorToReturnSoilWithRandomRetention(SoilRetention expectedRetention)
+	{
+		/// Arrange
+		var random = Mock.Create<IRandomNumberGenerator>();
+		Mock.Arrange(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt)).Returns((int)expectedRetention);
+
+		var factory = new SoilFactory(random);
+
+		/// Act
+		var result = factory.GenerateSoil();
+
+		/// Assert
+		result.Retention.ShouldBe(expectedRetention);
 	}
 }

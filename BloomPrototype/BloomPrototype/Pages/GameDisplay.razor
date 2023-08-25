@@ -1,6 +1,8 @@
 @page "/"
 @using BloomPrototype.GameTypes
 @using BloomPrototype.GameTypes.Soils
+@using BloomPrototype.Services;
+@inject ISoilFactory SoilFactory
 
 
 <table>
@@ -18,15 +20,16 @@
 </table>
 
 @code {
-	private Map WorldMap = new Map();
+	private Map WorldMap;
 
 	private Soil[,] MapView;
 
 	private int startX = 0;
 	private int startY = 0;
 
-	protected override void OnInitialized()
+	protected override void OnParametersSet()
 	{
+		WorldMap = new Map(SoilFactory);
 		MapView = WorldMap.GetView(startX, startY);
 
 		base.OnInitialized();
