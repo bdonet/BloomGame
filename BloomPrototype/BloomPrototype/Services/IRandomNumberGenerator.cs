@@ -2,4 +2,5 @@
 
 public interface IRandomNumberGenerator
 {
+	int GenerateInt(int lowInclusive, int highInclusive);
 }
