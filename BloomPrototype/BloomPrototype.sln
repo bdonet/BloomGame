@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloomPrototype", "BloomPrototype\BloomPrototype.csproj", "{D8E5EB66-FD08-4A26-82CC-3B90D7DF0DB2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Unit", "Tests.Unit\Tests.Unit.csproj", "{8975F42C-489B-4BC1-981A-40F78F821A6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D8E5EB66-FD08-4A26-82CC-3B90D7DF0DB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8E5EB66-FD08-4A26-82CC-3B90D7DF0DB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8E5EB66-FD08-4A26-82CC-3B90D7DF0DB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8975F42C-489B-4BC1-981A-40F78F821A6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8975F42C-489B-4BC1-981A-40F78F821A6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8975F42C-489B-4BC1-981A-40F78F821A6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8975F42C-489B-4BC1-981A-40F78F821A6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
