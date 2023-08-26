@@ -25,8 +25,11 @@ public class SoilFactory : ISoilFactory
 		};
 	}
 
-	public void SmoothSoil(Soil currentSoil, List<Soil> contextSoils)
+	public void SmoothSoil(Soil currentSoil, List<Soil>? contextSoils)
 	{
+		if (contextSoils == null)
+			return;
+
 		var averageFertilityValue = (int)currentSoil.Fertility;
 		var averageWaterLevelValue = (int)currentSoil.WaterLevel;
 		var averageRetentionValue = (int)currentSoil.Retention;

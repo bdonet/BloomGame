@@ -124,4 +124,26 @@ public class SmoothSoil
 		/// Assert
 		soil.Retention.ShouldBe((SoilRetention)expectedRetentionValue);
 	}
+
+	[Fact]
+	public void SmoothSoil_ContextSoilsIsNull_DoesNotChangeCurrentSoil()
+	{
+		/// Arrange
+		var factory = new SoilFactory(Mock.Create<RandomNumberGenerator>());
+
+		var soil = new Soil
+		{
+			Fertility = SoilFertility.Alive,
+			WaterLevel = SoilWaterLevel.Dry,
+			Retention = SoilRetention.Dust
+		};
+
+		/// Act
+		factory.SmoothSoil(soil, null);
+
+		/// Assert
+		soil.Fertility.ShouldBe(SoilFertility.Alive);
+		soil.WaterLevel.ShouldBe(SoilWaterLevel.Dry);
+		soil.Retention.ShouldBe(SoilRetention.Dust);
+	}
 }
