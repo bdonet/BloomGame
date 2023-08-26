@@ -18,7 +18,7 @@ public class GenerateSoilTest
 		factory.GenerateSoil();
 
 		/// Assert
-		Mock.Assert(() => random.GenerateInt((int)SoilFertility.Dead, (int)SoilFertility.Overgrown), Occurs.Once());
+		Mock.Assert(() => random.GenerateInt((int)SoilFertility.Dead, (int)SoilFertility.Overgrown), Occurs.AtLeastOnce());
 	}
 
 	[Theory]
@@ -54,7 +54,7 @@ public class GenerateSoilTest
 		factory.GenerateSoil();
 
 		/// Assert
-		Mock.Assert(() => random.GenerateInt((int)SoilWaterLevel.Parched, (int)SoilWaterLevel.Flooded), Occurs.Once());
+		Mock.Assert(() => random.GenerateInt((int)SoilWaterLevel.Parched, (int)SoilWaterLevel.Flooded), Occurs.AtLeastOnce());
 	}
 
 	[Theory]
@@ -90,7 +90,7 @@ public class GenerateSoilTest
 		factory.GenerateSoil();
 
 		/// Assert
-		Mock.Assert(() => random.GenerateInt((int)SoilRetention.Dust, (int)SoilRetention.Packed), Occurs.Once());
+		Mock.Assert(() => random.GenerateInt((int)SoilRetention.Dust, (int)SoilRetention.Packed), Occurs.AtLeastOnce());
 	}
 
 	[Theory]
@@ -112,5 +112,20 @@ public class GenerateSoilTest
 
 		/// Assert
 		result.Retention.ShouldBe(expectedRetention);
+	}
+
+	[Fact]
+	public void GenerateSoil_GeneralCall_CallsRandomNumberGeneratorForEachCharacteristic()
+	{
+		/// Arrange
+		var random = Mock.Create<IRandomNumberGenerator>();
+
+		var factory = new SoilFactory(random);
+
+		/// Act
+		factory.GenerateSoil();
+
+		/// Assert
+		Mock.Assert(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt), Occurs.Exactly(3));
 	}
 }

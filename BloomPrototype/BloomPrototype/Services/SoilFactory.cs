@@ -13,12 +13,15 @@ public class SoilFactory : ISoilFactory
 
 	public Soil GenerateSoil()
 	{
-		var randomFertility = Random.GenerateInt((int)SoilFertility.Dead, (int)SoilFertility.Overgrown);
+		var randomFertility = (SoilFertility)Random.GenerateInt((int)SoilFertility.Dead, (int)SoilFertility.Overgrown);
+		var randomWaterLevel = (SoilWaterLevel)Random.GenerateInt((int)SoilFertility.Dead, (int)SoilFertility.Overgrown);
+		var randomRetention = (SoilRetention)Random.GenerateInt((int)SoilFertility.Dead, (int)SoilFertility.Overgrown);
+
 		return new Soil
 		{
-			Fertility = (SoilFertility)randomFertility,
-			WaterLevel = (SoilWaterLevel)randomFertility,
-			Retention = (SoilRetention)randomFertility
+			Fertility = randomFertility,
+			WaterLevel = randomWaterLevel,
+			Retention = randomRetention
 		};
 	}
 }
