@@ -30,26 +30,107 @@ public class SoilFactory : ISoilFactory
 		if (contextSoils == null)
 			return;
 
-		double averageFertilityValue = (int)currentSoil.Fertility;
-		double averageWaterLevelValue = (int)currentSoil.WaterLevel;
-		double averageRetentionValue = (int)currentSoil.Retention;
+		currentSoil.Fertility = CalculateSmoothedSoilFertility(currentSoil, contextSoils);
+		currentSoil.WaterLevel = CalculateSmoothedSoilWaterLevel(currentSoil, contextSoils);
+		currentSoil.Retention = CalculateSmoothedSoilRetention(currentSoil, contextSoils);
+	}
+
+	private SoilFertility CalculateSmoothedSoilFertility(Soil currentSoil, List<Soil> contextSoils)
+	{
+		var averageFertilityValue = (double)currentSoil.Fertility;
+
+		// Weight the extremes so the smoothing tends toward the extremes when they are present
+		if (currentSoil.Fertility == SoilFertility.Dead)
+			averageFertilityValue -= 2;
+		if (currentSoil.Fertility == SoilFertility.Overgrown)
+			averageFertilityValue += 2;
+
 		foreach (var context in contextSoils)
 		{
-			averageFertilityValue += (int)context.Fertility;
-			averageWaterLevelValue += (int)context.WaterLevel;
-			averageRetentionValue += (int)context.Retention;
+			averageFertilityValue += (double)context.Fertility;
+
+			if (context.Fertility == SoilFertility.Dead)
+				averageFertilityValue -= 2;
+			if (context.Fertility == SoilFertility.Overgrown)
+				averageFertilityValue += 2;
 		}
 
 		averageFertilityValue /= contextSoils.Count + 1;
+
+		var resultFertilityValue = Math.Round(averageFertilityValue);
+
+		if (resultFertilityValue < (int)SoilFertility.Dead)
+			return SoilFertility.Dead;
+
+		if (resultFertilityValue > (int)SoilFertility.Overgrown)
+			return SoilFertility.Overgrown;
+
+		return (SoilFertility)resultFertilityValue;
+	}
+
+	private SoilWaterLevel CalculateSmoothedSoilWaterLevel(Soil currentSoil, List<Soil> contextSoils)
+	{
+		var averageWaterLevelValue = (double)currentSoil.WaterLevel;
+
+		// Weight the extremes so the smoothing tends toward the extremes when they are present
+		if (currentSoil.WaterLevel == SoilWaterLevel.Parched)
+			averageWaterLevelValue -= 2;
+		if (currentSoil.WaterLevel == SoilWaterLevel.Flooded)
+			averageWaterLevelValue += 2;
+
+		foreach (var context in contextSoils)
+		{
+			averageWaterLevelValue += (double)context.WaterLevel;
+
+			if (context.WaterLevel == SoilWaterLevel.Parched)
+				averageWaterLevelValue -= 2;
+			if (context.WaterLevel == SoilWaterLevel.Flooded)
+				averageWaterLevelValue += 2;
+		}
+
 		averageWaterLevelValue /= contextSoils.Count + 1;
+
+		var resultWaterLevelValue = Math.Round(averageWaterLevelValue);
+
+		if (resultWaterLevelValue < (int)SoilWaterLevel.Parched)
+			return SoilWaterLevel.Parched;
+
+		if (resultWaterLevelValue > (int)SoilWaterLevel.Flooded)
+			return SoilWaterLevel.Flooded;
+
+		return (SoilWaterLevel)resultWaterLevelValue;
+	}
+
+	private SoilRetention CalculateSmoothedSoilRetention(Soil currentSoil, List<Soil> contextSoils)
+	{
+		var averageRetentionValue = (double)currentSoil.Retention;
+
+		// Weight the extremes so the smoothing tends toward the extremes when they are present
+		if (currentSoil.Retention == SoilRetention.Dust)
+			averageRetentionValue -= 2;
+		if (currentSoil.Retention == SoilRetention.Packed)
+			averageRetentionValue += 2;
+
+		foreach (var context in contextSoils)
+		{
+			averageRetentionValue += (double)context.Retention;
+
+			if (context.Retention == SoilRetention.Dust)
+				averageRetentionValue -= 2;
+			if (context.Retention == SoilRetention.Packed)
+				averageRetentionValue += 2;
+		}
+
 		averageRetentionValue /= contextSoils.Count + 1;
 
-		averageFertilityValue = Math.Round(averageFertilityValue);
-		averageWaterLevelValue = Math.Round(averageWaterLevelValue);
-		averageRetentionValue = Math.Round(averageRetentionValue);
+		var resultRetentionValue = Math.Round(averageRetentionValue);
 
-		currentSoil.Fertility = (SoilFertility)averageFertilityValue;
-		currentSoil.WaterLevel = (SoilWaterLevel)averageWaterLevelValue;
-		currentSoil.Retention = (SoilRetention)averageRetentionValue;
+		if (resultRetentionValue < (int)SoilRetention.Dust)
+			return SoilRetention.Dust;
+
+		if (resultRetentionValue > (int)SoilRetention.Packed)
+			return SoilRetention.Packed;
+
+		return (SoilRetention)resultRetentionValue;
 	}
 }

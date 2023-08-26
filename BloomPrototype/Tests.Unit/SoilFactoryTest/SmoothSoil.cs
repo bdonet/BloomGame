@@ -9,13 +9,13 @@ namespace Tests.Unit.SoilFactoryTest;
 public class SmoothSoil
 {
 	[Theory]
-	[InlineData(SoilFertility.Dead, SoilFertility.Dead)]
-	[InlineData(SoilFertility.Dead, SoilFertility.Thriving)]
-	[InlineData(SoilFertility.Alive, SoilFertility.Overgrown)]
-	[InlineData(SoilFertility.Thriving, SoilFertility.Struggling)]
-	[InlineData(SoilFertility.Overgrown, SoilFertility.Struggling)]
-	[InlineData(SoilFertility.Overgrown, SoilFertility.Dead)]
-	public void SmoothSoil_ContextSoilsAreGiven_ChangesSoilFertilityToAverageFertilityWithStandardRounding(SoilFertility firstFertility, SoilFertility secondFertility)
+	[InlineData(SoilFertility.Dead, SoilFertility.Dead, SoilFertility.Dead)]
+	[InlineData(SoilFertility.Dead, SoilFertility.Thriving, SoilFertility.Dead)]
+	[InlineData(SoilFertility.Alive, SoilFertility.Overgrown, SoilFertility.Alive)]
+	[InlineData(SoilFertility.Thriving, SoilFertility.Struggling, SoilFertility.Struggling)]
+	[InlineData(SoilFertility.Overgrown, SoilFertility.Struggling, SoilFertility.Alive)]
+	[InlineData(SoilFertility.Overgrown, SoilFertility.Dead, SoilFertility.Struggling)]
+	public void SmoothSoil_ContextSoilsAreGiven_ChangesSoilFertilityToAverageFertilityWithStandardRoundingAndWeightedExtremes(SoilFertility firstFertility, SoilFertility secondFertility, SoilFertility expectedFertility)
 	{
 		/// Arrange
 		var factory = new SoilFactory(Mock.Create<IRandomNumberGenerator>());
@@ -37,25 +37,21 @@ public class SmoothSoil
 			}
 		};
 
-		var expectedFertilityValue = (double)SoilFertility.Dead + (double)firstFertility + (double)secondFertility;
-		expectedFertilityValue /= 3;
-		expectedFertilityValue = Math.Round(expectedFertilityValue);
-
 		/// Act
 		factory.SmoothSoil(soil, contextSoils);
 
 		/// Assert
-		soil.Fertility.ShouldBe((SoilFertility)expectedFertilityValue);
+		soil.Fertility.ShouldBe(expectedFertility);
 	}
 
 	[Theory]
-	[InlineData(SoilWaterLevel.Parched, SoilWaterLevel.Parched)]
-	[InlineData(SoilWaterLevel.Parched, SoilWaterLevel.Wet)]
-	[InlineData(SoilWaterLevel.Moist, SoilWaterLevel.Flooded)]
-	[InlineData(SoilWaterLevel.Wet, SoilWaterLevel.Dry)]
-	[InlineData(SoilWaterLevel.Flooded, SoilWaterLevel.Dry)]
-	[InlineData(SoilWaterLevel.Flooded, SoilWaterLevel.Parched)]
-	public void SmoothSoil_ContextSoilsAreGiven_ChangesSoilWaterLevelToAverageWaterLevelWithStandardRounding(SoilWaterLevel firstWaterLevel, SoilWaterLevel secondWaterLevel)
+	[InlineData(SoilWaterLevel.Parched, SoilWaterLevel.Parched, SoilWaterLevel.Parched)]
+	[InlineData(SoilWaterLevel.Parched, SoilWaterLevel.Wet, SoilWaterLevel.Parched)]
+	[InlineData(SoilWaterLevel.Moist, SoilWaterLevel.Flooded, SoilWaterLevel.Moist)]
+	[InlineData(SoilWaterLevel.Wet, SoilWaterLevel.Dry, SoilWaterLevel.Dry)]
+	[InlineData(SoilWaterLevel.Flooded, SoilWaterLevel.Dry, SoilWaterLevel.Moist)]
+	[InlineData(SoilWaterLevel.Flooded, SoilWaterLevel.Parched, SoilWaterLevel.Dry)]
+	public void SmoothSoil_ContextSoilsAreGiven_ChangesSoilWaterLevelToAverageWaterLevelWithStandardRoundingAndWeightedExtremes(SoilWaterLevel firstWaterLevel, SoilWaterLevel secondWaterLevel, SoilWaterLevel expectedWaterLevel)
 	{
 		/// Arrange
 		var factory = new SoilFactory(Mock.Create<IRandomNumberGenerator>());
@@ -85,17 +81,17 @@ public class SmoothSoil
 		factory.SmoothSoil(soil, contextSoils);
 
 		/// Assert
-		soil.WaterLevel.ShouldBe((SoilWaterLevel)expectedWaterLevelValue);
+		soil.WaterLevel.ShouldBe(expectedWaterLevel);
 	}
 
 	[Theory]
-	[InlineData(SoilRetention.Dust, SoilRetention.Dust)]
-	[InlineData(SoilRetention.Dust, SoilRetention.Tight)]
-	[InlineData(SoilRetention.Holding, SoilRetention.Packed)]
-	[InlineData(SoilRetention.Tight, SoilRetention.Loose)]
-	[InlineData(SoilRetention.Packed, SoilRetention.Loose)]
-	[InlineData(SoilRetention.Packed, SoilRetention.Dust)]
-	public void SmoothSoil_ContextSoilsAreGiven_ChangesSoilRetentionToAverageRetentionWithStandardRounding(SoilRetention firstRetention, SoilRetention secondRetention)
+	[InlineData(SoilRetention.Dust, SoilRetention.Dust, SoilRetention.Dust)]
+	[InlineData(SoilRetention.Dust, SoilRetention.Tight, SoilRetention.Dust)]
+	[InlineData(SoilRetention.Holding, SoilRetention.Packed, SoilRetention.Holding)]
+	[InlineData(SoilRetention.Tight, SoilRetention.Loose, SoilRetention.Loose)]
+	[InlineData(SoilRetention.Packed, SoilRetention.Loose, SoilRetention.Holding)]
+	[InlineData(SoilRetention.Packed, SoilRetention.Dust, SoilRetention.Loose)]
+	public void SmoothSoil_ContextSoilsAreGiven_ChangesSoilRetentionToAverageRetentionWithStandardRoundingAndWeightedExtremes(SoilRetention firstRetention, SoilRetention secondRetention, SoilRetention expectedRetention)
 	{
 		/// Arrange
 		var factory = new SoilFactory(Mock.Create<IRandomNumberGenerator>());
@@ -125,7 +121,7 @@ public class SmoothSoil
 		factory.SmoothSoil(soil, contextSoils);
 
 		/// Assert
-		soil.Retention.ShouldBe((SoilRetention)expectedRetentionValue);
+		soil.Retention.ShouldBe(expectedRetention);
 	}
 
 	[Fact]
