@@ -57,22 +57,47 @@ public class Map
 
     public void SmoothMap(ISoilFactory factory)
     {
+        var originalGrid = CopyGrid();
+
 		for (int x = 0; x < WorldSize; x++)
 		{
 			for (int y = 0; y < WorldSize; y++)
 			{
 				var contextSoils = new List<Soil>();
 				if (x > 0)
-					contextSoils.Add(Grid[x - 1, y]);
+					contextSoils.Add(originalGrid[x - 1, y]);
 				if (x < WorldSize - 1)
-					contextSoils.Add(Grid[x + 1, y]);
+					contextSoils.Add(originalGrid[x + 1, y]);
 				if (y > 0)
-					contextSoils.Add(Grid[x, y - 1]);
+					contextSoils.Add(originalGrid[x, y - 1]);
 				if (y < WorldSize - 1)
-					contextSoils.Add(Grid[x, y + 1]);
+					contextSoils.Add(originalGrid[x, y + 1]);
 
 				factory.SmoothSoil(Grid[x, y], contextSoils);
+
 			}
 		}
+	}
+
+    private Soil[,] CopyGrid()
+    {
+        var newGrid = new Soil[WorldSize, WorldSize];
+
+		for (int x = 0; x < WorldSize; x++)
+		{
+			for (int y = 0; y < WorldSize; y++)
+			{
+                var originalSoil = Grid[x, y];
+
+                newGrid[x, y] = new Soil
+                {
+                    Fertility = originalSoil.Fertility,
+                    WaterLevel = originalSoil.WaterLevel,
+                    Retention = originalSoil.Retention
+                };
+			}
+		}
+
+        return newGrid;
 	}
 }
