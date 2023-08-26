@@ -63,18 +63,34 @@ public class Map
 		{
 			for (int y = 0; y < WorldSize; y++)
 			{
+                // Add surrounding 8 pieces of soil to the context if they are available
 				var contextSoils = new List<Soil>();
-				if (x > 0)
+                if (x > 0)
+                {
+                    if (y > 0)
+						contextSoils.Add(originalGrid[x - 1, y - 1]);
+
+					if (y < WorldSize - 1)
+						contextSoils.Add(originalGrid[x - 1, y + 1]);
+
 					contextSoils.Add(originalGrid[x - 1, y]);
-				if (x < WorldSize - 1)
+                }
+                if (x < WorldSize - 1)
+                {
+					if (y > 0)
+						contextSoils.Add(originalGrid[x + 1, y - 1]);
+
+					if (y < WorldSize - 1)
+						contextSoils.Add(originalGrid[x + 1, y + 1]);
+
 					contextSoils.Add(originalGrid[x + 1, y]);
+                }
 				if (y > 0)
 					contextSoils.Add(originalGrid[x, y - 1]);
 				if (y < WorldSize - 1)
 					contextSoils.Add(originalGrid[x, y + 1]);
 
 				factory.SmoothSoil(Grid[x, y], contextSoils);
-
 			}
 		}
 	}
