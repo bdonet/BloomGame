@@ -6,6 +6,8 @@ public class SoilFactory : ISoilFactory
 {
 	readonly IRandomNumberGenerator Random;
 
+	private const double ExtremesWeight = 2;
+
 	public SoilFactory(IRandomNumberGenerator random)
 	{
 		Random = random;
@@ -41,18 +43,18 @@ public class SoilFactory : ISoilFactory
 
 		// Weight the extremes so the smoothing tends toward the extremes when they are present
 		if (currentSoil.Fertility == SoilFertility.Dead)
-			averageFertilityValue -= 2;
+			averageFertilityValue -= ExtremesWeight;
 		if (currentSoil.Fertility == SoilFertility.Overgrown)
-			averageFertilityValue += 2;
+			averageFertilityValue += ExtremesWeight;
 
 		foreach (var context in contextSoils)
 		{
 			averageFertilityValue += (double)context.Fertility;
 
 			if (context.Fertility == SoilFertility.Dead)
-				averageFertilityValue -= 2;
+				averageFertilityValue -= ExtremesWeight;
 			if (context.Fertility == SoilFertility.Overgrown)
-				averageFertilityValue += 2;
+				averageFertilityValue += ExtremesWeight;
 		}
 
 		averageFertilityValue /= contextSoils.Count + 1;
@@ -74,18 +76,18 @@ public class SoilFactory : ISoilFactory
 
 		// Weight the extremes so the smoothing tends toward the extremes when they are present
 		if (currentSoil.WaterLevel == SoilWaterLevel.Parched)
-			averageWaterLevelValue -= 2;
+			averageWaterLevelValue -= ExtremesWeight;
 		if (currentSoil.WaterLevel == SoilWaterLevel.Flooded)
-			averageWaterLevelValue += 2;
+			averageWaterLevelValue += ExtremesWeight;
 
 		foreach (var context in contextSoils)
 		{
 			averageWaterLevelValue += (double)context.WaterLevel;
 
 			if (context.WaterLevel == SoilWaterLevel.Parched)
-				averageWaterLevelValue -= 2;
+				averageWaterLevelValue -= ExtremesWeight;
 			if (context.WaterLevel == SoilWaterLevel.Flooded)
-				averageWaterLevelValue += 2;
+				averageWaterLevelValue += ExtremesWeight;
 		}
 
 		averageWaterLevelValue /= contextSoils.Count + 1;
@@ -107,18 +109,18 @@ public class SoilFactory : ISoilFactory
 
 		// Weight the extremes so the smoothing tends toward the extremes when they are present
 		if (currentSoil.Retention == SoilRetention.Dust)
-			averageRetentionValue -= 2;
+			averageRetentionValue -= ExtremesWeight;
 		if (currentSoil.Retention == SoilRetention.Packed)
-			averageRetentionValue += 2;
+			averageRetentionValue += ExtremesWeight;
 
 		foreach (var context in contextSoils)
 		{
 			averageRetentionValue += (double)context.Retention;
 
 			if (context.Retention == SoilRetention.Dust)
-				averageRetentionValue -= 2;
+				averageRetentionValue -= ExtremesWeight;
 			if (context.Retention == SoilRetention.Packed)
-				averageRetentionValue += 2;
+				averageRetentionValue += ExtremesWeight;
 		}
 
 		averageRetentionValue /= contextSoils.Count + 1;
