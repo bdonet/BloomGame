@@ -15,7 +15,7 @@ public class SmoothSoil
 	[InlineData(SoilFertility.Thriving, SoilFertility.Struggling)]
 	[InlineData(SoilFertility.Overgrown, SoilFertility.Struggling)]
 	[InlineData(SoilFertility.Overgrown, SoilFertility.Dead)]
-	public void SmoothSoil_ContextSoilsAreGiven_ChangesSoilFertilityToAverageFertility(SoilFertility firstFertility, SoilFertility secondFertility)
+	public void SmoothSoil_ContextSoilsAreGiven_ChangesSoilFertilityToAverageFertilityWithStandardRounding(SoilFertility firstFertility, SoilFertility secondFertility)
 	{
 		/// Arrange
 		var factory = new SoilFactory(Mock.Create<IRandomNumberGenerator>());
@@ -37,8 +37,9 @@ public class SmoothSoil
 			}
 		};
 
-		var expectedFertilityValue = (int)SoilFertility.Dead + (int)firstFertility + (int)secondFertility;
+		var expectedFertilityValue = (double)SoilFertility.Dead + (double)firstFertility + (double)secondFertility;
 		expectedFertilityValue /= 3;
+		expectedFertilityValue = Math.Round(expectedFertilityValue);
 
 		/// Act
 		factory.SmoothSoil(soil, contextSoils);
@@ -54,7 +55,7 @@ public class SmoothSoil
 	[InlineData(SoilWaterLevel.Wet, SoilWaterLevel.Dry)]
 	[InlineData(SoilWaterLevel.Flooded, SoilWaterLevel.Dry)]
 	[InlineData(SoilWaterLevel.Flooded, SoilWaterLevel.Parched)]
-	public void SmoothSoil_ContextSoilsAreGiven_ChangesSoilWaterLevelToAverageWaterLevel(SoilWaterLevel firstWaterLevel, SoilWaterLevel secondWaterLevel)
+	public void SmoothSoil_ContextSoilsAreGiven_ChangesSoilWaterLevelToAverageWaterLevelWithStandardRounding(SoilWaterLevel firstWaterLevel, SoilWaterLevel secondWaterLevel)
 	{
 		/// Arrange
 		var factory = new SoilFactory(Mock.Create<IRandomNumberGenerator>());
@@ -76,8 +77,9 @@ public class SmoothSoil
 			}
 		};
 
-		var expectedWaterLevelValue = (int)SoilWaterLevel.Parched + (int)firstWaterLevel + (int)secondWaterLevel;
+		var expectedWaterLevelValue = (double)SoilWaterLevel.Parched + (double)firstWaterLevel + (double)secondWaterLevel;
 		expectedWaterLevelValue /= 3;
+		expectedWaterLevelValue = Math.Round(expectedWaterLevelValue);
 
 		/// Act
 		factory.SmoothSoil(soil, contextSoils);
@@ -93,7 +95,7 @@ public class SmoothSoil
 	[InlineData(SoilRetention.Tight, SoilRetention.Loose)]
 	[InlineData(SoilRetention.Packed, SoilRetention.Loose)]
 	[InlineData(SoilRetention.Packed, SoilRetention.Dust)]
-	public void SmoothSoil_ContextSoilsAreGiven_ChangesSoilRetentionToAverageRetention(SoilRetention firstRetention, SoilRetention secondRetention)
+	public void SmoothSoil_ContextSoilsAreGiven_ChangesSoilRetentionToAverageRetentionWithStandardRounding(SoilRetention firstRetention, SoilRetention secondRetention)
 	{
 		/// Arrange
 		var factory = new SoilFactory(Mock.Create<IRandomNumberGenerator>());
@@ -115,8 +117,9 @@ public class SmoothSoil
 			}
 		};
 
-		var expectedRetentionValue = (int)SoilRetention.Dust + (int)firstRetention + (int)secondRetention;
+		var expectedRetentionValue = (double)SoilRetention.Dust + (double)firstRetention + (double)secondRetention;
 		expectedRetentionValue /= 3;
+		expectedRetentionValue = Math.Round(expectedRetentionValue);
 
 		/// Act
 		factory.SmoothSoil(soil, contextSoils);

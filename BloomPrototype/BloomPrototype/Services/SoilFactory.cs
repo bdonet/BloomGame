@@ -30,9 +30,9 @@ public class SoilFactory : ISoilFactory
 		if (contextSoils == null)
 			return;
 
-		var averageFertilityValue = (int)currentSoil.Fertility;
-		var averageWaterLevelValue = (int)currentSoil.WaterLevel;
-		var averageRetentionValue = (int)currentSoil.Retention;
+		double averageFertilityValue = (int)currentSoil.Fertility;
+		double averageWaterLevelValue = (int)currentSoil.WaterLevel;
+		double averageRetentionValue = (int)currentSoil.Retention;
 		foreach (var context in contextSoils)
 		{
 			averageFertilityValue += (int)context.Fertility;
@@ -43,6 +43,10 @@ public class SoilFactory : ISoilFactory
 		averageFertilityValue /= contextSoils.Count + 1;
 		averageWaterLevelValue /= contextSoils.Count + 1;
 		averageRetentionValue /= contextSoils.Count + 1;
+
+		averageFertilityValue = Math.Round(averageFertilityValue);
+		averageWaterLevelValue = Math.Round(averageWaterLevelValue);
+		averageRetentionValue = Math.Round(averageRetentionValue);
 
 		currentSoil.Fertility = (SoilFertility)averageFertilityValue;
 		currentSoil.WaterLevel = (SoilWaterLevel)averageWaterLevelValue;
