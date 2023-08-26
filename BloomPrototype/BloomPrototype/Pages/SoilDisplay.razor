@@ -19,7 +19,7 @@
 	private string SoilCss = "";
 	private string ContentsCss = "";
 
-	protected override void OnInitialized()
+	protected async override Task OnParametersSetAsync()
 	{
 		SoilCss = "soil ";
 
@@ -28,7 +28,7 @@
 
 		SoilCss = SoilCss.Trim();
 
-		base.OnInitialized();
+		await base.OnParametersSetAsync();
 	}
 
 	private void SetSoilCharacteristicsCss()

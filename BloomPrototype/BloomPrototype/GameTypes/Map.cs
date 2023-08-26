@@ -10,11 +10,11 @@ public class Map
 
     public Map(ISoilFactory soilFactory)
     {
-        Grid = new Soil[100, 100];
+        Grid = new Soil[WorldSize, WorldSize];
 
-        for (int x = 0; x < 100; x++)
+        for (int x = 0; x < WorldSize; x++)
         {
-            for (int y = 0; y < 100; y++)
+            for (int y = 0; y < WorldSize; y++)
             {
                 Grid[x, y] = soilFactory.GenerateSoil();
             }
@@ -34,6 +34,7 @@ public class Map
 	}
 
     public const int ViewSize = 5;
+    public const int WorldSize = 100;
 
     private Soil[,] Grid;
 
@@ -53,4 +54,25 @@ public class Map
 
         return result;
     }
+
+    public void SmoothMap(ISoilFactory factory)
+    {
+		for (int x = 0; x < WorldSize; x++)
+		{
+			for (int y = 0; y < WorldSize; y++)
+			{
+				var contextSoils = new List<Soil>();
+				if (x > 0)
+					contextSoils.Add(Grid[x - 1, y]);
+				if (x < WorldSize - 1)
+					contextSoils.Add(Grid[x + 1, y]);
+				if (y > 0)
+					contextSoils.Add(Grid[x, y - 1]);
+				if (y < WorldSize - 1)
+					contextSoils.Add(Grid[x, y + 1]);
+
+				factory.SmoothSoil(Grid[x, y], contextSoils);
+			}
+		}
+	}
 }
