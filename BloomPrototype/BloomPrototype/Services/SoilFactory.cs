@@ -45,7 +45,7 @@ public class SoilFactory : ISoilFactory
 		if (currentSoil.Fertility == SoilFertility.Dead)
 			averageFertilityValue -= ExtremesWeight;
 		if (currentSoil.Fertility == SoilFertility.Overgrown)
-			averageFertilityValue += ExtremesWeight;
+			averageFertilityValue += ExtremesWeight / 2;
 
 		foreach (var context in contextSoils)
 		{
@@ -54,7 +54,7 @@ public class SoilFactory : ISoilFactory
 			if (context.Fertility == SoilFertility.Dead)
 				averageFertilityValue -= ExtremesWeight;
 			if (context.Fertility == SoilFertility.Overgrown)
-				averageFertilityValue += ExtremesWeight;
+				averageFertilityValue += ExtremesWeight / 2;
 		}
 
 		averageFertilityValue /= contextSoils.Count + 1;
@@ -78,7 +78,7 @@ public class SoilFactory : ISoilFactory
 		if (currentSoil.WaterLevel == SoilWaterLevel.Parched)
 			averageWaterLevelValue -= ExtremesWeight;
 		if (currentSoil.WaterLevel == SoilWaterLevel.Flooded)
-			averageWaterLevelValue += ExtremesWeight;
+			averageWaterLevelValue += ExtremesWeight / 2;
 
 		foreach (var context in contextSoils)
 		{
@@ -87,7 +87,7 @@ public class SoilFactory : ISoilFactory
 			if (context.WaterLevel == SoilWaterLevel.Parched)
 				averageWaterLevelValue -= ExtremesWeight;
 			if (context.WaterLevel == SoilWaterLevel.Flooded)
-				averageWaterLevelValue += ExtremesWeight;
+				averageWaterLevelValue += ExtremesWeight / 2;
 		}
 
 		averageWaterLevelValue /= contextSoils.Count + 1;
@@ -111,7 +111,7 @@ public class SoilFactory : ISoilFactory
 		if (currentSoil.Retention == SoilRetention.Dust)
 			averageRetentionValue -= ExtremesWeight;
 		if (currentSoil.Retention == SoilRetention.Packed)
-			averageRetentionValue += ExtremesWeight;
+			averageRetentionValue += ExtremesWeight / 2;
 
 		foreach (var context in contextSoils)
 		{
@@ -120,7 +120,7 @@ public class SoilFactory : ISoilFactory
 			if (context.Retention == SoilRetention.Dust)
 				averageRetentionValue -= ExtremesWeight;
 			if (context.Retention == SoilRetention.Packed)
-				averageRetentionValue += ExtremesWeight;
+				averageRetentionValue += ExtremesWeight / 2;
 		}
 
 		averageRetentionValue /= contextSoils.Count + 1;

@@ -13,8 +13,8 @@ public class SmoothSoil
 	[InlineData(SoilFertility.Dead, SoilFertility.Thriving, SoilFertility.Dead)]
 	[InlineData(SoilFertility.Alive, SoilFertility.Overgrown, SoilFertility.Alive)]
 	[InlineData(SoilFertility.Thriving, SoilFertility.Struggling, SoilFertility.Struggling)]
-	[InlineData(SoilFertility.Overgrown, SoilFertility.Struggling, SoilFertility.Alive)]
-	[InlineData(SoilFertility.Overgrown, SoilFertility.Dead, SoilFertility.Struggling)]
+	[InlineData(SoilFertility.Overgrown, SoilFertility.Struggling, SoilFertility.Struggling)]
+	[InlineData(SoilFertility.Overgrown, SoilFertility.Dead, SoilFertility.Dead)]
 	public void SmoothSoil_ContextSoilsAreGiven_ChangesSoilFertilityToAverageFertilityWithStandardRoundingAndWeightedExtremes(SoilFertility firstFertility, SoilFertility secondFertility, SoilFertility expectedFertility)
 	{
 		/// Arrange
@@ -49,8 +49,8 @@ public class SmoothSoil
 	[InlineData(SoilWaterLevel.Parched, SoilWaterLevel.Wet, SoilWaterLevel.Parched)]
 	[InlineData(SoilWaterLevel.Moist, SoilWaterLevel.Flooded, SoilWaterLevel.Moist)]
 	[InlineData(SoilWaterLevel.Wet, SoilWaterLevel.Dry, SoilWaterLevel.Dry)]
-	[InlineData(SoilWaterLevel.Flooded, SoilWaterLevel.Dry, SoilWaterLevel.Moist)]
-	[InlineData(SoilWaterLevel.Flooded, SoilWaterLevel.Parched, SoilWaterLevel.Dry)]
+	[InlineData(SoilWaterLevel.Flooded, SoilWaterLevel.Dry, SoilWaterLevel.Dry)]
+	[InlineData(SoilWaterLevel.Flooded, SoilWaterLevel.Parched, SoilWaterLevel.Parched)]
 	public void SmoothSoil_ContextSoilsAreGiven_ChangesSoilWaterLevelToAverageWaterLevelWithStandardRoundingAndWeightedExtremes(SoilWaterLevel firstWaterLevel, SoilWaterLevel secondWaterLevel, SoilWaterLevel expectedWaterLevel)
 	{
 		/// Arrange
@@ -89,8 +89,8 @@ public class SmoothSoil
 	[InlineData(SoilRetention.Dust, SoilRetention.Tight, SoilRetention.Dust)]
 	[InlineData(SoilRetention.Holding, SoilRetention.Packed, SoilRetention.Holding)]
 	[InlineData(SoilRetention.Tight, SoilRetention.Loose, SoilRetention.Loose)]
-	[InlineData(SoilRetention.Packed, SoilRetention.Loose, SoilRetention.Holding)]
-	[InlineData(SoilRetention.Packed, SoilRetention.Dust, SoilRetention.Loose)]
+	[InlineData(SoilRetention.Packed, SoilRetention.Loose, SoilRetention.Loose)]
+	[InlineData(SoilRetention.Packed, SoilRetention.Dust, SoilRetention.Dust)]
 	public void SmoothSoil_ContextSoilsAreGiven_ChangesSoilRetentionToAverageRetentionWithStandardRoundingAndWeightedExtremes(SoilRetention firstRetention, SoilRetention secondRetention, SoilRetention expectedRetention)
 	{
 		/// Arrange
