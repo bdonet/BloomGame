@@ -1,6 +1,7 @@
 using BloomPrototype.GameTypes.Plants;
 using BloomPrototype.GameTypes.Soils;
 using BloomPrototype.Services;
+using System.Drawing;
 
 namespace BloomPrototype.GameTypes;
 
@@ -63,36 +64,46 @@ public class Map
 		{
 			for (int y = 0; y < WorldSize; y++)
 			{
-                // Add surrounding 8 pieces of soil to the context if they are available
-				var contextSoils = new List<Soil>();
-                if (x > 0)
-                {
-                    if (y > 0)
-						contextSoils.Add(originalGrid[x - 1, y - 1]);
-
-					if (y < WorldSize - 1)
-						contextSoils.Add(originalGrid[x - 1, y + 1]);
-
-					contextSoils.Add(originalGrid[x - 1, y]);
-                }
-                if (x < WorldSize - 1)
-                {
-					if (y > 0)
-						contextSoils.Add(originalGrid[x + 1, y - 1]);
-
-					if (y < WorldSize - 1)
-						contextSoils.Add(originalGrid[x + 1, y + 1]);
-
-					contextSoils.Add(originalGrid[x + 1, y]);
-                }
-				if (y > 0)
-					contextSoils.Add(originalGrid[x, y - 1]);
-				if (y < WorldSize - 1)
-					contextSoils.Add(originalGrid[x, y + 1]);
-
+                // Add surrounding 4 pieces of soil to the context if they are available
+				var contextSoils = GetContextSoils(x, y, 1, originalGrid);
 				factory.SmoothSoil(Grid[x, y], contextSoils);
 			}
 		}
+	}
+
+    private List<Soil> GetContextSoils(int x, int y, int radius, Soil[,] originalGrid)
+    {
+		// Add surrounding pieces of soil to the context if they are available
+		var indexes = new List<(int, int)>();
+		for (int i = -radius; i < radius + 1; i++)
+		{
+			var yOffset = radius - Math.Abs(i);
+
+			var currentX = x + i;
+			var yBottom = y - yOffset;
+			var yTop = y + yOffset;
+
+			for (int j = yBottom; j < yTop + 1; j++)
+			{
+				indexes.Add((currentX, j));
+			}
+		}
+
+		indexes = indexes.Distinct().ToList();
+		indexes = indexes.Where(i => i.Item1 >= 0
+									 && i.Item1 < WorldSize
+									 && i.Item2 >= 0
+									 && i.Item2 < WorldSize
+									 && !(i.Item1 == x && i.Item2 == y))
+						 .ToList();
+
+		var contextSoils = new List<Soil>();
+		foreach (var i in indexes)
+		{
+			contextSoils.Add(originalGrid[i.Item1, i.Item2]);
+		}
+
+		return contextSoils;
 	}
 
     private Soil[,] CopyGrid()
