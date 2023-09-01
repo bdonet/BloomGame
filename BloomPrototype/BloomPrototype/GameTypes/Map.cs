@@ -36,7 +36,7 @@ public class Map
 
     public const int ViewSize = 5;
     public const int WorldSize = 100;
-	public const int ContextRadius = 1;
+	public const int ContextRadius = 2;
 
     private Soil[,] Grid;
 
