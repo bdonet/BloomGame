@@ -6,29 +6,9 @@ namespace BloomPrototype.GameTypes;
 
 public class Map
 {
-    public Map(ISoilFactory soilFactory)
+    public Map(MapFactory factory)
     {
-        Grid = new Soil[WorldSize, WorldSize];
-
-        for (int x = 0; x < WorldSize; x++)
-        {
-            for (int y = 0; y < WorldSize; y++)
-            {
-                Grid[x, y] = soilFactory.GenerateSoil();
-            }
-        }
-
-		var weed = new Weed(Grid[1, 0]);
-		Grid[1, 0].GrowingPlant = weed;
-
-		var tomato = new Tomato(Grid[4, 1]);
-		Grid[4, 1].GrowingPlant = tomato;
-
-        var tree = new Tree(Grid[2, 3]);
-		Grid[2, 3].GrowingPlant = tree;
-
-		var wheat = new Wheat(Grid[1, 4]);
-		Grid[1, 4].GrowingPlant = wheat;
+		Grid = factory.GenerateSoilGrid(WorldSize);
 	}
 
     public const int ViewSize = 5;

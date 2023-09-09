@@ -7,6 +7,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddTransient<IRandomNumberGenerator, RandomNumberGenerator>();
 builder.Services.AddTransient<ISoilFactory, SoilFactory>();
+builder.Services.AddTransient<MapFactory>();
 
 var app = builder.Build();
 

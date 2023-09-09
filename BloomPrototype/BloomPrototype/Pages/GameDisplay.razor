@@ -2,6 +2,7 @@
 @using BloomPrototype.GameTypes
 @using BloomPrototype.GameTypes.Soils
 @using BloomPrototype.Services;
+@inject MapFactory MapFactory
 @inject ISoilFactory SoilFactory
 
 
@@ -33,7 +34,7 @@
 
 	protected override void OnParametersSet()
 	{
-		WorldMap = new Map(SoilFactory);
+		WorldMap = new Map(MapFactory);
 		MapView = WorldMap.GetView(startX, startY);
 
 		base.OnInitialized();
