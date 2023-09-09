@@ -5,14 +5,14 @@ using Shouldly;
 using Telerik.JustMock;
 
 namespace Tests.Unit.MapFactoryTest;
-public class GenerateSoilGrid
+public class GenerateMap
 {
 	[Theory]
 	[InlineData(1)]
 	[InlineData(2)]
 	[InlineData(165)]
 	[InlineData(1000)]
-	public void GenerateSoilGrid_GridSizeIsWithinSizeBounds_ReturnsSoilArrayWithSquareOfGivenGridSize(int expectedSize)
+	public void GenerateMap_GridSizeIsWithinSizeBounds_ReturnsMapWithSoilArrayWithSquareOfGivenGridSize(int expectedSize)
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
@@ -21,11 +21,13 @@ public class GenerateSoilGrid
 		var factory = new MapFactory(soilFactory);
 
 		/// Act
-		var result = factory.GenerateSoilGrid(expectedSize);
+		var result = factory.GenerateMap(expectedSize);
 
 		/// Assert
-		result.GetLength(0).ShouldBe(expectedSize);
-		result.GetLength(1).ShouldBe(expectedSize);
+		var view = result.GetView(0, 0, expectedSize - 1, expectedSize - 1);
+
+		view.GetLength(0).ShouldBe(expectedSize);
+		view.GetLength(1).ShouldBe(expectedSize);
 	}
 
 	[Theory]
@@ -33,7 +35,7 @@ public class GenerateSoilGrid
 	[InlineData(-1)]
 	[InlineData(-864)]
 	[InlineData(int.MinValue)]
-	public void GenerateSoilGrid_GridSizeIsNegative_ThrowsArgumentOutOfRangeException(int expectedSize)
+	public void GenerateMap_GridSizeIsNegative_ThrowsArgumentOutOfRangeException(int expectedSize)
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
@@ -42,7 +44,7 @@ public class GenerateSoilGrid
 		var factory = new MapFactory(soilFactory);
 
 		/// Act
-		var exception = Record.Exception(() => factory.GenerateSoilGrid(expectedSize));
+		var exception = Record.Exception(() => factory.GenerateMap(expectedSize));
 
 		/// Assert
 		exception.ShouldBeOfType<ArgumentOutOfRangeException>();
@@ -55,7 +57,7 @@ public class GenerateSoilGrid
 	[InlineData(1002)]
 	[InlineData(1000000)]
 	[InlineData(int.MaxValue)]
-	public void GenerateSoilGrid_GridSizeIsGreaterThanUpperBound_ThrowsArgumentOutOfRangeException(int expectedSize)
+	public void GenerateMap_GridSizeIsGreaterThanUpperBound_ThrowsArgumentOutOfRangeException(int expectedSize)
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
@@ -64,7 +66,7 @@ public class GenerateSoilGrid
 		var factory = new MapFactory(soilFactory);
 
 		/// Act
-		var exception = Record.Exception(() => factory.GenerateSoilGrid(expectedSize));
+		var exception = Record.Exception(() => factory.GenerateMap(expectedSize));
 
 		/// Assert
 		exception.ShouldBeOfType<ArgumentOutOfRangeException>();
@@ -73,7 +75,7 @@ public class GenerateSoilGrid
 	}
 
 	[Fact]
-	public void GenerateSoilGrid_GridSizeIsWithinSizeBounds_GeneratesSoilForEachSpotInArrayUsingSoilGenerator()
+	public void GenerateMap_GridSizeIsWithinSizeBounds_GeneratesSoilForEachSpotInMapArrayUsingSoilGenerator()
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
@@ -85,18 +87,18 @@ public class GenerateSoilGrid
 		var factory = new MapFactory(soilFactory);
 
 		/// Act
-		var result = factory.GenerateSoilGrid(8);
+		var result = factory.GenerateMap(8);
 
 		/// Assert
 		Mock.Assert(() => soilFactory.GenerateSoil(), Occurs.Exactly(8 * 8));
-		foreach (var s in result)
+		foreach (var s in result.GetView(0, 0, 7, 7))
 		{
 			s.Retention.ShouldBe(SoilRetention.Packed);
 		}
 	}
 
 	[Fact]
-	public void GenerateSoilGrid_GridSizeIsWithinSizeBounds_GridContainsAWeedWithinFirst5By5()
+	public void GenerateMap_GridSizeIsWithinSizeBounds_MapGridContainsAWeedWithinFirst5By5()
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
@@ -105,15 +107,17 @@ public class GenerateSoilGrid
 		var factory = new MapFactory(soilFactory);
 
 		/// Act
-		var result = factory.GenerateSoilGrid(5);
+		var result = factory.GenerateMap(5);
 
 		/// Assert
-		result[1, 0].GrowingPlant.ShouldNotBeNull();
-		result[1, 0].GrowingPlant.ShouldBeOfType<Weed>();
+		var view = result.GetView(0, 0);
+
+		view[1, 0].GrowingPlant.ShouldNotBeNull();
+		view[1, 0].GrowingPlant.ShouldBeOfType<Weed>();
 	}
 
 	[Fact]
-	public void GenerateSoilGrid_GridSizeIsWithinSizeBounds_GridContainsATomatoWithinFirst5By5()
+	public void GenerateMap_GridSizeIsWithinSizeBounds_MapGridContainsATomatoWithinFirst5By5()
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
@@ -122,15 +126,17 @@ public class GenerateSoilGrid
 		var factory = new MapFactory(soilFactory);
 
 		/// Act
-		var result = factory.GenerateSoilGrid(5);
+		var result = factory.GenerateMap(5);
 
 		/// Assert
-		result[4, 1].GrowingPlant.ShouldNotBeNull();
-		result[4, 1].GrowingPlant.ShouldBeOfType<Tomato>();
+		var view = result.GetView(0, 0);
+
+		view[4, 1].GrowingPlant.ShouldNotBeNull();
+		view[4, 1].GrowingPlant.ShouldBeOfType<Tomato>();
 	}
 
 	[Fact]
-	public void GenerateSoilGrid_GridSizeIsWithinSizeBounds_GridContainsATreeWithinFirst5By5()
+	public void GenerateMap_GridSizeIsWithinSizeBounds_MapGridContainsATreeWithinFirst5By5()
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
@@ -139,15 +145,17 @@ public class GenerateSoilGrid
 		var factory = new MapFactory(soilFactory);
 
 		/// Act
-		var result = factory.GenerateSoilGrid(5);
+		var result = factory.GenerateMap(5);
 
 		/// Assert
-		result[2, 3].GrowingPlant.ShouldNotBeNull();
-		result[2, 3].GrowingPlant.ShouldBeOfType<Tree>();
+		var view = result.GetView(0, 0);
+
+		view[2, 3].GrowingPlant.ShouldNotBeNull();
+		view[2, 3].GrowingPlant.ShouldBeOfType<Tree>();
 	}
 
 	[Fact]
-	public void GenerateSoilGrid_GridSizeIsWithinSizeBounds_GridContainsAWheatWithinFirst5By5()
+	public void GenerateMap_GridSizeIsWithinSizeBounds_MapGridContainsAWheatWithinFirst5By5()
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
@@ -156,10 +164,12 @@ public class GenerateSoilGrid
 		var factory = new MapFactory(soilFactory);
 
 		/// Act
-		var result = factory.GenerateSoilGrid(5);
+		var result = factory.GenerateMap(5);
 
 		/// Assert
-		result[1, 4].GrowingPlant.ShouldNotBeNull();
-		result[1, 4].GrowingPlant.ShouldBeOfType<Wheat>();
+		var view = result.GetView(0, 0);
+
+		view[1, 4].GrowingPlant.ShouldNotBeNull();
+		view[1, 4].GrowingPlant.ShouldBeOfType<Wheat>();
 	}
 }

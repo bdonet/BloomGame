@@ -6,9 +6,9 @@ namespace BloomPrototype.GameTypes;
 
 public class Map
 {
-    public Map(MapFactory factory)
+    public Map(Soil[,] soilGrid)
     {
-		Grid = factory.GenerateSoilGrid(WorldSize);
+		Grid = soilGrid;
 	}
 
     public const int ViewSize = 5;
@@ -19,19 +19,24 @@ public class Map
 
     public Soil GetSoil(int x, int y) => Grid[x, y];
     
+    public Soil[,] GetView(int startX, int startY, int endX, int endY)
+	{
+		var result = new Soil[endX - startX + 1, endY - startY + 1];
+
+		for (int x = 0; x < endX + 1; x++)
+		{
+			for (int y = 0; y < endY + 1; y++)
+			{
+				result[x, y] = Grid[startX + x, startY + y];
+			}
+		}
+
+		return result;
+	}
+
     public Soil[,] GetView(int startX, int startY)
     {
-        var result = new Soil[ViewSize, ViewSize];
-
-        for (int x = 0; x < ViewSize; x++)
-        {
-            for (int y = 0; y < ViewSize; y++)
-            {
-                result[x, y] = Grid[startX + x, startY + y];
-            }
-        }
-
-        return result;
+		return GetView(startX, startY, startX + ViewSize - 1, startY + ViewSize - 1);
     }
 
     public void SmoothMap(ISoilFactory factory)

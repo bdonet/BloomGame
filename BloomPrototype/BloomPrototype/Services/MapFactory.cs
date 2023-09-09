@@ -1,4 +1,5 @@
-﻿using BloomPrototype.GameTypes.Plants;
+﻿using BloomPrototype.GameTypes;
+using BloomPrototype.GameTypes.Plants;
 using BloomPrototype.GameTypes.Soils;
 
 namespace BloomPrototype.Services;
@@ -15,7 +16,12 @@ public class MapFactory
 		_soilFactory = soilFactory;
 	}
 
-	public Soil[,] GenerateSoilGrid(int gridSize)
+	public Map GenerateMap(int gridSize)
+	{
+		return new Map(GenerateSoilGrid(gridSize));
+	}
+
+	private Soil[,] GenerateSoilGrid(int gridSize)
 	{
 		if (gridSize < LowerGridSizeBound)
 			throw new ArgumentOutOfRangeException($"{gridSize} is too small. The smallest possible grid has size of 1");
