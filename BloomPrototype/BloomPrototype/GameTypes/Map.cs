@@ -1,14 +1,11 @@
 using BloomPrototype.GameTypes.Plants;
 using BloomPrototype.GameTypes.Soils;
 using BloomPrototype.Services;
-using System.Drawing;
 
 namespace BloomPrototype.GameTypes;
 
 public class Map
 {
-    readonly ISoilFactory soilFactory;
-
     public Map(ISoilFactory soilFactory)
     {
         Grid = new Soil[WorldSize, WorldSize];
