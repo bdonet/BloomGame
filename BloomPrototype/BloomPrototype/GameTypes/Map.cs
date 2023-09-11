@@ -13,7 +13,6 @@ public class Map
 
     public const int ViewSize = 5;
     public const int WorldSize = 100;
-	public const int ContextRadius = 2;
 
     private Soil[,] Grid;
 
@@ -39,7 +38,7 @@ public class Map
 		return GetView(startX, startY, startX + ViewSize - 1, startY + ViewSize - 1);
     }
 
-    public void SmoothMap(ISoilFactory factory)
+    public void SmoothMap(ISoilFactory factory, int contextRadius)
     {
         var originalGrid = CopyGrid();
 
@@ -48,19 +47,19 @@ public class Map
 			for (int y = 0; y < WorldSize; y++)
 			{
                 // Add surrounding 4 pieces of soil to the context if they are available
-				var contextSoils = GetContextSoils(x, y, originalGrid);
+				var contextSoils = GetContextSoils(x, y, originalGrid, contextRadius);
 				factory.SmoothSoil(Grid[x, y], contextSoils);
 			}
 		}
 	}
 
-    private List<Soil> GetContextSoils(int x, int y, Soil[,] originalGrid)
+    private List<Soil> GetContextSoils(int x, int y, Soil[,] originalGrid, int contextRadius)
     {
 		// Add surrounding pieces of soil to the context if they are available
 		var indexes = new List<(int, int)>();
-		for (int i = -ContextRadius; i < ContextRadius + 1; i++)
+		for (int i = -contextRadius; i < contextRadius + 1; i++)
 		{
-			var yOffset = ContextRadius - Math.Abs(i);
+			var yOffset = contextRadius - Math.Abs(i);
 
 			var currentX = x + i;
 			var yBottom = y - yOffset;
