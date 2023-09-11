@@ -18,7 +18,9 @@ public class MapFactory
 
 	public Map GenerateMap(int gridSize)
 	{
-		return new Map(GenerateSoilGrid(gridSize));
+		var map = new Map(GenerateSoilGrid(gridSize));
+        SmoothMap(map, 2, 2);
+        return map;
 	}
 
 	private Soil[,] GenerateSoilGrid(int gridSize)
