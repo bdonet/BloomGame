@@ -34,8 +34,10 @@
 
 	private int startX = 0;
 	private int startY = 0;
+
 	private const int WorldSize = 100;
     private const int ContextRadius = 2;
+    private const double ExtremesWeight = 2;
 
 	protected override void OnParametersSet()
 	{
@@ -48,6 +50,6 @@
     private void OnSmoothButtonClick()
     {
         Days++;
-        WorldMap.SmoothMap(SoilFactory, ContextRadius);
+        WorldMap.SmoothMap(SoilFactory, ContextRadius, ExtremesWeight);
     }
 }

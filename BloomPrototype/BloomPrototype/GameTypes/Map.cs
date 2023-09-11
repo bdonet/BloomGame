@@ -38,7 +38,7 @@ public class Map
 		return GetView(startX, startY, startX + ViewSize - 1, startY + ViewSize - 1);
     }
 
-    public void SmoothMap(ISoilFactory factory, int contextRadius)
+    public void SmoothMap(ISoilFactory factory, int contextRadius, double extremesWeight)
     {
         var originalGrid = CopyGrid();
 
@@ -48,7 +48,7 @@ public class Map
 			{
                 // Add surrounding 4 pieces of soil to the context if they are available
 				var contextSoils = GetContextSoils(x, y, originalGrid, contextRadius);
-				factory.SmoothSoil(Grid[x, y], contextSoils);
+				factory.SmoothSoil(Grid[x, y], contextSoils, extremesWeight);
 			}
 		}
 	}

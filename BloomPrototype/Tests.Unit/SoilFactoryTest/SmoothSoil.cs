@@ -38,7 +38,7 @@ public class SmoothSoil
 		};
 
 		/// Act
-		factory.SmoothSoil(soil, contextSoils);
+		factory.SmoothSoil(soil, contextSoils, 2);
 
 		/// Assert
 		soil.Fertility.ShouldBe(expectedFertility);
@@ -78,7 +78,7 @@ public class SmoothSoil
 		expectedWaterLevelValue = Math.Round(expectedWaterLevelValue);
 
 		/// Act
-		factory.SmoothSoil(soil, contextSoils);
+		factory.SmoothSoil(soil, contextSoils, 2);
 
 		/// Assert
 		soil.WaterLevel.ShouldBe(expectedWaterLevel);
@@ -118,7 +118,7 @@ public class SmoothSoil
 		expectedRetentionValue = Math.Round(expectedRetentionValue);
 
 		/// Act
-		factory.SmoothSoil(soil, contextSoils);
+		factory.SmoothSoil(soil, contextSoils, 2);
 
 		/// Assert
 		soil.Retention.ShouldBe(expectedRetention);
@@ -138,7 +138,7 @@ public class SmoothSoil
 		};
 
 		/// Act
-		factory.SmoothSoil(soil, null);
+		factory.SmoothSoil(soil, null, 2);
 
 		/// Assert
 		soil.Fertility.ShouldBe(SoilFertility.Alive);
