@@ -22,12 +22,15 @@
 
 <br/>
 
-<button type="button" @onclick="() => WorldMap.SmoothMap(SoilFactory)" class="btn btn-outline-primary">Smooth Map</button>
+<button type="button" @onclick="OnSmoothButtonClick" class="btn btn-outline-primary">Smooth Map</button>
+<p>Days: @Days</p>
 
 @code {
 	private Map WorldMap;
 
 	private Soil[,] MapView;
+
+    private int Days = 0;
 
 	private int startX = 0;
 	private int startY = 0;
@@ -40,4 +43,10 @@
 
 		base.OnInitialized();
 	}
+
+    private void OnSmoothButtonClick()
+    {
+        Days++;
+        WorldMap.SmoothMap(SoilFactory);
+    }
 }
