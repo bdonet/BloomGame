@@ -74,7 +74,7 @@ public class MapFactory
         {
             for (int y = 0; y < originalGrid.GetLength(0); y++)
             {
-                // Add surrounding 4 pieces of soil to the context if they are available
+                // Add surrounding pieces of soil to the context if they are available
                 var contextSoils = GetContextSoils(x, y, originalGrid);
                 _soilFactory.SmoothSoil(map.Grid[x, y], contextSoils, ExtremesWeight);
             }

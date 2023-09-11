@@ -1,27 +1,35 @@
 ﻿using BloomPrototype.GameTypes.Plants;
 using BloomPrototype.GameTypes.Soils;
 using BloomPrototype.Services;
+using Microsoft.Extensions.Configuration;
 using Shouldly;
 using Telerik.JustMock;
 
 namespace Tests.Unit.MapFactoryTest;
+
 public class GenerateMap
 {
 	[Theory]
 	[InlineData(1)]
 	[InlineData(2)]
 	[InlineData(165)]
-	[InlineData(1000)]
 	public void GenerateMap_GridSizeIsWithinSizeBounds_ReturnsMapWithSoilArrayWithSquareOfGivenGridSize(int expectedSize)
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
 		Mock.Arrange(() => soilFactory.GenerateSoil()).Returns(() => new Soil());
 
-		var factory = new MapFactory(soilFactory);
+		var configuration = Mock.Create<IConfiguration>();
+		Mock.Arrange(() => configuration["WorldSize"]).Returns(expectedSize.ToString());
+		Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(1.ToString());
+		Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(165.ToString());
+		Mock.Arrange(() => configuration["ContextRadius"]).Returns(1.ToString());
+		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
+
+		var factory = new MapFactory(soilFactory, configuration);
 
 		/// Act
-		var result = factory.GenerateMap(expectedSize);
+		var result = factory.GenerateMap();
 
 		/// Assert
 		var view = result.GetView(0, 0, expectedSize - 1, expectedSize - 1);
@@ -30,48 +38,54 @@ public class GenerateMap
 		view.GetLength(1).ShouldBe(expectedSize);
 	}
 
-	[Theory]
-	[InlineData(0)]
-	[InlineData(-1)]
-	[InlineData(-864)]
-	[InlineData(int.MinValue)]
-	public void GenerateMap_GridSizeIsNegative_ThrowsArgumentOutOfRangeException(int expectedSize)
+	[Fact]
+	public void GenerateMap_GridSizeIsBelowLowerBound_ThrowsArgumentOutOfRangeException()
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
 		Mock.Arrange(() => soilFactory.GenerateSoil()).Returns(() => new Soil());
 
-		var factory = new MapFactory(soilFactory);
+		var configuration = Mock.Create<IConfiguration>();
+		Mock.Arrange(() => configuration["WorldSize"]).Returns(18.ToString());
+		Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(20.ToString());
+		Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(165.ToString());
+		Mock.Arrange(() => configuration["ContextRadius"]).Returns(1.ToString());
+		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
+
+		var factory = new MapFactory(soilFactory, configuration);
 
 		/// Act
-		var exception = Record.Exception(() => factory.GenerateMap(expectedSize));
+		var exception = Record.Exception(() => factory.GenerateMap());
 
 		/// Assert
 		exception.ShouldBeOfType<ArgumentOutOfRangeException>();
 		exception.Message.ShouldContain("small");
-		exception.Message.ShouldContain(expectedSize.ToString());
+		exception.Message.ShouldContain("18");
 	}
 
-	[Theory]
-	[InlineData(1001)]
-	[InlineData(1002)]
-	[InlineData(1000000)]
-	[InlineData(int.MaxValue)]
-	public void GenerateMap_GridSizeIsGreaterThanUpperBound_ThrowsArgumentOutOfRangeException(int expectedSize)
+	[Fact]
+	public void GenerateMap_GridSizeIsGreaterThanUpperBound_ThrowsArgumentOutOfRangeException()
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
 		Mock.Arrange(() => soilFactory.GenerateSoil()).Returns(() => new Soil());
 
-		var factory = new MapFactory(soilFactory);
+		var configuration = Mock.Create<IConfiguration>();
+		Mock.Arrange(() => configuration["WorldSize"]).Returns(180.ToString());
+		Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(20.ToString());
+		Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(165.ToString());
+		Mock.Arrange(() => configuration["ContextRadius"]).Returns(1.ToString());
+		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
+
+		var factory = new MapFactory(soilFactory, configuration);
 
 		/// Act
-		var exception = Record.Exception(() => factory.GenerateMap(expectedSize));
+		var exception = Record.Exception(() => factory.GenerateMap());
 
 		/// Assert
 		exception.ShouldBeOfType<ArgumentOutOfRangeException>();
 		exception.Message.ShouldContain("big");
-		exception.Message.ShouldContain(expectedSize.ToString());
+		exception.Message.ShouldContain("180");
 	}
 
 	[Fact]
@@ -84,10 +98,17 @@ public class GenerateMap
 			Retention = SoilRetention.Packed
 		});
 
-		var factory = new MapFactory(soilFactory);
+		var configuration = Mock.Create<IConfiguration>();
+		Mock.Arrange(() => configuration["WorldSize"]).Returns(8.ToString());
+		Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(1.ToString());
+		Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(100.ToString());
+		Mock.Arrange(() => configuration["ContextRadius"]).Returns(1.ToString());
+		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
+
+		var factory = new MapFactory(soilFactory, configuration);
 
 		/// Act
-		var result = factory.GenerateMap(8);
+		var result = factory.GenerateMap();
 
 		/// Assert
 		Mock.Assert(() => soilFactory.GenerateSoil(), Occurs.Exactly(8 * 8));
@@ -104,10 +125,17 @@ public class GenerateMap
 		var soilFactory = Mock.Create<ISoilFactory>();
 		Mock.Arrange(() => soilFactory.GenerateSoil()).Returns(() => new Soil());
 
-		var factory = new MapFactory(soilFactory);
+		var configuration = Mock.Create<IConfiguration>();
+		Mock.Arrange(() => configuration["WorldSize"]).Returns(5.ToString());
+		Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(1.ToString());
+		Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(100.ToString());
+		Mock.Arrange(() => configuration["ContextRadius"]).Returns(1.ToString());
+		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
+
+		var factory = new MapFactory(soilFactory, configuration);
 
 		/// Act
-		var result = factory.GenerateMap(5);
+		var result = factory.GenerateMap();
 
 		/// Assert
 		var view = result.GetView(0, 0);
@@ -123,10 +151,17 @@ public class GenerateMap
 		var soilFactory = Mock.Create<ISoilFactory>();
 		Mock.Arrange(() => soilFactory.GenerateSoil()).Returns(() => new Soil());
 
-		var factory = new MapFactory(soilFactory);
+		var configuration = Mock.Create<IConfiguration>();
+		Mock.Arrange(() => configuration["WorldSize"]).Returns(5.ToString());
+		Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(1.ToString());
+		Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(100.ToString());
+		Mock.Arrange(() => configuration["ContextRadius"]).Returns(1.ToString());
+		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
+
+		var factory = new MapFactory(soilFactory, configuration);
 
 		/// Act
-		var result = factory.GenerateMap(5);
+		var result = factory.GenerateMap();
 
 		/// Assert
 		var view = result.GetView(0, 0);
@@ -142,10 +177,17 @@ public class GenerateMap
 		var soilFactory = Mock.Create<ISoilFactory>();
 		Mock.Arrange(() => soilFactory.GenerateSoil()).Returns(() => new Soil());
 
-		var factory = new MapFactory(soilFactory);
+		var configuration = Mock.Create<IConfiguration>();
+		Mock.Arrange(() => configuration["WorldSize"]).Returns(5.ToString());
+		Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(1.ToString());
+		Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(100.ToString());
+		Mock.Arrange(() => configuration["ContextRadius"]).Returns(1.ToString());
+		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
+
+		var factory = new MapFactory(soilFactory, configuration);
 
 		/// Act
-		var result = factory.GenerateMap(5);
+		var result = factory.GenerateMap();
 
 		/// Assert
 		var view = result.GetView(0, 0);
@@ -161,10 +203,17 @@ public class GenerateMap
 		var soilFactory = Mock.Create<ISoilFactory>();
 		Mock.Arrange(() => soilFactory.GenerateSoil()).Returns(() => new Soil());
 
-		var factory = new MapFactory(soilFactory);
+		var configuration = Mock.Create<IConfiguration>();
+		Mock.Arrange(() => configuration["WorldSize"]).Returns(5.ToString());
+		Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(1.ToString());
+		Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(100.ToString());
+		Mock.Arrange(() => configuration["ContextRadius"]).Returns(1.ToString());
+		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
+
+		var factory = new MapFactory(soilFactory, configuration);
 
 		/// Act
-		var result = factory.GenerateMap(5);
+		var result = factory.GenerateMap();
 
 		/// Assert
 		var view = result.GetView(0, 0);

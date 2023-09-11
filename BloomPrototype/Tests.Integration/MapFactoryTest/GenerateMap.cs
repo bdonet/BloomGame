@@ -8,10 +8,10 @@ public class GenerateMap : BaseMapFactoryIntegrationTest
 	public void GenerateMap_GridSizeIsValid_ReturnsMapWithGridFullOfGeneratedSoil()
 	{
 		/// Arrange
-		var factory = new MapFactory(SoilFactory);
+		var factory = new MapFactory(SoilFactory, Configuration);
 
 		/// Act
-		var result = factory.GenerateMap(100);
+		var result = factory.GenerateMap();
 		
 		/// Assert
 		foreach (var item in result.GetView(0, 0, 99, 99))
