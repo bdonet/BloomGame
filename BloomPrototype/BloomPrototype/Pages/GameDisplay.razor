@@ -34,13 +34,9 @@
 	private int startX = 0;
 	private int startY = 0;
 
-	private const int WorldSize = 100;
-    private const int ContextRadius = 2;
-    private const double ExtremesWeight = 2;
-
 	protected override void OnParametersSet()
 	{
-		WorldMap = MapFactory.GenerateMap(WorldSize);
+		WorldMap = MapFactory.GenerateMap();
 		MapView = WorldMap.GetView(startX, startY);
 
 		base.OnInitialized();
@@ -49,6 +45,6 @@
     private void OnSmoothButtonClick()
     {
         Days++;
-        MapFactory.SmoothMap(WorldMap, ContextRadius, ExtremesWeight);
+        MapFactory.SmoothMap(WorldMap);
     }
 }

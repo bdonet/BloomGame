@@ -6,20 +6,29 @@ namespace BloomPrototype.Services;
 
 public class MapFactory
 {
-	private const int LowerGridSizeBound = 1;
-	private const int UpperGridSizeBound = 1000;
+	private readonly int LowerGridSizeBound;
+	private readonly int UpperGridSizeBound;
+	private readonly int ContextRadius;
+	private readonly double ExtremesWeight;
+	private readonly int WorldSize;
 
 	private readonly ISoilFactory _soilFactory;
 
-	public MapFactory(ISoilFactory soilFactory)
+	public MapFactory(ISoilFactory soilFactory, IConfiguration configuration)
 	{
 		_soilFactory = soilFactory;
+
+		LowerGridSizeBound = Convert.ToInt32(configuration["LowerGridSizeBound"]);
+		UpperGridSizeBound = Convert.ToInt32(configuration["UpperGridSizeBound"]);
+		ContextRadius = Convert.ToInt32(configuration["ContextRadius"]);
+		ExtremesWeight = Convert.ToInt32(configuration["ExtremesWeight"]);
+		WorldSize = Convert.ToInt32(configuration["WorldSize"]);
 	}
 
-	public Map GenerateMap(int gridSize)
+	public Map GenerateMap()
 	{
-		var map = new Map(GenerateSoilGrid(gridSize));
-        SmoothMap(map, 2, 2);
+		var map = new Map(GenerateSoilGrid(WorldSize));
+        SmoothMap(map);
         return map;
 	}
 
@@ -57,7 +66,7 @@ public class MapFactory
 		return result;
 	}
 
-    public void SmoothMap(Map map, int contextRadius, double extremesWeight)
+    public void SmoothMap(Map map)
     {
         var originalGrid = map.CopyGrid();
 
@@ -66,19 +75,19 @@ public class MapFactory
             for (int y = 0; y < originalGrid.GetLength(0); y++)
             {
                 // Add surrounding 4 pieces of soil to the context if they are available
-                var contextSoils = GetContextSoils(x, y, originalGrid, contextRadius);
-                _soilFactory.SmoothSoil(map.Grid[x, y], contextSoils, extremesWeight);
+                var contextSoils = GetContextSoils(x, y, originalGrid);
+                _soilFactory.SmoothSoil(map.Grid[x, y], contextSoils, ExtremesWeight);
             }
         }
     }
 
-    private List<Soil> GetContextSoils(int x, int y, Soil[,] originalGrid, int contextRadius)
+    private List<Soil> GetContextSoils(int x, int y, Soil[,] originalGrid)
     {
         // Add surrounding pieces of soil to the context if they are available
         var indexes = new List<(int, int)>();
-        for (int i = -contextRadius; i < contextRadius + 1; i++)
+        for (int i = -ContextRadius; i < ContextRadius + 1; i++)
         {
-            var yOffset = contextRadius - Math.Abs(i);
+            var yOffset = ContextRadius - Math.Abs(i);
 
             var currentX = x + i;
             var yBottom = y - yOffset;
