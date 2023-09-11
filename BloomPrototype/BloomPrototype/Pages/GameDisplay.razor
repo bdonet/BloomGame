@@ -34,12 +34,12 @@
 
 	private int startX = 0;
 	private int startY = 0;
-	private int WorldSize = 100;
+	private const int WorldSize = 100;
     private const int ContextRadius = 2;
 
 	protected override void OnParametersSet()
 	{
-		WorldMap = MapFactory.GenerateMap(100);
+		WorldMap = MapFactory.GenerateMap(WorldSize);
 		MapView = WorldMap.GetView(startX, startY);
 
 		base.OnInitialized();
