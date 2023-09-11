@@ -3,7 +3,6 @@
 @using BloomPrototype.GameTypes.Soils
 @using BloomPrototype.Services;
 @inject MapFactory MapFactory
-@inject ISoilFactory SoilFactory
 
 
 <table>
@@ -50,6 +49,6 @@
     private void OnSmoothButtonClick()
     {
         Days++;
-        WorldMap.SmoothMap(SoilFactory, ContextRadius, ExtremesWeight);
+        MapFactory.SmoothMap(WorldMap, ContextRadius, ExtremesWeight);
     }
 }

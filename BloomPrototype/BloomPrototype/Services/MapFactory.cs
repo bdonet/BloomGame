@@ -54,4 +54,54 @@ public class MapFactory
 		}
 		return result;
 	}
+
+    public void SmoothMap(Map map, int contextRadius, double extremesWeight)
+    {
+        var originalGrid = map.CopyGrid();
+
+        for (int x = 0; x < originalGrid.GetLength(0); x++)
+        {
+            for (int y = 0; y < originalGrid.GetLength(0); y++)
+            {
+                // Add surrounding 4 pieces of soil to the context if they are available
+                var contextSoils = GetContextSoils(x, y, originalGrid, contextRadius);
+                _soilFactory.SmoothSoil(map.Grid[x, y], contextSoils, extremesWeight);
+            }
+        }
+    }
+
+    private List<Soil> GetContextSoils(int x, int y, Soil[,] originalGrid, int contextRadius)
+    {
+        // Add surrounding pieces of soil to the context if they are available
+        var indexes = new List<(int, int)>();
+        for (int i = -contextRadius; i < contextRadius + 1; i++)
+        {
+            var yOffset = contextRadius - Math.Abs(i);
+
+            var currentX = x + i;
+            var yBottom = y - yOffset;
+            var yTop = y + yOffset;
+
+            for (int j = yBottom; j < yTop + 1; j++)
+            {
+                indexes.Add((currentX, j));
+            }
+        }
+
+        indexes = indexes.Distinct().ToList();
+        indexes = indexes.Where(i => i.Item1 >= 0
+                                     && i.Item1 < originalGrid.GetLength(0)
+                                     && i.Item2 >= 0
+                                     && i.Item2 < originalGrid.GetLength(0)
+                                     && !(i.Item1 == x && i.Item2 == y))
+                         .ToList();
+
+        var contextSoils = new List<Soil>();
+        foreach (var i in indexes)
+        {
+            contextSoils.Add(originalGrid[i.Item1, i.Item2]);
+        }
+
+        return contextSoils;
+    }
 }
