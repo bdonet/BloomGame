@@ -21,7 +21,7 @@ public class MapFactory
 		LowerGridSizeBound = Convert.ToInt32(configuration["LowerGridSizeBound"]);
 		UpperGridSizeBound = Convert.ToInt32(configuration["UpperGridSizeBound"]);
 		ContextRadius = Convert.ToInt32(configuration["ContextRadius"]);
-		ExtremesWeight = Convert.ToInt32(configuration["ExtremesWeight"]);
+		ExtremesWeight = Convert.ToDouble(configuration["ExtremesWeight"]);
 		WorldSize = Convert.ToInt32(configuration["WorldSize"]);
 	}
 
