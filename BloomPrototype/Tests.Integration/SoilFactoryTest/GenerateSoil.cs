@@ -5,10 +5,10 @@ using System;
 using System.Linq;
 
 namespace Tests.Integration.SoilFactoryTest;
-public class GenerateSoilTest : BaseSoilFactoryIntegrationTest
+public class GenerateSoil : BaseSoilFactoryIntegrationTest
 {
 	[Fact]
-	public void GenerateSoil_GeneralCall_SoilHasValidFertility()
+	public void GenerateSoil_GeneralCall_SoilHasDesertLikeFertility()
 	{
 		/// Arrange
 		var factory = new SoilFactory(Generator);
@@ -17,11 +17,11 @@ public class GenerateSoilTest : BaseSoilFactoryIntegrationTest
 		var result = factory.GenerateSoil();
 
 		/// Assert
-		((int)result.Fertility).ShouldBeInRange((int)SoilFertility.Dead, (int)SoilFertility.Overgrown);
+		((int)result.Fertility).ShouldBeInRange((int)SoilFertility.Dead, (int)SoilFertility.Alive);
 	}
 
 	[Fact]
-	public void GenerateSoil_GeneralCall_SoilHasValidWaterLevel()
+	public void GenerateSoil_GeneralCall_SoilHasDesertLikeWaterLevel()
 	{
 		/// Arrange
 		var factory = new SoilFactory(Generator);
@@ -30,7 +30,7 @@ public class GenerateSoilTest : BaseSoilFactoryIntegrationTest
 		var result = factory.GenerateSoil();
 
 		/// Assert
-		((int)result.WaterLevel).ShouldBeInRange((int)SoilWaterLevel.Parched, (int)SoilWaterLevel.Flooded);
+		((int)result.WaterLevel).ShouldBeInRange((int)SoilWaterLevel.Parched, (int)SoilWaterLevel.Moist);
 	}
 
 	[Fact]
