@@ -13,8 +13,8 @@ public class SoilFactory : ISoilFactory
 
 	public Soil GenerateSoil()
 	{
-		var randomFertility = (SoilFertility)Random.GenerateInt((int)SoilFertility.Dead, (int)SoilFertility.Alive);
-		var randomWaterLevel = (SoilWaterLevel)Random.GenerateInt((int)SoilWaterLevel.Parched, (int)SoilWaterLevel.Moist);
+		var randomFertility = (SoilFertility)Random.GenerateInt((int)SoilFertility.Dead, (int)SoilFertility.Struggling);
+		var randomWaterLevel = (SoilWaterLevel)Random.GenerateInt((int)SoilWaterLevel.Parched, (int)SoilWaterLevel.Dry);
 		var randomRetention = (SoilRetention)Random.GenerateInt((int)SoilRetention.Dust, (int)SoilRetention.Packed);
 
 		return new Soil

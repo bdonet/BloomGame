@@ -17,7 +17,7 @@ public class GenerateSoil : BaseSoilFactoryIntegrationTest
 		var result = factory.GenerateSoil();
 
 		/// Assert
-		((int)result.Fertility).ShouldBeInRange((int)SoilFertility.Dead, (int)SoilFertility.Alive);
+		((int)result.Fertility).ShouldBeInRange((int)SoilFertility.Dead, (int)SoilFertility.Struggling);
 	}
 
 	[Fact]
@@ -30,7 +30,7 @@ public class GenerateSoil : BaseSoilFactoryIntegrationTest
 		var result = factory.GenerateSoil();
 
 		/// Assert
-		((int)result.WaterLevel).ShouldBeInRange((int)SoilWaterLevel.Parched, (int)SoilWaterLevel.Moist);
+		((int)result.WaterLevel).ShouldBeInRange((int)SoilWaterLevel.Parched, (int)SoilWaterLevel.Dry);
 	}
 
 	[Fact]

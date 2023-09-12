@@ -22,7 +22,7 @@ public class GenerateMap : BaseMapFactoryIntegrationTest
 	}
 
 	[Fact]
-	public void GenerateMap_GridSizeIsValid_ReturnsMapWithoutThrivingOrOvergrownSoil()
+	public void GenerateMap_GridSizeIsValid_ReturnsMapWithoutAliveOrThrivingOrOvergrownSoil()
 	{
 		/// Arrange
 		var factory = new MapFactory(SoilFactory, Configuration);
@@ -33,13 +33,14 @@ public class GenerateMap : BaseMapFactoryIntegrationTest
 		/// Assert
 		foreach (var item in result.GetView(0, 0, 99, 99))
 		{
+			item.Fertility.ShouldNotBe(SoilFertility.Alive);
 			item.Fertility.ShouldNotBe(SoilFertility.Thriving);
 			item.Fertility.ShouldNotBe(SoilFertility.Overgrown);
 		}
 	}
 
 	[Fact]
-	public void GenerateMap_GridSizeIsValid_ReturnsMapWithoutWetOrFloodedSoil()
+	public void GenerateMap_GridSizeIsValid_ReturnsMapWithoutMoistOrWetOrFloodedSoil()
 	{
 		/// Arrange
 		var factory = new MapFactory(SoilFactory, Configuration);
@@ -50,6 +51,7 @@ public class GenerateMap : BaseMapFactoryIntegrationTest
 		/// Assert
 		foreach (var item in result.GetView(0, 0, 99, 99))
 		{
+			item.WaterLevel.ShouldNotBe(SoilWaterLevel.Moist);
 			item.WaterLevel.ShouldNotBe(SoilWaterLevel.Wet);
 			item.WaterLevel.ShouldNotBe(SoilWaterLevel.Flooded);
 		}
