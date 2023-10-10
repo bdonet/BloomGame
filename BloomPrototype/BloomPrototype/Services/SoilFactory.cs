@@ -1,4 +1,5 @@
 ﻿using BloomPrototype.GameTypes.Soils;
+using System.Diagnostics;
 
 namespace BloomPrototype.Services;
 
@@ -57,7 +58,8 @@ public class SoilFactory : ISoilFactory
 
 		averageFertilityValue /= contextSoils.Count + 1;
 
-		var resultFertilityValue = Math.Round(averageFertilityValue);
+		var resultFertilityValue = (int)Math.Round(averageFertilityValue);
+		resultFertilityValue = RandomSoilOffset(resultFertilityValue);
 
 		if (resultFertilityValue < (int)SoilFertility.Dead)
 			return SoilFertility.Dead;
@@ -90,7 +92,8 @@ public class SoilFactory : ISoilFactory
 
 		averageWaterLevelValue /= contextSoils.Count + 1;
 
-		var resultWaterLevelValue = Math.Round(averageWaterLevelValue);
+		var resultWaterLevelValue = (int)Math.Round(averageWaterLevelValue);
+		resultWaterLevelValue = RandomSoilOffset(resultWaterLevelValue);
 
 		if (resultWaterLevelValue < (int)SoilWaterLevel.Parched)
 			return SoilWaterLevel.Parched;
@@ -123,7 +126,8 @@ public class SoilFactory : ISoilFactory
 
 		averageRetentionValue /= contextSoils.Count + 1;
 
-		var resultRetentionValue = Math.Round(averageRetentionValue);
+		var resultRetentionValue = (int)Math.Round(averageRetentionValue);
+		resultRetentionValue = RandomSoilOffset(resultRetentionValue);
 
 		if (resultRetentionValue < (int)SoilRetention.Dust)
 			return SoilRetention.Dust;
@@ -132,5 +136,26 @@ public class SoilFactory : ISoilFactory
 			return SoilRetention.Packed;
 
 		return (SoilRetention)resultRetentionValue;
+	}
+
+	private int RandomSoilOffset(int soilValue)
+	{
+		var randomNumber = Random.GenerateInt(1, 5);
+
+		switch (randomNumber)
+		{
+			case 1:
+				return soilValue - 1;
+			case 5:
+				return soilValue + 1;
+			case 2:
+			case 3:
+			case 4:
+				return soilValue;
+			default:
+				throw new ArgumentException("Unsupported random soil offset");
+		}
+
+		return soilValue;
 	}
 }
