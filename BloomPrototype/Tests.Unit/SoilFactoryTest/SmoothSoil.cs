@@ -263,6 +263,71 @@ public class SmoothSoil
 	}
 
 	[Theory]
+	[InlineData(3, 33)]
+	[InlineData(33, 3)]
+	[InlineData(8, 12)]
+	public void SmoothSoil_OffsetChanceIsNotWholeNumber_OffsetChanceIsFloored(int offsetPercentChance, int maxRandomValue)
+	{
+		/// Arrange
+		int? actualLowerBound = null;
+		int? actualUpperBound = null;
+
+		var random = Mock.Create<IRandomNumberGenerator>();
+		Mock.Arrange(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt)).DoInstead<int, int>((lower, upper) =>
+		{
+			actualLowerBound = lower;
+			actualUpperBound = upper;
+		}).Returns(maxRandomValue);
+
+		var factory = new SoilFactory(random);
+
+		var soil = new Soil
+		{
+			Fertility = SoilFertility.Alive,
+			WaterLevel = SoilWaterLevel.Dry,
+			Retention = SoilRetention.Tight
+		};
+
+		/// Act
+		factory.SmoothSoil(soil, new List<Soil>(), 2, offsetPercentChance);
+
+		/// Assert
+		actualLowerBound.ShouldBe(1);
+		actualUpperBound.ShouldBe(maxRandomValue);
+		Mock.Assert(() => random.GenerateInt(1, maxRandomValue), Occurs.Exactly(3));
+	}
+
+	[Theory]
+	[InlineData(51)]
+	[InlineData(80)]
+	[InlineData(66)]
+	public void SmoothSoil_OffsetChanceIsOver50_ThrowsArgumentException(int offsetPercentChance)
+	{
+		/// Arrange
+		var random = Mock.Create<IRandomNumberGenerator>();
+
+		var factory = new SoilFactory(random);
+
+		var soil = new Soil
+		{
+			Fertility = SoilFertility.Alive,
+			WaterLevel = SoilWaterLevel.Dry,
+			Retention = SoilRetention.Tight
+		};
+
+		/// Act
+		var exception = Record.Exception(() => factory.SmoothSoil(soil, new List<Soil>(), 2, offsetPercentChance));
+
+		/// Assert
+		exception.ShouldBeOfType<ArgumentException>();
+		exception.Message.ShouldContain("soil");
+		exception.Message.ShouldContain("offset");
+		exception.Message.ShouldContain("chance");
+		exception.Message.ShouldContain("over");
+		exception.Message.ShouldContain("50");
+	}
+
+	[Theory]
 	[InlineData(int.MinValue)]
 	[InlineData(-1)]
 	[InlineData(0)]
