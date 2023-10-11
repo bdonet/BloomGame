@@ -143,6 +143,9 @@ public class SoilFactory : ISoilFactory
 		if (soilOffsetPercentChance > 50)
 			throw new ArgumentException("Soil offset chance cannot be over 50");
 
+		if (soilOffsetPercentChance == 0)
+			return soilValue;
+
 		var maxValue = 100 / soilOffsetPercentChance;
 
 		var randomNumber = Random.GenerateInt(1, maxValue);

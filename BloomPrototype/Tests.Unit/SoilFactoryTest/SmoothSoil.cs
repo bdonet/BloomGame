@@ -327,6 +327,52 @@ public class SmoothSoil
 		exception.Message.ShouldContain("50");
 	}
 
+	[Fact]
+	public void SmoothSoil_OffsetChanceIs0_DoesNotCallRandomNumberGenerator()
+	{
+		/// Arrange
+		var random = Mock.Create<IRandomNumberGenerator>();
+
+		var factory = new SoilFactory(random);
+
+		var soil = new Soil
+		{
+			Fertility = SoilFertility.Alive,
+			WaterLevel = SoilWaterLevel.Dry,
+			Retention = SoilRetention.Tight
+		};
+
+		/// Act
+		factory.SmoothSoil(soil, new List<Soil>(), 2, 0);
+
+		/// Assert
+		Mock.Assert(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt), Occurs.Never());
+	}
+
+	[Fact]
+	public void SmoothSoil_OffsetChanceIs0_DoesNotOffsetSoil()
+	{
+		/// Arrange
+		var random = Mock.Create<IRandomNumberGenerator>();
+
+		var factory = new SoilFactory(random);
+
+		var soil = new Soil
+		{
+			Fertility = SoilFertility.Alive,
+			WaterLevel = SoilWaterLevel.Dry,
+			Retention = SoilRetention.Tight
+		};
+
+		/// Act
+		factory.SmoothSoil(soil, new List<Soil>(), 2, 0);
+
+		/// Assert
+		soil.Fertility.ShouldBe(SoilFertility.Alive);
+		soil.WaterLevel.ShouldBe(SoilWaterLevel.Dry);
+		soil.Retention.ShouldBe(SoilRetention.Tight);
+	}
+
 	[Theory]
 	[InlineData(int.MinValue)]
 	[InlineData(-1)]
