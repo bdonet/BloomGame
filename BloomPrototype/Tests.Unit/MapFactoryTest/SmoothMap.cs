@@ -2,6 +2,7 @@
 using BloomPrototype.GameTypes.Soils;
 using BloomPrototype.Services;
 using Microsoft.Extensions.Configuration;
+using Shouldly;
 using Telerik.JustMock;
 
 namespace Tests.Unit.MapFactoryTest
@@ -34,6 +35,7 @@ namespace Tests.Unit.MapFactoryTest
 			Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(0.ToString());
 			Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(0.ToString());
 			Mock.Arrange(() => configuration["WorldSize"]).Returns(0.ToString());
+			Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 
 			var mapFactory = new MapFactory(soilFactory, configuration);
 
@@ -57,6 +59,7 @@ namespace Tests.Unit.MapFactoryTest
 			Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(0.ToString());
 			Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(0.ToString());
 			Mock.Arrange(() => configuration["WorldSize"]).Returns(0.ToString());
+			Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 
 			var mapFactory = new MapFactory(soilFactory, configuration);
 
@@ -81,6 +84,7 @@ namespace Tests.Unit.MapFactoryTest
 			Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(0.ToString());
 			Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(0.ToString());
 			Mock.Arrange(() => configuration["WorldSize"]).Returns(0.ToString());
+			Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 
 			var mapFactory = new MapFactory(soilFactory, configuration);
 
@@ -99,6 +103,65 @@ namespace Tests.Unit.MapFactoryTest
 			            Occurs.Exactly(4));
 			Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.Matches<List<Soil>>(c => c.Count == 11), 2, 20),
 			            Occurs.Exactly(4));
+		}
+
+		[Theory]
+		[InlineData(0)]
+		[InlineData(5)]
+		[InlineData(10)]
+		[InlineData(20)]
+		[InlineData(50)]
+		public void SmoothMap_IsNotInitialGeneration_SmoothsSoilWithConfiguredOffsetChance(int expectedOffsetChance)
+		{
+			/// Arrange
+			int? actualOffsetChance = null;
+
+			var soilFactory = Mock.Create<ISoilFactory>();
+			Mock.Arrange(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.IsAny<List<Soil>>(), Arg.AnyDouble, Arg.AnyInt))
+				.DoInstead<Soil, List<Soil>, double, int>((_, _, _, offsetChance) => actualOffsetChance = offsetChance);
+
+			var configuration = Mock.Create<IConfiguration>();
+			Mock.Arrange(() => configuration["ContextRadius"]).Returns(2.ToString());
+			Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(2.ToString());
+			Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(0.ToString());
+			Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(0.ToString());
+			Mock.Arrange(() => configuration["WorldSize"]).Returns(0.ToString());
+			Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(expectedOffsetChance.ToString());
+
+			var mapFactory = new MapFactory(soilFactory, configuration);
+
+			/// Act
+			mapFactory.SmoothMap(SetupMap(5), false);
+
+			/// Assert
+			actualOffsetChance.ShouldBe(expectedOffsetChance);
+		}
+
+		[Fact]
+		public void SmoothMap_IsInitialGeneration_SmoothsSoilWith0OffsetChance()
+		{
+			/// Arrange
+			int? actualOffsetChance = null;
+
+			var soilFactory = Mock.Create<ISoilFactory>();
+			Mock.Arrange(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.IsAny<List<Soil>>(), Arg.AnyDouble, Arg.AnyInt))
+				.DoInstead<Soil, List<Soil>, double, int>((_, _, _, offsetChance) => actualOffsetChance = offsetChance);
+
+			var configuration = Mock.Create<IConfiguration>();
+			Mock.Arrange(() => configuration["ContextRadius"]).Returns(2.ToString());
+			Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(2.ToString());
+			Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(0.ToString());
+			Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(0.ToString());
+			Mock.Arrange(() => configuration["WorldSize"]).Returns(0.ToString());
+			Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
+
+			var mapFactory = new MapFactory(soilFactory, configuration);
+
+			/// Act
+			mapFactory.SmoothMap(SetupMap(5), true);
+
+			/// Assert
+			actualOffsetChance.ShouldBe(0);
 		}
 	}
 }

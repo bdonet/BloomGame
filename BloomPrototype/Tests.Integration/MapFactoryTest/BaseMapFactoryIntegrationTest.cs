@@ -16,6 +16,7 @@ public class BaseMapFactoryIntegrationTest
 		Mock.Arrange(() => Configuration["ContextRadius"]).Returns(2.ToString());
 		Mock.Arrange(() => Configuration["ExtremesWeight"]).Returns(2.ToString());
 		Mock.Arrange(() => Configuration["WorldSize"]).Returns(100.ToString());
+		Mock.Arrange(() => Configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 	}
 
 	internal ISoilFactory SoilFactory;

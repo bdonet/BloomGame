@@ -11,6 +11,7 @@ public class MapFactory
 	private readonly int ContextRadius;
 	private readonly double ExtremesWeight;
 	private readonly int WorldSize;
+	private readonly int SoilOffsetPercentChance;
 
 	private readonly ISoilFactory _soilFactory;
 
@@ -23,12 +24,13 @@ public class MapFactory
 		ContextRadius = Convert.ToInt32(configuration["ContextRadius"]);
 		ExtremesWeight = Convert.ToDouble(configuration["ExtremesWeight"]);
 		WorldSize = Convert.ToInt32(configuration["WorldSize"]);
+		SoilOffsetPercentChance = Convert.ToInt32(configuration["SoilOffsetPercentChance"]);
 	}
 
 	public Map GenerateMap()
 	{
 		var map = new Map(GenerateSoilGrid(WorldSize));
-        SmoothMap(map);
+        SmoothMap(map, true);
         return map;
 	}
 
@@ -66,7 +68,7 @@ public class MapFactory
 		return result;
 	}
 
-    public void SmoothMap(Map map)
+    public void SmoothMap(Map map, bool isInitialGeneration = false)
     {
         var originalGrid = map.CopyGrid();
 
@@ -76,9 +78,13 @@ public class MapFactory
             {
                 // Add surrounding pieces of soil to the context if they are available
                 var contextSoils = GetContextSoils(x, y, originalGrid);
-                _soilFactory.SmoothSoil(map.Grid[x, y], contextSoils, ExtremesWeight, 20);
-            }
-        }
+
+				if (isInitialGeneration)
+					_soilFactory.SmoothSoil(map.Grid[x, y], contextSoils, ExtremesWeight, 0);
+				else
+					_soilFactory.SmoothSoil(map.Grid[x, y], contextSoils, ExtremesWeight, SoilOffsetPercentChance);
+			}
+		}
     }
 
     private List<Soil> GetContextSoils(int x, int y, Soil[,] originalGrid)
