@@ -42,7 +42,7 @@ public class SmoothSoil
 		};
 
 		/// Act
-		factory.SmoothSoil(soil, contextSoils, 2);
+		factory.SmoothSoil(soil, contextSoils, 2, 20);
 
 		/// Assert
 		soil.Fertility.ShouldBe(expectedFertility);
@@ -81,7 +81,7 @@ public class SmoothSoil
 		};
 
 		/// Act
-		factory.SmoothSoil(soil, contextSoils, 2);
+		factory.SmoothSoil(soil, contextSoils, 2, 20);
 
 		/// Assert
 		soil.WaterLevel.ShouldBe(expectedWaterLevel);
@@ -120,7 +120,7 @@ public class SmoothSoil
 		};
 
 		/// Act
-		factory.SmoothSoil(soil, contextSoils, 2);
+		factory.SmoothSoil(soil, contextSoils, 2, 20);
 
 		/// Assert
 		soil.Retention.ShouldBe(expectedRetention);
@@ -140,7 +140,7 @@ public class SmoothSoil
 		};
 
 		/// Act
-		factory.SmoothSoil(soil, null, 2);
+		factory.SmoothSoil(soil, null, 2, 20);
 
 		/// Assert
 		soil.Fertility.ShouldBe(SoilFertility.Alive);
@@ -165,7 +165,7 @@ public class SmoothSoil
 		};
 
 		/// Act
-		factory.SmoothSoil(soil, new List<Soil>(), 2);
+		factory.SmoothSoil(soil, new List<Soil>(), 2, 20);
 
 		/// Assert
 		soil.Fertility.ShouldBe(SoilFertility.Struggling);
@@ -190,7 +190,7 @@ public class SmoothSoil
 		};
 
 		/// Act
-		factory.SmoothSoil(soil, new List<Soil>(), 2);
+		factory.SmoothSoil(soil, new List<Soil>(), 2, 20);
 
 		/// Assert
 		soil.Fertility.ShouldBe(SoilFertility.Thriving);
@@ -218,7 +218,7 @@ public class SmoothSoil
 		};
 
 		/// Act
-		factory.SmoothSoil(soil, new List<Soil>(), 2);
+		factory.SmoothSoil(soil, new List<Soil>(), 2, 20);
 
 		/// Assert
 		soil.Fertility.ShouldBe(SoilFertility.Alive);
@@ -226,8 +226,12 @@ public class SmoothSoil
 		soil.Retention.ShouldBe(SoilRetention.Tight);
 	}
 
-	[Fact]
-	public void SmoothSoil_GeneralCall_OffsetGeneratesWith20PercentChanceOfNegative1Or1()
+	[Theory]
+	[InlineData(5, 20)]
+	[InlineData(10, 10)]
+	[InlineData(20, 5)]
+	[InlineData(50, 2)]
+	public void SmoothSoil_GeneralCall_OffsetGeneratesWithGivenPercentChanceOfNegative1Or1(int offsetPercentChance, int maxRandomValue)
 	{
 		/// Arrange
 		int? actualLowerBound = null;
@@ -238,7 +242,7 @@ public class SmoothSoil
 		{
 			actualLowerBound = lower;
 			actualUpperBound = upper;
-		}).Returns(3);
+		}).Returns(maxRandomValue);
 
 		var factory = new SoilFactory(random);
 
@@ -250,12 +254,12 @@ public class SmoothSoil
 		};
 
 		/// Act
-		factory.SmoothSoil(soil, new List<Soil>(), 2);
+		factory.SmoothSoil(soil, new List<Soil>(), 2, offsetPercentChance);
 
 		/// Assert
 		actualLowerBound.ShouldBe(1);
-		actualUpperBound.ShouldBe(5);
-		Mock.Assert(() => random.GenerateInt(1, 5), Occurs.Exactly(3));
+		actualUpperBound.ShouldBe(maxRandomValue);
+		Mock.Assert(() => random.GenerateInt(1, maxRandomValue), Occurs.Exactly(3));
 	}
 
 	[Theory]
@@ -281,7 +285,7 @@ public class SmoothSoil
 		};
 
 		/// Act
-		var exception = Record.Exception(() => factory.SmoothSoil(soil, new List<Soil>(), 2));
+		var exception = Record.Exception(() => factory.SmoothSoil(soil, new List<Soil>(), 2, 20));
 
 		/// Assert
 		exception.ShouldBeOfType<ArgumentException>();
@@ -310,7 +314,7 @@ public class SmoothSoil
 		};
 
 		/// Act
-		factory.SmoothSoil(soil, new List<Soil>(), 2);
+		factory.SmoothSoil(soil, new List<Soil>(), 2, 20);
 
 		/// Assert
 		soil.Fertility.ShouldBe((SoilFertility)expectedRandom);

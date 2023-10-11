@@ -26,17 +26,17 @@ public class SoilFactory : ISoilFactory
 		};
 	}
 
-	public void SmoothSoil(Soil currentSoil, List<Soil>? contextSoils, double extremesWeight)
+	public void SmoothSoil(Soil currentSoil, List<Soil>? contextSoils, double extremesWeight, int soilOffsetPercentChange)
 	{
 		if (contextSoils == null)
 			return;
 
-		currentSoil.Fertility = CalculateSmoothedSoilFertility(currentSoil, contextSoils, extremesWeight);
-		currentSoil.WaterLevel = CalculateSmoothedSoilWaterLevel(currentSoil, contextSoils, extremesWeight);
-		currentSoil.Retention = CalculateSmoothedSoilRetention(currentSoil, contextSoils, extremesWeight);
+		currentSoil.Fertility = CalculateSmoothedSoilFertility(currentSoil, contextSoils, extremesWeight, soilOffsetPercentChange);
+		currentSoil.WaterLevel = CalculateSmoothedSoilWaterLevel(currentSoil, contextSoils, extremesWeight, soilOffsetPercentChange);
+		currentSoil.Retention = CalculateSmoothedSoilRetention(currentSoil, contextSoils, extremesWeight, soilOffsetPercentChange);
 	}
 
-	private SoilFertility CalculateSmoothedSoilFertility(Soil currentSoil, List<Soil> contextSoils, double extremesWeight)
+	private SoilFertility CalculateSmoothedSoilFertility(Soil currentSoil, List<Soil> contextSoils, double extremesWeight, int soilOffsetPercentChance)
 	{
 		var averageFertilityValue = (double)currentSoil.Fertility;
 
@@ -59,7 +59,7 @@ public class SoilFactory : ISoilFactory
 		averageFertilityValue /= contextSoils.Count + 1;
 
 		var resultFertilityValue = (int)Math.Round(averageFertilityValue);
-		resultFertilityValue = RandomSoilOffset(resultFertilityValue);
+		resultFertilityValue = RandomSoilOffset(resultFertilityValue, soilOffsetPercentChance);
 
 		if (resultFertilityValue < (int)SoilFertility.Dead)
 			return SoilFertility.Dead;
@@ -70,7 +70,7 @@ public class SoilFactory : ISoilFactory
 		return (SoilFertility)resultFertilityValue;
 	}
 
-	private SoilWaterLevel CalculateSmoothedSoilWaterLevel(Soil currentSoil, List<Soil> contextSoils, double extremesWeight)
+	private SoilWaterLevel CalculateSmoothedSoilWaterLevel(Soil currentSoil, List<Soil> contextSoils, double extremesWeight, int soilOffsetPercentChance)
 	{
 		var averageWaterLevelValue = (double)currentSoil.WaterLevel;
 
@@ -93,7 +93,7 @@ public class SoilFactory : ISoilFactory
 		averageWaterLevelValue /= contextSoils.Count + 1;
 
 		var resultWaterLevelValue = (int)Math.Round(averageWaterLevelValue);
-		resultWaterLevelValue = RandomSoilOffset(resultWaterLevelValue);
+		resultWaterLevelValue = RandomSoilOffset(resultWaterLevelValue, soilOffsetPercentChance);
 
 		if (resultWaterLevelValue < (int)SoilWaterLevel.Parched)
 			return SoilWaterLevel.Parched;
@@ -104,7 +104,7 @@ public class SoilFactory : ISoilFactory
 		return (SoilWaterLevel)resultWaterLevelValue;
 	}
 
-	private SoilRetention CalculateSmoothedSoilRetention(Soil currentSoil, List<Soil> contextSoils, double extremesWeight)
+	private SoilRetention CalculateSmoothedSoilRetention(Soil currentSoil, List<Soil> contextSoils, double extremesWeight, int soilOffsetPercentChance)
 	{
 		var averageRetentionValue = (double)currentSoil.Retention;
 
@@ -127,7 +127,7 @@ public class SoilFactory : ISoilFactory
 		averageRetentionValue /= contextSoils.Count + 1;
 
 		var resultRetentionValue = (int)Math.Round(averageRetentionValue);
-		resultRetentionValue = RandomSoilOffset(resultRetentionValue);
+		resultRetentionValue = RandomSoilOffset(resultRetentionValue, soilOffsetPercentChance);
 
 		if (resultRetentionValue < (int)SoilRetention.Dust)
 			return SoilRetention.Dust;
@@ -138,24 +138,19 @@ public class SoilFactory : ISoilFactory
 		return (SoilRetention)resultRetentionValue;
 	}
 
-	private int RandomSoilOffset(int soilValue)
+	private int RandomSoilOffset(int soilValue, int soilOffsetPercentChance)
 	{
-		var randomNumber = Random.GenerateInt(1, 5);
+		var maxValue = 100 / soilOffsetPercentChance;
 
-		switch (randomNumber)
-		{
-			case 1:
-				return soilValue - 1;
-			case 5:
-				return soilValue + 1;
-			case 2:
-			case 3:
-			case 4:
-				return soilValue;
-			default:
-				throw new ArgumentException("Unsupported random soil offset");
-		}
+		var randomNumber = Random.GenerateInt(1, maxValue);
 
-		return soilValue;
+		if (randomNumber == 1)
+			return soilValue - 1;
+		if (randomNumber == maxValue)
+			return soilValue + 1;
+		if (randomNumber > 1 && randomNumber < maxValue)
+			return soilValue;
+
+		throw new ArgumentException("Unsupported random soil offset");
 	}
 }

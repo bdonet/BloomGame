@@ -41,7 +41,7 @@ namespace Tests.Unit.MapFactoryTest
 			mapFactory.SmoothMap(SetupMap(5));
 
 			/// Assert
-			Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.IsAny<List<Soil>>(), 2),
+			Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.IsAny<List<Soil>>(), 2, 20),
 			            Occurs.Exactly(5 * 5));
 		}
 
@@ -65,7 +65,7 @@ namespace Tests.Unit.MapFactoryTest
 
 			/// Assert
 			// Should have (r + 1)^2 + r^2 - 1 context soils in center where r is the context radius
-			Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.Matches<List<Soil>>(c => c.Count == 12), 2),
+			Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.Matches<List<Soil>>(c => c.Count == 12), 2, 20),
 			            Occurs.AtLeastOnce());
 		}
 
@@ -89,15 +89,15 @@ namespace Tests.Unit.MapFactoryTest
 
 			/// Assert
 			// Should not have some context soils when near grid edge
-			Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.Matches<List<Soil>>(c => c.Count == 5), 2),
+			Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.Matches<List<Soil>>(c => c.Count == 5), 2, 20),
 			            Occurs.Exactly(4));
-			Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.Matches<List<Soil>>(c => c.Count == 7), 2),
+			Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.Matches<List<Soil>>(c => c.Count == 7), 2, 20),
 			            Occurs.Exactly(8));
-			Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.Matches<List<Soil>>(c => c.Count == 8), 2),
+			Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.Matches<List<Soil>>(c => c.Count == 8), 2, 20),
 			            Occurs.Exactly(4));
-			Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.Matches<List<Soil>>(c => c.Count == 10), 2),
+			Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.Matches<List<Soil>>(c => c.Count == 10), 2, 20),
 			            Occurs.Exactly(4));
-			Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.Matches<List<Soil>>(c => c.Count == 11), 2),
+			Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.Matches<List<Soil>>(c => c.Count == 11), 2, 20),
 			            Occurs.Exactly(4));
 		}
 	}
