@@ -432,4 +432,54 @@ public class SmoothSoil
 		soil.WaterLevel.ShouldBe((SoilWaterLevel)expectedRandom);
 		soil.Retention.ShouldBe((SoilRetention)expectedRandom);
 	}
+
+	[Fact]
+	public void SmoothSoil_AllLowExtreme_ResultWithOffsetIsOneAboveLowExtreme()
+	{
+		/// Arrange
+		var random = Mock.Create<IRandomNumberGenerator>();
+		Mock.Arrange(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt)).Returns(2);
+
+		var factory = new SoilFactory(random);
+
+		var soil = new Soil
+		{
+			Fertility = SoilFertility.Dead,
+			WaterLevel = SoilWaterLevel.Parched,
+			Retention = SoilRetention.Dust
+		};
+
+		/// Act
+		factory.SmoothSoil(soil, new List<Soil>(), 2, 50);
+
+		/// Assert
+		soil.Fertility.ShouldBe(SoilFertility.Struggling);
+		soil.WaterLevel.ShouldBe(SoilWaterLevel.Dry);
+		soil.Retention.ShouldBe(SoilRetention.Loose);
+	}
+
+	[Fact]
+	public void SmoothSoil_AllHighExtreme_ResultWithOffsetIsOneBelowHighExtreme()
+	{
+		/// Arrange
+		var random = Mock.Create<IRandomNumberGenerator>();
+		Mock.Arrange(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt)).Returns(1);
+
+		var factory = new SoilFactory(random);
+
+		var soil = new Soil
+		{
+			Fertility = SoilFertility.Overgrown,
+			WaterLevel = SoilWaterLevel.Flooded,
+			Retention = SoilRetention.Packed
+		};
+
+		/// Act
+		factory.SmoothSoil(soil, new List<Soil>(), 2, 50);
+
+		/// Assert
+		soil.Fertility.ShouldBe(SoilFertility.Thriving);
+		soil.WaterLevel.ShouldBe(SoilWaterLevel.Wet);
+		soil.Retention.ShouldBe(SoilRetention.Tight);
+	}
 }

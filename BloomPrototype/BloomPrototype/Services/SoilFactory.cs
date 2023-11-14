@@ -59,6 +59,13 @@ public class SoilFactory : ISoilFactory
 		averageFertilityValue /= contextSoils.Count + 1;
 
 		var resultFertilityValue = (int)Math.Round(averageFertilityValue);
+
+		if (resultFertilityValue < (int)SoilFertility.Dead)
+			resultFertilityValue = (int)SoilFertility.Dead;
+
+		if (resultFertilityValue > (int)SoilFertility.Overgrown)
+			resultFertilityValue = (int)SoilFertility.Overgrown;
+
 		resultFertilityValue = RandomSoilOffset(resultFertilityValue, soilOffsetPercentChance);
 
 		if (resultFertilityValue < (int)SoilFertility.Dead)
@@ -93,6 +100,13 @@ public class SoilFactory : ISoilFactory
 		averageWaterLevelValue /= contextSoils.Count + 1;
 
 		var resultWaterLevelValue = (int)Math.Round(averageWaterLevelValue);
+
+		if (resultWaterLevelValue < (int)SoilWaterLevel.Parched)
+			resultWaterLevelValue = (int)SoilWaterLevel.Parched;
+
+		if (resultWaterLevelValue > (int)SoilWaterLevel.Flooded)
+			resultWaterLevelValue = (int)SoilWaterLevel.Flooded;
+
 		resultWaterLevelValue = RandomSoilOffset(resultWaterLevelValue, soilOffsetPercentChance);
 
 		if (resultWaterLevelValue < (int)SoilWaterLevel.Parched)
@@ -127,6 +141,13 @@ public class SoilFactory : ISoilFactory
 		averageRetentionValue /= contextSoils.Count + 1;
 
 		var resultRetentionValue = (int)Math.Round(averageRetentionValue);
+
+		if (resultRetentionValue < (int)SoilRetention.Dust)
+			resultRetentionValue = (int)SoilRetention.Dust;
+
+		if (resultRetentionValue > (int)SoilRetention.Packed)
+			resultRetentionValue = (int)SoilRetention.Packed;
+
 		resultRetentionValue = RandomSoilOffset(resultRetentionValue, soilOffsetPercentChance);
 
 		if (resultRetentionValue < (int)SoilRetention.Dust)
