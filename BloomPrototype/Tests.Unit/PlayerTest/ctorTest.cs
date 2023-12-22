@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Tests.Unit.PlayerTest;
 
-public class ctor
+public class ctorTest
 {
     [Fact]
     public void ctor_GeneralCall_SetsPlayerLocationToSoilAtX1Y1()
