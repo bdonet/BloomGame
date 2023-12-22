@@ -5,7 +5,7 @@
 @inject MapFactory MapFactory
 
 
-<table>
+<table @onkeydown="e => KeyPress(e)" tabindex="0">
 	@for (int y = 0; y < Map.ViewSize; y++)
 	{
 		<tr>
@@ -43,6 +43,22 @@
 		Player = new Player(WorldMap);
 
 		base.OnInitialized();
+	}
+
+	private void KeyPress(KeyboardEventArgs e)
+	{
+		switch (e.Code)
+		{
+			case "Enter":
+				OnSmoothButtonClick();
+				break;
+			case "ArrowUp":
+				Player.MoveUp();
+				break;
+			case "ArrowDown":
+				Player.MoveDown();
+				break;
+		}
 	}
 
     private void OnSmoothButtonClick()
