@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BloomPrototype\BloomPrototype.csproj" />
+    <ProjectReference Include="..\Tests.Utilities\Tests.Utilities.csproj" />
   </ItemGroup>
 
 </Project>
