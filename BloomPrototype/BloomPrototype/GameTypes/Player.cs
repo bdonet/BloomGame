@@ -17,12 +17,17 @@ public class Player
 		_locationY = 1;
 	}
 
-	public void MoveDown() {
+	public void MoveDown()
+	{
 		if (_locationY != _map.Grid.GetUpperBound(0))
-		_locationY++;
+			_locationY++;
 	}
 
-	public void MoveLeft() { }
+	public void MoveLeft()
+	{
+		if (_locationX != 0)
+			_locationX--;
+	}
 
 	public void MoveRight() { }
 
