@@ -7,9 +7,14 @@ public static class MapHelper
 {
 	public static Map SetupTestMap(int gridSize)
 	{
-		var grid = new Soil[gridSize, gridSize];
-		for(var i = 0; i < gridSize; i++)
-			for(var j = 0; j < gridSize; j++)
+		return SetupTestMap(gridSize, gridSize);
+	}
+
+	public static Map SetupTestMap(int xSize, int ySize)
+	{
+		var grid = new Soil[xSize, ySize];
+		for (var i = 0; i < xSize; i++)
+			for (var j = 0; j < ySize; j++)
 				grid[i, j] = new Soil();
 
 		return new Map(grid);
