@@ -29,7 +29,11 @@ public class Player
 			_locationX--;
 	}
 
-	public void MoveRight() { }
+	public void MoveRight()
+	{
+		if (_locationX != _map.Grid.GetUpperBound(0))
+			_locationX++;
+	}
 
 	public void MoveUp()
 	{
