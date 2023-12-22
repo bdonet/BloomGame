@@ -4,30 +4,26 @@ namespace BloomPrototype.GameTypes;
 
 public class Player
 {
+	int _locationX;
+
+	int _locationY;
+
+	readonly Map _map;
+
 	public Player(Map map)
 	{
-		Location = map.GetSoil(1, 1);
+		_map = map;
+		_locationX = 1;
+		_locationY = 1;
 	}
 
-	public Soil Location { get; private set; }
+	public void MoveDown() { }
 
-	public void MoveUp()
-	{
+	public void MoveLeft() { }
 
-	}
+	public void MoveRight() { }
 
-	public void MoveDown()
-	{
+	public void MoveUp() { }
 
-	}
-
-	public void MoveLeft()
-	{
-
-	}
-
-	public void MoveRight()
-	{
-
-	}
+	public Soil Location => _map.GetSoil(_locationX, _locationY);
 }
