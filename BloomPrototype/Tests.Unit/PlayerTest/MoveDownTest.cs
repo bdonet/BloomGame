@@ -28,7 +28,7 @@ public class MoveDownTest
 	public void MoveDown_PlayerIsOnBottomRow_DoesNotChangeLocation()
 	{
 		/// Arrange
-		var map = MapHelper.SetupTestMap(2, 3);
+		var map = MapHelper.SetupTestMap(3, 2);
 
 		var player = new Player(map);
 

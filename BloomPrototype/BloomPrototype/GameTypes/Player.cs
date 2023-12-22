@@ -19,7 +19,7 @@ public class Player
 
 	public void MoveDown()
 	{
-		if (_locationY != _map.Grid.GetUpperBound(0))
+		if (_locationY != _map.Grid.GetUpperBound(1))
 			_locationY++;
 	}
 
