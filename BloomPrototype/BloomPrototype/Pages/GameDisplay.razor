@@ -12,7 +12,7 @@
 			@for (int x = 0; x < Map.ViewSize; x++)
 			{
 				<td>
-					<SoilDisplay Soil="WorldMap.GetSoil(x, y)" PlayerLocation=@Player.Location />
+					<SoilDisplay Soil="MapView[x, y]" PlayerLocation=@Player.Location />
 				</td>
 			}
 		</tr>
@@ -47,6 +47,7 @@
 
 	private void KeyPress(KeyboardEventArgs e)
 	{
+		// This method simulates a frame refresh
 		switch (e.Code)
 		{
 			case "Enter":
@@ -65,6 +66,8 @@
 				Player.MoveLeft();
 				break;
 		}
+
+		MapView = WorldMap.GetViewWithTargetSoil(Player.Location);
 	}
 
     private void OnSmoothButtonClick()

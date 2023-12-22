@@ -19,9 +19,9 @@ public class Map
 	{
 		var result = new Soil[endX - startX + 1, endY - startY + 1];
 
-		for (int x = 0; x < endX + 1; x++)
+		for (int x = 0; x < endX - startX + 1; x++)
 		{
-			for (int y = 0; y < endY + 1; y++)
+			for (int y = 0; y < endY - startY + 1; y++)
 			{
 				result[x, y] = Grid[startX + x, startY + y];
 			}
@@ -34,6 +34,30 @@ public class Map
     {
 		return GetView(startX, startY, startX + ViewSize - 1, startY + ViewSize - 1);
     }
+
+	public Soil[,] GetViewWithTargetSoil(Soil targetSoil)
+	{
+		var targetLocation =  FindTargetSoil(targetSoil);
+
+		var viewsX = targetLocation.Item1 / ViewSize;
+		var viewsY = targetLocation.Item2 / ViewSize;
+
+		var startX = viewsX * ViewSize;
+		var startY = viewsY * ViewSize;
+		return GetView(startX, startY);
+    }
+
+	private (int, int) FindTargetSoil(Soil targetSoil)
+	{
+		var worldSize = Grid.GetLength(0);
+
+		for (int x = 0; x < worldSize; x++)
+			for (int y = 0; y < worldSize; y++)
+				if (GetSoil(x, y) == targetSoil)
+					return (x, y);
+
+		throw new KeyNotFoundException("Target Soil was not found in the Map");
+	}
 
     public Soil[,] CopyGrid()
     {
