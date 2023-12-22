@@ -62,8 +62,8 @@ public class MapFactory
 			var tree = new Tree(result[2, 3]);
 			result[2, 3].GrowingPlant = tree;
 
-			var wheat = new Wheat(result[1, 4]);
-			result[1, 4].GrowingPlant = wheat;
+			var wheat = new Wheat(result[6, 4]);
+			result[6, 4].GrowingPlant = wheat;
 		}
 		return result;
 	}
