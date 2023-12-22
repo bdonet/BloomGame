@@ -6,10 +6,10 @@
 
 
 <table>
-	@for (int x = 0; x < Map.ViewSize; x++)
+	@for (int y = 0; y < Map.ViewSize; y++)
 	{
 		<tr>
-			@for (int y = 0; y < Map.ViewSize; y++)
+			@for (int x = 0; x < Map.ViewSize; x++)
 			{
 				<td>
 					<SoilDisplay Soil="WorldMap.GetSoil(x, y)" PlayerLocation=@Player.Location />
