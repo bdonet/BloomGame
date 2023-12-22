@@ -23,7 +23,11 @@ public class Player
 
 	public void MoveRight() { }
 
-	public void MoveUp() { }
+	public void MoveUp()
+	{
+		if (_locationY != 0)
+			_locationY--;
+	}
 
 	public Soil Location => _map.GetSoil(_locationX, _locationY);
 }
