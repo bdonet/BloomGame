@@ -6,7 +6,7 @@ public class Player
 {
 	public Player(Map map)
 	{
-		//Location = map.GetSoil(1, 1);
+		Location = map.GetSoil(1, 1);
 	}
 
 	public Soil Location { get; private set; }
