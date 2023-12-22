@@ -3,7 +3,7 @@
 <span class="@SoilCss">
 	<span class="@ContentsCss"/>
 
-	@if (HasPlayer)
+	@if (PlayerLocation == Soil)
 	{
 		<span class="player"></span>
 	}
@@ -14,7 +14,7 @@
 	public Soil Soil { get; set; }
 
 	[Parameter]
-	public bool HasPlayer { get; set; }
+	public Soil PlayerLocation { get; set; }
 
 	private string SoilCss = "";
 	private string ContentsCss = "";

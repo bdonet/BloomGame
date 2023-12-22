@@ -12,7 +12,7 @@
 			@for (int y = 0; y < Map.ViewSize; y++)
 			{
 				<td>
-					<SoilDisplay Soil="WorldMap.GetSoil(x, y)" />
+					<SoilDisplay Soil="WorldMap.GetSoil(x, y)" PlayerLocation=@Player.Location />
 				</td>
 			}
 		</tr>
@@ -29,7 +29,9 @@
 
 	private Soil[,] MapView;
 
-    private int Days = 0;
+	private Player Player;
+
+	private int Days = 0;
 
 	private int startX = 0;
 	private int startY = 0;
@@ -38,6 +40,7 @@
 	{
 		WorldMap = MapFactory.GenerateMap();
 		MapView = WorldMap.GetView(startX, startY);
+		Player = new Player(WorldMap);
 
 		base.OnInitialized();
 	}
