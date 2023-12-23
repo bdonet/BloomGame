@@ -28,8 +28,8 @@
     }
 
 .soil {
-    height: 97px;
-    width: 97px;
+    height: 13px;
+    width: 13px;
     display: grid;
 }
 
@@ -54,43 +54,43 @@
 }
 
 .parched {
-    padding-right: 3px;
+    padding-right: 2px;
 }
 
 .dry {
-    border-right: 3px dotted blue;
+    border-right: 2px dotted blue;
 }
 
 .moist {
-    border-right: 3px dashed blue;
+    border-right: 2px dashed blue;
 }
 
 .wet {
-    border-right: 3px double blue;
+    border-right: 2px double blue;
 }
 
 .flooded {
-    border-right: 3px solid blue;
+    border-right: 2px solid blue;
 }
 
 .dust {
-    padding-bottom: 3px;
+    padding-bottom: 2px;
 }
 
 .loose {
-    border-bottom: 3px dotted black;
+    border-bottom: 2px dotted black;
 }
 
 .holding {
-    border-bottom: 3px dashed black;
+    border-bottom: 2px dashed black;
 }
 
 .tight {
-    border-bottom: 3px double black;
+    border-bottom: 2px double black;
 }
 
 .packed {
-    border-bottom: 3px solid black;
+    border-bottom: 2px solid black;
 }
 
 .player {
