@@ -28,8 +28,8 @@
     }
 
 .soil {
-    height: 100px;
-    width: 94px;
+    height: 97px;
+    width: 97px;
     display: grid;
 }
 
@@ -74,23 +74,23 @@
 }
 
 .dust {
-    padding-left: 3px;
+    padding-bottom: 3px;
 }
 
 .loose {
-    border-left: 3px dotted black;
+    border-bottom: 3px dotted black;
 }
 
 .holding {
-    border-left: 3px dashed black;
+    border-bottom: 3px dashed black;
 }
 
 .tight {
-    border-left: 3px double black;
+    border-bottom: 3px double black;
 }
 
 .packed {
-    border-left: 3px solid black;
+    border-bottom: 3px solid black;
 }
 
 .player {
