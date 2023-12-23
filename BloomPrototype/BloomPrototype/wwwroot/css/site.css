@@ -29,7 +29,7 @@
 
 .soil {
     height: 100px;
-    width: 100px;
+    width: 94px;
     display: grid;
 }
 
@@ -51,6 +51,46 @@
 
 .overgrown {
     background-color: green;
+}
+
+.parched {
+    padding-right: 3px;
+}
+
+.dry {
+    border-right: 3px dotted blue;
+}
+
+.moist {
+    border-right: 3px dashed blue;
+}
+
+.wet {
+    border-right: 3px double blue;
+}
+
+.flooded {
+    border-right: 3px solid blue;
+}
+
+.dust {
+    padding-left: 3px;
+}
+
+.loose {
+    border-left: 3px dotted black;
+}
+
+.holding {
+    border-left: 3px dashed black;
+}
+
+.tight {
+    border-left: 3px double black;
+}
+
+.packed {
+    border-left: 3px solid black;
 }
 
 .player {
