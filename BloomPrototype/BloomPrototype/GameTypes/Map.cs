@@ -9,7 +9,7 @@ public class Map
 		Grid = soilGrid;
 	}
 
-    public const int ViewSize = 5;
+    public const int ViewSize = 7;
 
     public Soil[,] Grid;
 
