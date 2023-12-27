@@ -9,18 +9,34 @@ namespace Tests.Unit.PlayerTest;
 
 public class TightenSoilTest
 {
+	[Fact]
+	public void TightenSoil_PlayerHasAtLeastOneAction_DecrementsPlayerActionCount()
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(2);
+
+		var player = new Player(map, 1);
+
+		/// Act
+		player.TightenSoil(1);
+
+		/// Assert
+		player.Actions.ShouldBe(0);
+	}
+
 	[Theory]
 	[InlineData(1, SoilRetention.Loose)]
 	[InlineData(2, SoilRetention.Holding)]
 	[InlineData(3, SoilRetention.Tight)]
 	[InlineData(4, SoilRetention.Packed)]
-	public void TightenSoil_GeneralCall_PassesGivenLevelsToSoil(int levelsToIncrease, SoilRetention expectedRetention)
+	public void TightenSoil_PlayerHasAtLeastOneAction_PassesGivenLevelsToSoil(int levelsToIncrease,
+																			SoilRetention expectedRetention)
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 		map.GetSoil(1, 1).Retention = SoilRetention.Dust;
 
-		var player = new Player(map, 0);
+		var player = new Player(map, 1);
 
 		/// Act
 		player.TightenSoil(levelsToIncrease);
@@ -30,7 +46,7 @@ public class TightenSoilTest
 	}
 
 	[Fact]
-	public void TightenSoil_GeneralCall_DecrementsPlayerActionCount()
+	public void TightenSoil_PlayerHasNoActions_DoesNotChangeActionCount()
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
@@ -41,6 +57,22 @@ public class TightenSoilTest
 		player.TightenSoil(1);
 
 		/// Assert
-		player.Actions.ShouldBe(9);
+		player.Actions.ShouldBe(0);
+	}
+
+	[Fact]
+	public void TightenSoil_PlayerHasNoActions_DoesNotChangeSoilRetention()
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(2);
+		map.GetSoil(1, 1).Retention = SoilRetention.Dust;
+
+		var player = new Player(map, 0);
+
+		/// Act
+		player.TightenSoil(1);
+
+		/// Assert
+		map.GetSoil(1, 1).Retention.ShouldBe(SoilRetention.Dust);
 	}
 }

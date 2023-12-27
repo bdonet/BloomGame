@@ -4,13 +4,10 @@ namespace BloomPrototype.GameTypes;
 
 public class Player
 {
-	int _locationX;
-
-	int _locationY;
-
-	readonly Map _map;
-
 	readonly int _actionsPerDay;
+	int _locationX;
+	int _locationY;
+	readonly Map _map;
 
 	public Player(Map map, int actionsPerDay)
 	{
@@ -23,6 +20,9 @@ public class Player
 
 	public void FertilizeSoil(int levels)
 	{
+		if (Actions < 1)
+			return;
+
 		Location.Fertilize(levels);
 		Actions--;
 	}
@@ -55,12 +55,18 @@ public class Player
 
 	public void TightenSoil(int levels)
 	{
+		if (Actions < 1)
+			return;
+
 		Location.Tighten(levels);
 		Actions--;
 	}
 
 	public void WaterSoil(int levels)
 	{
+		if (Actions < 1)
+			return;
+
 		Location.Water(levels);
 		Actions--;
 	}
