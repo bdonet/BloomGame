@@ -17,6 +17,7 @@ public class Player
 		_map = map;
 		_locationX = 1;
 		_locationY = 1;
+		Actions = 10;
 	}
 
 	public void FertilizeSoil(int levels) { Location.Fertilize(levels); }

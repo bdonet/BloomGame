@@ -20,4 +20,17 @@ public class ctorTest
 		/// Assert
 		player.Location.ShouldBe(map.GetSoil(1, 1));
 	}
+
+	[Fact]
+	public void ctor_GeneralCall_SetsPlayerActionsTo10()
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(2);
+
+		/// Act
+		var player = new Player(map);
+
+		/// Assert
+		player.Actions.ShouldBe(10);
+	}
 }
