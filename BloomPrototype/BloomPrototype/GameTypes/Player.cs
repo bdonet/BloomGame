@@ -10,6 +10,8 @@ public class Player
 
 	readonly Map _map;
 
+	public int Actions { get; private set; }
+
 	public Player(Map map)
 	{
 		_map = map;
@@ -42,6 +44,8 @@ public class Player
 		if (_locationY != 0)
 			_locationY--;
 	}
+
+	public void Sleep() { Actions = 10; }
 
 	public void TightenSoil(int levels) { Location.Tighten(levels); }
 
