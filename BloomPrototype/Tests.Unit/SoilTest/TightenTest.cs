@@ -7,7 +7,7 @@ namespace Tests.Unit.SoilTest;
 
 public class TightenTest
 {
-	[Theory]
+ 	[Theory]
 	[InlineData(1, SoilRetention.Loose)]
 	[InlineData(2, SoilRetention.Holding)]
 	[InlineData(3, SoilRetention.Tight)]
@@ -60,5 +60,60 @@ public class TightenTest
 
 		/// Assert
 		soil.Retention.ShouldBe(SoilRetention.Packed);
+	}
+
+	[Theory]
+	[InlineData(-1, SoilRetention.Tight)]
+	[InlineData(-2, SoilRetention.Holding)]
+	[InlineData(-3, SoilRetention.Loose)]
+	[InlineData(-4, SoilRetention.Dust)]
+	public void Tighten_LooseningMaximumSoil_DecreasesSoilRetentionByGivenNegativeLevels(int levelsToIncrease,
+																				SoilRetention expectedRetention)
+	{
+		/// Arrange
+		var soil = new Soil { Retention = SoilRetention.Packed };
+
+		/// Act
+		soil.Tighten(levelsToIncrease);
+
+		/// Assert
+		soil.Retention.ShouldBe(expectedRetention);
+	}
+
+	[Theory]
+	[InlineData(SoilRetention.Packed, SoilRetention.Tight)]
+	[InlineData(SoilRetention.Tight, SoilRetention.Holding)]
+	[InlineData(SoilRetention.Holding, SoilRetention.Loose)]
+	[InlineData(SoilRetention.Loose, SoilRetention.Dust)]
+	public void Tighten_LooseningNonMinSoilByOneLevel_DecreasesSoilRetentionByOneLevel(SoilRetention originalRetention,
+																						SoilRetention expectedRetention)
+	{
+		/// Arrange
+		var soil = new Soil { Retention = originalRetention };
+
+		/// Act
+		soil.Tighten(-1);
+
+		/// Assert
+		soil.Retention.ShouldBe(expectedRetention);
+	}
+
+	[Theory]
+	[InlineData(-5, SoilRetention.Packed)]
+	[InlineData(-4, SoilRetention.Tight)]
+	[InlineData(-3, SoilRetention.Holding)]
+	[InlineData(-2, SoilRetention.Loose)]
+	[InlineData(-1, SoilRetention.Dust)]
+	public void Tighten_LooseningSoilBeyondMinRetention_SetsSoilRetentionToMin(int levelsToIncrease,
+																				SoilRetention originalRetention)
+	{
+		/// Arrange
+		var soil = new Soil { Retention = originalRetention };
+
+		/// Act
+		soil.Tighten(levelsToIncrease);
+
+		/// Assert
+		soil.Retention.ShouldBe(SoilRetention.Dust);
 	}
 }

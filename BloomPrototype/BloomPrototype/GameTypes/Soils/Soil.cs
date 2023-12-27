@@ -21,6 +21,8 @@ public class Soil
 
 		if (integerValue > (int)SoilRetention.Packed)
 			Retention = SoilRetention.Packed;
+		else if (integerValue < (int)SoilRetention.Dust)
+			Retention = SoilRetention.Dust;
 		else
 			Retention = (SoilRetention)integerValue;
 	}
