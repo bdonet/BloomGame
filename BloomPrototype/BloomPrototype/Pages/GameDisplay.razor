@@ -21,8 +21,13 @@
 
 <br/>
 
-<button type="button" @onclick="OnSmoothButtonClick" class="btn btn-outline-primary">Smooth Map</button>
 <p>Days: @Days</p>
+<br/>
+<p>Move: Arrow keys</p>
+<p>Complete Day: Enter</p>
+<p>Fertilize: J</p>
+<p>Water: K</p>
+<p>Tighten: L</p>
 
 @code {
 	private Map WorldMap;
@@ -51,7 +56,8 @@
 		switch (e.Code)
 		{
 			case "Enter":
-				OnSmoothButtonClick();
+				Days++;
+				MapFactory.SmoothMap(WorldMap);
 				break;
 			case "ArrowUp":
 				Player.MoveUp();
@@ -65,14 +71,17 @@
 			case "ArrowLeft":
 				Player.MoveLeft();
 				break;
+			case "KeyJ":
+				Player.Location.Fertilize(1);
+				break;
+			case "KeyK":
+				Player.Location.Water(1);
+				break;
+			case "KeyL":
+				Player.Location.Tighten(1);
+				break;
 		}
 
 		MapView = WorldMap.GetViewWithTargetSoil(Player.Location);
 	}
-
-    private void OnSmoothButtonClick()
-    {
-        Days++;
-        MapFactory.SmoothMap(WorldMap);
-    }
 }
