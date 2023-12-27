@@ -8,18 +8,22 @@ namespace Tests.Unit.PlayerTest;
 
 public class SleepTest
 {
-	[Fact]
-	public void Sleep_GeneralCall_ResetsPlayerActionsToMax()
+	[Theory]
+	[InlineData(0)]
+	[InlineData(1)]
+	[InlineData(16)]
+	[InlineData(int.MaxValue)]
+	public void Sleep_GeneralCall_ResetsPlayerActionsToMax(int maxActionCount)
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
-		var player = new Player(map, 0);
+		var player = new Player(map, maxActionCount);
 
 		/// Act
 		player.Sleep();
 
 		/// Assert
-		player.Actions.ShouldBe(10);
+		player.Actions.ShouldBe(maxActionCount);
 	}
 }

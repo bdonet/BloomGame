@@ -10,12 +10,15 @@ public class Player
 
 	readonly Map _map;
 
+	readonly int _actionsPerDay;
+
 	public Player(Map map, int actionsPerDay)
 	{
 		_map = map;
 		_locationX = 1;
 		_locationY = 1;
 		Actions = actionsPerDay;
+		_actionsPerDay = actionsPerDay;
 	}
 
 	public void FertilizeSoil(int levels)
@@ -48,7 +51,7 @@ public class Player
 			_locationY--;
 	}
 
-	public void Sleep() { Actions = 10; }
+	public void Sleep() { Actions = _actionsPerDay; }
 
 	public void TightenSoil(int levels)
 	{
