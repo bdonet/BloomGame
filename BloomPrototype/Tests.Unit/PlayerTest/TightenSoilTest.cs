@@ -28,4 +28,19 @@ public class TightenSoilTest
 		/// Assert
 		map.GetSoil(1, 1).Retention.ShouldBe(expectedRetention);
 	}
+
+	[Fact]
+	public void TightenSoil_GeneralCall_DecrementsPlayerActionCount()
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(2);
+
+		var player = new Player(map);
+
+		/// Act
+		player.TightenSoil(1);
+
+		/// Assert
+		player.Actions.ShouldBe(9);
+	}
 }

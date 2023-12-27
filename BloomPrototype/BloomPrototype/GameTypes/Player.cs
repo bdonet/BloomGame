@@ -10,8 +10,6 @@ public class Player
 
 	readonly Map _map;
 
-	public int Actions { get; private set; }
-
 	public Player(Map map)
 	{
 		_map = map;
@@ -20,7 +18,11 @@ public class Player
 		Actions = 10;
 	}
 
-	public void FertilizeSoil(int levels) { Location.Fertilize(levels); }
+	public void FertilizeSoil(int levels)
+	{
+		Location.Fertilize(levels);
+		Actions--;
+	}
 
 	public void MoveDown()
 	{
@@ -48,9 +50,19 @@ public class Player
 
 	public void Sleep() { Actions = 10; }
 
-	public void TightenSoil(int levels) { Location.Tighten(levels); }
+	public void TightenSoil(int levels)
+	{
+		Location.Tighten(levels);
+		Actions--;
+	}
 
-	public void WaterSoil(int levels) { Location.Water(levels); }
+	public void WaterSoil(int levels)
+	{
+		Location.Water(levels);
+		Actions--;
+	}
+
+	public int Actions { get; private set; }
 
 	public Soil Location => _map.GetSoil(_locationX, _locationY);
 }

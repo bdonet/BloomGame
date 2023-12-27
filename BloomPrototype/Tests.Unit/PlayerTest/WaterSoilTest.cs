@@ -28,4 +28,19 @@ public class WaterSoilTest
 		/// Assert
 		map.GetSoil(1, 1).WaterLevel.ShouldBe(expectedWaterLevel);
 	}
+
+	[Fact]
+	public void WaterSoil_GeneralCall_DecrementsPlayerActionCount()
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(2);
+
+		var player = new Player(map);
+
+		/// Act
+		player.WaterSoil(1);
+
+		/// Assert
+		player.Actions.ShouldBe(9);
+	}
 }

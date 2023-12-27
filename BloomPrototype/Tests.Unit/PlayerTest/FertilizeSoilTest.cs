@@ -28,4 +28,19 @@ public class FertilizeSoilTest
 		/// Assert
 		map.GetSoil(1, 1).Fertility.ShouldBe(expectedFertility);
 	}
+
+	[Fact]
+	public void FertilizeSoil_GeneralCall_DecrementsPlayerActionCount()
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(2);
+
+		var player = new Player(map);
+
+		/// Act
+		player.FertilizeSoil(1);
+
+		/// Assert
+		player.Actions.ShouldBe(9);
+	}
 }
