@@ -25,9 +25,9 @@
 <br/>
 <p>Move: Arrow keys</p>
 <p>Complete Day: Enter</p>
-<p>Fertilize: J</p>
-<p>Water: K</p>
-<p>Tighten: L</p>
+<p>Fertilize: J/U</p>
+<p>Water: K/I</p>
+<p>Tighten: L/O</p>
 
 @code {
 	private Map WorldMap;
@@ -79,6 +79,15 @@
 				break;
 			case "KeyL":
 				Player.Location.Tighten(1);
+				break;
+			case "KeyU":
+				Player.Location.Fertilize(-1);
+				break;
+			case "KeyI":
+				Player.Location.Water(-1);
+				break;
+			case "KeyO":
+				Player.Location.Tighten(-1);
 				break;
 		}
 
