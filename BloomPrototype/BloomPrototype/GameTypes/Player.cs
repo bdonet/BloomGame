@@ -17,6 +17,8 @@ public class Player
 		_locationY = 1;
 	}
 
+	public void FertilizeSoil(int levels) { Location.Fertilize(levels); }
+
 	public void MoveDown()
 	{
 		if (_locationY != _map.Grid.GetUpperBound(1))
@@ -40,6 +42,10 @@ public class Player
 		if (_locationY != 0)
 			_locationY--;
 	}
+
+	public void TightenSoil(int levels) { Location.Tighten(levels); }
+
+	public void WaterSoil(int levels) { Location.Water(levels); }
 
 	public Soil Location => _map.GetSoil(_locationX, _locationY);
 }
