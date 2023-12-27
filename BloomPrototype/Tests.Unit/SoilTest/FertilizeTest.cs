@@ -60,4 +60,59 @@ public class FertilizeTest
 		/// Assert
 		soil.Fertility.ShouldBe(SoilFertility.Overgrown);
 	}
+
+	[Theory]
+	[InlineData(-1, SoilFertility.Thriving)]
+	[InlineData(-2, SoilFertility.Alive)]
+	[InlineData(-3, SoilFertility.Struggling)]
+	[InlineData(-4, SoilFertility.Dead)]
+	public void Fertilize_WorseningMaximumSoil_DecreasesSoilFertilityByGivenLevels(int levelsToIncrease,
+																					SoilFertility expectedFertility)
+	{
+		/// Arrange
+		var soil = new Soil { Fertility = SoilFertility.Overgrown };
+
+		/// Act
+		soil.Fertilize(levelsToIncrease);
+
+		/// Assert
+		soil.Fertility.ShouldBe(expectedFertility);
+	}
+
+	[Theory]
+	[InlineData(SoilFertility.Overgrown, SoilFertility.Thriving)]
+	[InlineData(SoilFertility.Thriving, SoilFertility.Alive)]
+	[InlineData(SoilFertility.Alive, SoilFertility.Struggling)]
+	[InlineData(SoilFertility.Struggling, SoilFertility.Dead)]
+	public void Fertilize_WorseningNonMinSoilByOneLevel_DecreasesSoilFertilityByOneLevel(SoilFertility originalFertility,
+																							SoilFertility expectedFertility)
+	{
+		/// Arrange
+		var soil = new Soil { Fertility = originalFertility };
+
+		/// Act
+		soil.Fertilize(-1);
+
+		/// Assert
+		soil.Fertility.ShouldBe(expectedFertility);
+	}
+
+	[Theory]
+	[InlineData(-5, SoilFertility.Overgrown)]
+	[InlineData(-4, SoilFertility.Thriving)]
+	[InlineData(-3, SoilFertility.Alive)]
+	[InlineData(-2, SoilFertility.Struggling)]
+	[InlineData(-1, SoilFertility.Dead)]
+	public void Fertilize_WorseningSoilBeyondMinFertility_SetsSoilFertilityToMin(int levelsToIncrease,
+																				SoilFertility originalFertility)
+	{
+		/// Arrange
+		var soil = new Soil { Fertility = originalFertility };
+
+		/// Act
+		soil.Fertilize(levelsToIncrease);
+
+		/// Assert
+		soil.Fertility.ShouldBe(SoilFertility.Dead);
+	}
 }

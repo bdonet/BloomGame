@@ -11,6 +11,8 @@ public class Soil
 
 		if (integerValue > (int)SoilFertility.Overgrown)
 			Fertility = SoilFertility.Overgrown;
+		else if (integerValue < (int)SoilFertility.Dead)
+			Fertility = SoilFertility.Dead;
 		else
 			Fertility = (SoilFertility)integerValue;
 	}
