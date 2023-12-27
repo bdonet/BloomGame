@@ -20,7 +20,7 @@ public class FertilizeSoilTest
 		var map = MapHelper.SetupTestMap(2);
 		map.GetSoil(1, 1).Fertility = SoilFertility.Dead;
 
-		var player = new Player(map);
+		var player = new Player(map, 0);
 
 		/// Act
 		player.FertilizeSoil(levelsToIncrease);
@@ -35,7 +35,7 @@ public class FertilizeSoilTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
-		var player = new Player(map);
+		var player = new Player(map, 0);
 
 		/// Act
 		player.FertilizeSoil(1);

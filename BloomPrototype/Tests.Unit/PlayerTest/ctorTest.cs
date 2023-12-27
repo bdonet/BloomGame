@@ -15,22 +15,26 @@ public class ctorTest
 		var map = MapHelper.SetupTestMap(2);
 
 		/// Act
-		var player = new Player(map);
+		var player = new Player(map, 0);
 
 		/// Assert
 		player.Location.ShouldBe(map.GetSoil(1, 1));
 	}
 
-	[Fact]
-	public void ctor_GeneralCall_SetsPlayerActionsTo10()
+	[Theory]
+	[InlineData(1)]
+	[InlineData(2)]
+	[InlineData(35)]
+	[InlineData(int.MaxValue)]
+	public void ctor_GeneralCall_SetsPlayerActionsToGivenCount(int count)
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
 		/// Act
-		var player = new Player(map);
+		var player = new Player(map, count);
 
 		/// Assert
-		player.Actions.ShouldBe(10);
+		player.Actions.ShouldBe(count);
 	}
 }

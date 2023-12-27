@@ -10,12 +10,12 @@ public class Player
 
 	readonly Map _map;
 
-	public Player(Map map)
+	public Player(Map map, int actionsPerDay)
 	{
 		_map = map;
 		_locationX = 1;
 		_locationY = 1;
-		Actions = 10;
+		Actions = actionsPerDay;
 	}
 
 	public void FertilizeSoil(int levels)

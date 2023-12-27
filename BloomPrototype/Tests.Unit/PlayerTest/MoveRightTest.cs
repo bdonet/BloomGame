@@ -14,7 +14,7 @@ public class MoveRightTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
-		var player = new Player(map);
+		var player = new Player(map, 0);
 		player.MoveLeft();
 
 		/// Act
@@ -30,7 +30,7 @@ public class MoveRightTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2, 3);
 
-		var player = new Player(map);
+		var player = new Player(map, 0);
 
 		/// Act
 		player.MoveRight();

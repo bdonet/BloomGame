@@ -20,7 +20,7 @@ public class WaterSoilTest
 		var map = MapHelper.SetupTestMap(2);
 		map.GetSoil(1, 1).WaterLevel = SoilWaterLevel.Parched;
 
-		var player = new Player(map);
+		var player = new Player(map, 0);
 
 		/// Act
 		player.WaterSoil(levelsToIncrease);
@@ -35,7 +35,7 @@ public class WaterSoilTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
-		var player = new Player(map);
+		var player = new Player(map, 0);
 
 		/// Act
 		player.WaterSoil(1);

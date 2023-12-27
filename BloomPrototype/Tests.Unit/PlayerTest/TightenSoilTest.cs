@@ -20,7 +20,7 @@ public class TightenSoilTest
 		var map = MapHelper.SetupTestMap(2);
 		map.GetSoil(1, 1).Retention = SoilRetention.Dust;
 
-		var player = new Player(map);
+		var player = new Player(map, 0);
 
 		/// Act
 		player.TightenSoil(levelsToIncrease);
@@ -35,7 +35,7 @@ public class TightenSoilTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
-		var player = new Player(map);
+		var player = new Player(map, 0);
 
 		/// Act
 		player.TightenSoil(1);

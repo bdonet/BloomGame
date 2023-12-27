@@ -14,7 +14,7 @@ public class SleepTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
-		var player = new Player(map);
+		var player = new Player(map, 0);
 
 		/// Act
 		player.Sleep();

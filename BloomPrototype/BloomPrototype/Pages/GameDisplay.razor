@@ -2,7 +2,8 @@
 @using BloomPrototype.GameTypes
 @using BloomPrototype.GameTypes.Soils
 @using BloomPrototype.Services;
-@inject MapFactory MapFactory
+@inject MapFactory MapFactory;
+@inject IConfiguration Configuration;
 
 
 <table @onkeydown="e => KeyPress(e)" tabindex="0">
@@ -51,7 +52,7 @@
 	{
 		WorldMap = MapFactory.GenerateMap();
 		MapView = WorldMap.GetView(startX, startY);
-		Player = new Player(WorldMap);
+		Player = new Player(WorldMap, Convert.ToInt32(Configuration["ActionsPerDay"]));
 
 		base.OnInitialized();
 	}

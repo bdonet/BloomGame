@@ -14,7 +14,7 @@ public class MoveDownTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
-		var player = new Player(map);
+		var player = new Player(map, 0);
 		player.MoveUp();
 
 		/// Act
@@ -30,7 +30,7 @@ public class MoveDownTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(3, 2);
 
-		var player = new Player(map);
+		var player = new Player(map, 0);
 
 		/// Act
 		player.MoveDown();
