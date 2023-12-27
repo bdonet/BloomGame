@@ -21,7 +21,13 @@
 
 <br/>
 
-<p>Days: @Days</p>
+<table>
+	<tr>
+		<td>Days: @Days</td>
+		<td>Actions: @Player.Actions</td>
+	</tr>
+</table>
+
 <br/>
 <p>Move: Arrow keys</p>
 <p>Complete Day: Enter</p>
@@ -58,6 +64,7 @@
 			case "Enter":
 				Days++;
 				MapFactory.SmoothMap(WorldMap);
+				Player.Sleep();
 				break;
 			case "KeyW":
 				Player.MoveUp();
