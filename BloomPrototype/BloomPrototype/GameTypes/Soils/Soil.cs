@@ -33,6 +33,8 @@ public class Soil
 
 		if (integerValue > (int)SoilWaterLevel.Flooded)
 			WaterLevel = SoilWaterLevel.Flooded;
+		else if (integerValue < (int)SoilWaterLevel.Parched)
+			WaterLevel = SoilWaterLevel.Parched;
 		else
 			WaterLevel = (SoilWaterLevel)integerValue;
 	}
