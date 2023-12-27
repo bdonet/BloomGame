@@ -123,14 +123,14 @@ public class GenerateMap
 	}
 
 	[Fact]
-	public void GenerateMap_GridSizeIsWithinSizeBounds_MapGridContainsAWeedWithinFirst5By5()
+	public void GenerateMap_GridSizeIsWithinSizeBounds_MapGridContainsAWeedWithinFirst7By7()
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
 		Mock.Arrange(() => soilFactory.GenerateSoil()).Returns(() => new Soil());
 
 		var configuration = Mock.Create<IConfiguration>();
-		Mock.Arrange(() => configuration["WorldSize"]).Returns(5.ToString());
+		Mock.Arrange(() => configuration["WorldSize"]).Returns(7.ToString());
 		Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(1.ToString());
 		Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(100.ToString());
 		Mock.Arrange(() => configuration["ContextRadius"]).Returns(1.ToString());
@@ -150,14 +150,14 @@ public class GenerateMap
 	}
 
 	[Fact]
-	public void GenerateMap_GridSizeIsWithinSizeBounds_MapGridContainsATomatoWithinFirst5By5()
+	public void GenerateMap_GridSizeIsWithinSizeBounds_MapGridContainsATomatoWithinFirst7By7()
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
 		Mock.Arrange(() => soilFactory.GenerateSoil()).Returns(() => new Soil());
 
 		var configuration = Mock.Create<IConfiguration>();
-		Mock.Arrange(() => configuration["WorldSize"]).Returns(5.ToString());
+		Mock.Arrange(() => configuration["WorldSize"]).Returns(7.ToString());
 		Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(1.ToString());
 		Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(100.ToString());
 		Mock.Arrange(() => configuration["ContextRadius"]).Returns(1.ToString());
@@ -177,14 +177,14 @@ public class GenerateMap
 	}
 
 	[Fact]
-	public void GenerateMap_GridSizeIsWithinSizeBounds_MapGridContainsATreeWithinFirst5By5()
+	public void GenerateMap_GridSizeIsWithinSizeBounds_MapGridContainsATreeWithinFirst7By7()
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
 		Mock.Arrange(() => soilFactory.GenerateSoil()).Returns(() => new Soil());
 
 		var configuration = Mock.Create<IConfiguration>();
-		Mock.Arrange(() => configuration["WorldSize"]).Returns(5.ToString());
+		Mock.Arrange(() => configuration["WorldSize"]).Returns(7.ToString());
 		Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(1.ToString());
 		Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(100.ToString());
 		Mock.Arrange(() => configuration["ContextRadius"]).Returns(1.ToString());
@@ -204,14 +204,14 @@ public class GenerateMap
 	}
 
 	[Fact]
-	public void GenerateMap_GridSizeIsWithinSizeBounds_MapGridContainsAWheatWithinFirst5By5()
+	public void GenerateMap_GridSizeIsWithinSizeBounds_MapGridContainsAWheatWithinFirst7By7()
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
 		Mock.Arrange(() => soilFactory.GenerateSoil()).Returns(() => new Soil());
 
 		var configuration = Mock.Create<IConfiguration>();
-		Mock.Arrange(() => configuration["WorldSize"]).Returns(5.ToString());
+		Mock.Arrange(() => configuration["WorldSize"]).Returns(7.ToString());
 		Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(1.ToString());
 		Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(100.ToString());
 		Mock.Arrange(() => configuration["ContextRadius"]).Returns(1.ToString());
@@ -224,10 +224,10 @@ public class GenerateMap
 		var result = factory.GenerateMap();
 
 		/// Assert
-		var view = result.GetView(0, 0);
+		var view = result.GetView(0, 0, 6, 6);
 
-		view[1, 4].GrowingPlant.ShouldNotBeNull();
-		view[1, 4].GrowingPlant.ShouldBeOfType<Wheat>();
+		view[6, 4].GrowingPlant.ShouldNotBeNull();
+		view[6, 4].GrowingPlant.ShouldBeOfType<Wheat>();
 	}
 
 	[Fact]
@@ -238,7 +238,7 @@ public class GenerateMap
 		Mock.Arrange(() => soilFactory.GenerateSoil()).Returns(() => new Soil());
 
 		var configuration = Mock.Create<IConfiguration>();
-		Mock.Arrange(() => configuration["WorldSize"]).Returns(5.ToString());
+		Mock.Arrange(() => configuration["WorldSize"]).Returns(7.ToString());
 		Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(1.ToString());
 		Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(100.ToString());
 		Mock.Arrange(() => configuration["ContextRadius"]).Returns(1.ToString());
