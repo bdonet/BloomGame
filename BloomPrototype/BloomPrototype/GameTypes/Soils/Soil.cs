@@ -15,7 +15,15 @@ public class Soil
 			Fertility = (SoilFertility)integerValue;
 	}
 
-	public void Water(int levels) { throw new NotImplementedException(); }
+	public void Water(int levels)
+	{
+		var integerValue = ((int)WaterLevel) + levels;
+
+		if (integerValue > (int)SoilWaterLevel.Flooded)
+			WaterLevel = SoilWaterLevel.Flooded;
+		else
+			WaterLevel = (SoilWaterLevel)integerValue;
+	}
 
 	public SoilFertility Fertility { get; set; }
 
