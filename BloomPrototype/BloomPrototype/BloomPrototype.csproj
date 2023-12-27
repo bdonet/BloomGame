@@ -7,7 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="GameProcesses\" />
+    <Compile Remove="GameProcesses\**" />
+    <Content Remove="GameProcesses\**" />
+    <EmbeddedResource Remove="GameProcesses\**" />
+    <None Remove="GameProcesses\**" />
   </ItemGroup>
 
 </Project>
