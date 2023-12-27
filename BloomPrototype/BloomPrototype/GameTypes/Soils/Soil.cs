@@ -15,6 +15,16 @@ public class Soil
 			Fertility = (SoilFertility)integerValue;
 	}
 
+	public void Tighten(int levels)
+	{
+		var integerValue = ((int)Retention) + levels;
+
+		if (integerValue > (int)SoilRetention.Packed)
+			Retention = SoilRetention.Packed;
+		else
+			Retention = (SoilRetention)integerValue;
+	}
+
 	public void Water(int levels)
 	{
 		var integerValue = ((int)WaterLevel) + levels;
