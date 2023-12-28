@@ -15,7 +15,7 @@ public class WaterSoilTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
-		var player = new Player(map, 1);
+		var player = new Player(map, 0, 0, 1);
 
 		/// Act
 		player.WaterSoil(1);
@@ -33,16 +33,16 @@ public class WaterSoilTest
 																			SoilWaterLevel expectedWaterLevel)
 	{
 		/// Arrange
-		var map = MapHelper.SetupTestMap(2);
-		map.GetSoil(1, 1).WaterLevel = SoilWaterLevel.Parched;
+		var map = MapHelper.SetupTestMap(1);
+		map.GetSoil(0, 0).WaterLevel = SoilWaterLevel.Parched;
 
-		var player = new Player(map, 1);
+		var player = new Player(map, 0, 0, 1);
 
 		/// Act
 		player.WaterSoil(levelsToIncrease);
 
 		/// Assert
-		map.GetSoil(1, 1).WaterLevel.ShouldBe(expectedWaterLevel);
+		map.GetSoil(0, 0).WaterLevel.ShouldBe(expectedWaterLevel);
 	}
 
 	[Fact]
@@ -51,7 +51,7 @@ public class WaterSoilTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
-		var player = new Player(map, 0);
+		var player = new Player(map, 0, 0, 0);
 
 		/// Act
 		player.WaterSoil(1);
@@ -67,7 +67,7 @@ public class WaterSoilTest
 		var map = MapHelper.SetupTestMap(2);
 		map.GetSoil(1, 1).WaterLevel = SoilWaterLevel.Parched;
 
-		var player = new Player(map, 0);
+		var player = new Player(map, 0, 0, 0);
 
 		/// Act
 		player.WaterSoil(1);

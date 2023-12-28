@@ -15,7 +15,7 @@ public class TightenSoilTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
-		var player = new Player(map, 1);
+		var player = new Player(map, 0, 0, 1);
 
 		/// Act
 		player.TightenSoil(1);
@@ -33,16 +33,16 @@ public class TightenSoilTest
 																			SoilRetention expectedRetention)
 	{
 		/// Arrange
-		var map = MapHelper.SetupTestMap(2);
-		map.GetSoil(1, 1).Retention = SoilRetention.Dust;
+		var map = MapHelper.SetupTestMap(1);
+		map.GetSoil(0, 0).Retention = SoilRetention.Dust;
 
-		var player = new Player(map, 1);
+		var player = new Player(map, 0, 0, 1);
 
 		/// Act
 		player.TightenSoil(levelsToIncrease);
 
 		/// Assert
-		map.GetSoil(1, 1).Retention.ShouldBe(expectedRetention);
+		map.GetSoil(0, 0).Retention.ShouldBe(expectedRetention);
 	}
 
 	[Fact]
@@ -51,7 +51,7 @@ public class TightenSoilTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
-		var player = new Player(map, 0);
+		var player = new Player(map, 0, 0, 0);
 
 		/// Act
 		player.TightenSoil(1);
@@ -67,7 +67,7 @@ public class TightenSoilTest
 		var map = MapHelper.SetupTestMap(2);
 		map.GetSoil(1, 1).Retention = SoilRetention.Dust;
 
-		var player = new Player(map, 0);
+		var player = new Player(map, 0, 0, 0);
 
 		/// Act
 		player.TightenSoil(1);

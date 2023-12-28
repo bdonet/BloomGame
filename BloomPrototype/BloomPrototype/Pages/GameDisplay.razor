@@ -52,7 +52,7 @@
 	{
 		WorldMap = MapFactory.GenerateMap();
 		MapView = WorldMap.GetView(startX, startY);
-		Player = new Player(WorldMap, Convert.ToInt32(Configuration["ActionsPerDay"]));
+		Player = new Player(WorldMap, 1, 1, Convert.ToInt32(Configuration["ActionsPerDay"]));
 
 		base.OnInitialized();
 	}

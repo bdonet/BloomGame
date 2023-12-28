@@ -8,17 +8,21 @@ namespace Tests.Unit.PlayerTest;
 
 public class ctorTest
 {
-	[Fact]
-	public void ctor_GeneralCall_SetsPlayerLocationToSoilAtX1Y1()
+	[Theory]
+	[InlineData(0, 0)]
+	[InlineData(0, 1)]
+	[InlineData(1, 0)]
+	[InlineData(1, 1)]
+	public void ctor_GeneralCall_SetsPlayerLocationToGivenLocationXAndLocationY(int expectedX, int expectedY)
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
 		/// Act
-		var player = new Player(map, 0);
+		var player = new Player(map, expectedX, expectedY, 0);
 
 		/// Assert
-		player.Location.ShouldBe(map.GetSoil(1, 1));
+		player.Location.ShouldBe(map.GetSoil(expectedX, expectedY));
 	}
 
 	[Theory]
@@ -32,7 +36,7 @@ public class ctorTest
 		var map = MapHelper.SetupTestMap(2);
 
 		/// Act
-		var player = new Player(map, count);
+		var player = new Player(map, 0, 0, count);
 
 		/// Assert
 		player.Actions.ShouldBe(count);

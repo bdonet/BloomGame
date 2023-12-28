@@ -9,11 +9,11 @@ public class Player
 	int _locationY;
 	readonly Map _map;
 
-	public Player(Map map, int actionsPerDay)
+	public Player(Map map, int locationX, int locationY, int actionsPerDay)
 	{
 		_map = map;
-		_locationX = 1;
-		_locationY = 1;
+		_locationX = locationX;
+		_locationY = locationY;
 		Actions = actionsPerDay;
 		_actionsPerDay = actionsPerDay;
 	}
