@@ -14,5 +14,6 @@ public class Tomato : Plant
 
 	public const int LifespanDays = 2 * 12 * 30;
 
-	public Tomato(Map map, int locationX, int locationY) : base(map, locationX, locationY) { }
+	public Tomato(Map map, int locationX, int locationY, PlantMaturity maturity)
+			: base(map, locationX, locationY, maturity) { }
 }

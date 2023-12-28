@@ -19,9 +19,22 @@ public class ctorTest
 		var map = MapHelper.SetupTestMap(2);
 
 		/// Act
-		var tree = new Tree(map, expectedX, expectedY);
+		var tree = new Tree(map, expectedX, expectedY, PlantMaturity.Seedling);
 
 		/// Assert
 		tree.Location.ShouldBe(map.GetSoil(expectedX, expectedY));
+	}
+
+	[Fact]
+	public void ctor_GeneralCall_SetsCactusMaturityToGivenMaturity()
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(1);
+
+		/// Act
+		var tree = new Tree(map, 0, 0, PlantMaturity.Seedling);
+
+		/// Assert
+		tree.Maturity.ShouldBe(PlantMaturity.Seedling);
 	}
 }

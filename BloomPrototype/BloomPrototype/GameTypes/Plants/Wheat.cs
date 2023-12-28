@@ -15,5 +15,6 @@ public class Wheat : Plant
 
 	List<Grain>? Fruit;
 
-	public Wheat(Map map, int locationX, int locationY) : base(map, locationX, locationY) { }
+	public Wheat(Map map, int locationX, int locationY, PlantMaturity maturity)
+			: base(map, locationX, locationY, maturity) { }
 }

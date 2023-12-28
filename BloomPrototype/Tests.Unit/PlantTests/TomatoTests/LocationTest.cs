@@ -18,7 +18,7 @@ public class LocationTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
-		var tomato = new Tomato(map, expectedX, expectedY);
+		var tomato = new Tomato(map, expectedX, expectedY, PlantMaturity.Seedling);
 
 		/// Act
 		var result = tomato.Location;

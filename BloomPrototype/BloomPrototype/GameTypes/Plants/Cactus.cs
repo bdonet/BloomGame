@@ -15,5 +15,6 @@ public class Cactus : Plant
 
 	public const int LifespanDays = 1 * 12 * 30;
 
-	public Cactus(Map map, int locationX, int locationY) : base(map, locationX, locationY) { }
+	public Cactus(Map map, int locationX, int locationY, PlantMaturity maturity)
+			: base(map, locationX, locationY, maturity) { }
 }

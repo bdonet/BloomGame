@@ -2,7 +2,9 @@ namespace BloomPrototype.GameTypes.Plants;
 
 public abstract class Plant : SurfaceObject
 {
-	public Plant(Map map, int locationX, int locationY) : base(map, locationX, locationY) { }
+	public Plant(Map map, int locationX, int locationY, PlantMaturity maturity)
+			: base(map, locationX, locationY)
+	{ Maturity = maturity; }
 
-	protected PlantMaturity Maturity { get; set; }
+	public PlantMaturity Maturity { get; protected set; }
 }

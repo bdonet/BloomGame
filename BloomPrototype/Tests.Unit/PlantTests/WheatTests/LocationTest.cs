@@ -18,7 +18,7 @@ public class LocationTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
-		var wheat = new Wheat(map, expectedX, expectedY);
+		var wheat = new Wheat(map, expectedX, expectedY, PlantMaturity.Seedling);
 
 		/// Act
 		var result = wheat.Location;

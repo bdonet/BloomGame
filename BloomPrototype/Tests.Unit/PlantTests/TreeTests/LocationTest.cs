@@ -18,7 +18,7 @@ public class LocationTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
-		var tree = new Tree(map, expectedX, expectedY);
+		var tree = new Tree(map, expectedX, expectedY, PlantMaturity.Seedling);
 
 		/// Act
 		var result = tree.Location;
