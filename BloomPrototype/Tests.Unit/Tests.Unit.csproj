@@ -29,4 +29,8 @@
     <ProjectReference Include="..\Tests.Utilities\Tests.Utilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PlantTest\Cactus\" />
+  </ItemGroup>
+
 </Project>
