@@ -11,14 +11,14 @@ public class ctorTests
 	[Theory]
 	[InlineData(0, 0)]
 	[InlineData(1, 2)]
-	[InlineData(16, 81)]
-	[InlineData(int.MaxValue, int.MaxValue)]
+	[InlineData(10, 15)]
+	[InlineData(19, 19)]
 	public void ctor_GivenCoordinatesAreValid_CreatedObjectHasGivenCoordinates(int expectedX, int expectedY)
 	{
 		/// Arrange
 
 		/// Act
-		var result = new MapCoordinate(expectedX, expectedY);
+		var result = new MapCoordinate(expectedX, expectedY, MapHelper.SetupTestMap(20));
 
 		/// Assert
 		result.X.ShouldBe(expectedX);
@@ -34,7 +34,7 @@ public class ctorTests
 		/// Arrange
 
 		/// Act
-		var exception = Record.Exception(() => new MapCoordinate(x, y));
+		var exception = Record.Exception(() => new MapCoordinate(x, y, MapHelper.SetupTestMap(1)));
 
 		/// Assert
 		exception.ShouldNotBeNull();
@@ -42,5 +42,28 @@ public class ctorTests
 		exception.Message.ShouldContain(nameof(MapCoordinate));
 		exception.Message.ShouldContain("negative");
 		exception.Message.ShouldContain("coordinate");
+	}
+
+	[Theory]
+	[InlineData(1, 0)]
+	[InlineData(0, 1)]
+	[InlineData(2, 3)]
+	[InlineData(int.MaxValue, int.MaxValue)]
+	public void ctor_AtLeastOneCoordinateIsBeyondEdgeOfGivenMap_ThrowsExceptionWithMessage(int x, int y)
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(1);
+
+		/// Act
+		var exception = Record.Exception(() => new MapCoordinate(x, y, map));
+
+		/// Assert
+		exception.ShouldNotBeNull();
+		exception.ShouldBeOfType<ArgumentException>();
+		exception.Message.ShouldContain(nameof(MapCoordinate));
+		exception.Message.ShouldContain("coordinate");
+		exception.Message.ShouldContain("beyond");
+		exception.Message.ShouldContain("edge");
+		exception.Message.ShouldContain("map");
 	}
 }
