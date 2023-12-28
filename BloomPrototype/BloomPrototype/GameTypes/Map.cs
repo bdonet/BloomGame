@@ -26,21 +26,6 @@ public class Map
 
 		return GetSoil(coordinate.X, coordinate.Y);
 	}
-    
-    public Soil[,] GetView(int startX, int startY, int endX, int endY)
-	{
-		var result = new Soil[endX - startX + 1, endY - startY + 1];
-
-		for (int x = 0; x < endX - startX + 1; x++)
-		{
-			for (int y = 0; y < endY - startY + 1; y++)
-			{
-				result[x, y] = Grid[startX + x, startY + y];
-			}
-		}
-
-		return result;
-	}
 
 	/// <summary>
 	/// Returns the portion of the map bounded by the given coordinates, inclusively
@@ -63,11 +48,9 @@ public class Map
 		return result;
 	}
 
-    public Soil[,] GetView(int startX, int startY)
-    {
-		return GetView(startX, startY, startX + ViewSize - 1, startY + ViewSize - 1);
-    }
-
+	/// <summary>
+	/// Returns the portion of the map that starts at the given coordinate and extends to the configured view size
+	/// </summary>
 	public Soil[,] GetView(MapCoordinate startCoordinate)
 	{
 		return GetView(startCoordinate, new MapCoordinate(startCoordinate.X + ViewSize - 1, startCoordinate.Y + ViewSize - 1, this));
@@ -82,7 +65,7 @@ public class Map
 
 		var startX = viewsX * ViewSize;
 		var startY = viewsY * ViewSize;
-		return GetView(startX, startY);
+		return GetView(new MapCoordinate(startX, startY, this));
     }
 
 	private (int, int) FindTargetSoil(Soil targetSoil)

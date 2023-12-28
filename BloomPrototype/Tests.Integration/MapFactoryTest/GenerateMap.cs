@@ -1,4 +1,5 @@
-﻿using BloomPrototype.GameTypes.Soils;
+﻿using BloomPrototype.GameTypes;
+using BloomPrototype.GameTypes.Soils;
 using BloomPrototype.Services;
 using Shouldly;
 
@@ -13,9 +14,9 @@ public class GenerateMap : BaseMapFactoryIntegrationTest
 
 		/// Act
 		var result = factory.GenerateMap();
-		
+
 		/// Assert
-		foreach (var item in result.GetView(0, 0, 99, 99))
+		foreach (var item in result.GetView(new MapCoordinate(0, 0, result), new MapCoordinate(99, 99, result)))
 		{
 			item.ShouldNotBeNull();
 		}
@@ -31,7 +32,7 @@ public class GenerateMap : BaseMapFactoryIntegrationTest
 		var result = factory.GenerateMap();
 
 		/// Assert
-		foreach (var item in result.GetView(0, 0, 99, 99))
+		foreach (var item in result.GetView(new MapCoordinate(0, 0, result), new MapCoordinate(99, 99, result)))
 		{
 			item.Fertility.ShouldNotBe(SoilFertility.Alive);
 			item.Fertility.ShouldNotBe(SoilFertility.Thriving);
@@ -49,7 +50,7 @@ public class GenerateMap : BaseMapFactoryIntegrationTest
 		var result = factory.GenerateMap();
 
 		/// Assert
-		foreach (var item in result.GetView(0, 0, 99, 99))
+		foreach (var item in result.GetView(new MapCoordinate(0, 0, result), new MapCoordinate(99, 99, result)))
 		{
 			item.WaterLevel.ShouldNotBe(SoilWaterLevel.Moist);
 			item.WaterLevel.ShouldNotBe(SoilWaterLevel.Wet);

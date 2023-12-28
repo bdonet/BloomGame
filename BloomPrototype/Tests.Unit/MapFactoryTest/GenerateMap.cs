@@ -1,4 +1,5 @@
-﻿using BloomPrototype.GameTypes.Plants;
+﻿using BloomPrototype.GameTypes;
+using BloomPrototype.GameTypes.Plants;
 using BloomPrototype.GameTypes.Soils;
 using BloomPrototype.Services;
 using Microsoft.Extensions.Configuration;
@@ -33,7 +34,8 @@ public class GenerateMap
 		var result = factory.GenerateMap();
 
 		/// Assert
-		var view = result.GetView(0, 0, expectedSize - 1, expectedSize - 1);
+		var view = result.GetView(new MapCoordinate(0, 0, result),
+									new MapCoordinate(expectedSize - 1, expectedSize - 1, result));
 
 		view.GetLength(0).ShouldBe(expectedSize);
 		view.GetLength(1).ShouldBe(expectedSize);
@@ -96,10 +98,7 @@ public class GenerateMap
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
-		Mock.Arrange(() => soilFactory.GenerateSoil()).Returns(() => new Soil
-		{
-			Retention = SoilRetention.Packed
-		});
+		Mock.Arrange(() => soilFactory.GenerateSoil()).Returns(() => new Soil { Retention = SoilRetention.Packed });
 
 		var configuration = Mock.Create<IConfiguration>();
 		Mock.Arrange(() => configuration["WorldSize"]).Returns(8.ToString());
@@ -116,10 +115,8 @@ public class GenerateMap
 
 		/// Assert
 		Mock.Assert(() => soilFactory.GenerateSoil(), Occurs.Exactly(8 * 8));
-		foreach (var s in result.GetView(0, 0, 7, 7))
-		{
+		foreach (var s in result.GetView(new MapCoordinate(0, 0, result), new MapCoordinate(7, 7, result)))
 			s.Retention.ShouldBe(SoilRetention.Packed);
-		}
 	}
 
 	[Fact]
@@ -143,7 +140,7 @@ public class GenerateMap
 		var result = factory.GenerateMap();
 
 		/// Assert
-		var view = result.GetView(0, 0);
+		var view = result.GetView(new MapCoordinate(0, 0, result));
 
 		view[1, 0].GrowingPlant.ShouldNotBeNull();
 		view[1, 0].GrowingPlant.ShouldBeOfType<Cactus>();
@@ -170,7 +167,7 @@ public class GenerateMap
 		var result = factory.GenerateMap();
 
 		/// Assert
-		var view = result.GetView(0, 0);
+		var view = result.GetView(new MapCoordinate(0, 0, result));
 
 		view[4, 1].GrowingPlant.ShouldNotBeNull();
 		view[4, 1].GrowingPlant.ShouldBeOfType<Tomato>();
@@ -197,7 +194,7 @@ public class GenerateMap
 		var result = factory.GenerateMap();
 
 		/// Assert
-		var view = result.GetView(0, 0);
+		var view = result.GetView(new MapCoordinate(0, 0, result));
 
 		view[2, 3].GrowingPlant.ShouldNotBeNull();
 		view[2, 3].GrowingPlant.ShouldBeOfType<Tree>();
@@ -224,7 +221,7 @@ public class GenerateMap
 		var result = factory.GenerateMap();
 
 		/// Assert
-		var view = result.GetView(0, 0, 6, 6);
+		var view = result.GetView(new MapCoordinate(0, 0, result), new MapCoordinate(6, 6, result));
 
 		view[6, 4].GrowingPlant.ShouldNotBeNull();
 		view[6, 4].GrowingPlant.ShouldBeOfType<Wheat>();
@@ -251,6 +248,7 @@ public class GenerateMap
 		var result = factory.GenerateMap();
 
 		/// Assert
-		Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.IsAny<List<Soil>>(), Arg.AnyDouble, 0), Occurs.AtLeastOnce());
+		Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.IsAny<List<Soil>>(), Arg.AnyDouble, 0),
+						Occurs.AtLeastOnce());
 	}
 }
