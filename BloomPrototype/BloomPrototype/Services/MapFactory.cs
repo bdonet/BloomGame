@@ -53,8 +53,8 @@ public class MapFactory
 
 		if (gridSize >= 5)
 		{
-			var weed = new Weed(result[1, 0]);
-			result[1, 0].GrowingPlant = weed;
+			var cactus = new Cactus(result[1, 0]);
+			result[1, 0].GrowingPlant = cactus;
 
 			var tomato = new Tomato(result[4, 1]);
 			result[4, 1].GrowingPlant = tomato;

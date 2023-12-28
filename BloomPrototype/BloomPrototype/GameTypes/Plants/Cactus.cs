@@ -3,9 +3,9 @@ using BloomPrototype.GameTypes.Soils;
 
 namespace BloomPrototype.GameTypes.Plants;
 
-public class Weed : Plant
+public class Cactus : Plant
 {
-    public Weed(Soil hostSoil)
+    public Cactus(Soil hostSoil)
     {
         HostSoil = hostSoil;
         Maturity = PlantMaturity.Seedling;

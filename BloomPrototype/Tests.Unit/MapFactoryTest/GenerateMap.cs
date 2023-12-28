@@ -146,7 +146,7 @@ public class GenerateMap
 		var view = result.GetView(0, 0);
 
 		view[1, 0].GrowingPlant.ShouldNotBeNull();
-		view[1, 0].GrowingPlant.ShouldBeOfType<Weed>();
+		view[1, 0].GrowingPlant.ShouldBeOfType<Cactus>();
 	}
 
 	[Fact]

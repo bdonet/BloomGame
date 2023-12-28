@@ -7,7 +7,7 @@ public class Sticker : Seed
 {
     protected override Soil? HostSoil { get; set; }
 
-    public static Type PlantType = typeof(Weed);
+    public static Type PlantType = typeof(Cactus);
 
     public override void Sprout() => throw new NotImplementedException();
 }
