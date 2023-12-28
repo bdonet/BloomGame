@@ -19,6 +19,13 @@ public class Map
     public Soil[,] Grid;
 
     public Soil GetSoil(int x, int y) => Grid[x, y];
+    public Soil GetSoil(MapCoordinate coordinate)
+	{
+		if (!coordinate.MatchesMap(this))
+			throw new InvalidOperationException($"Given {nameof(MapCoordinate)} was created for a different {nameof(Map)}");
+
+		return Grid[coordinate.X, coordinate.Y];
+	}
     
     public Soil[,] GetView(int startX, int startY, int endX, int endY)
 	{
