@@ -11,6 +11,11 @@ public class Map
 
     public const int ViewSize = 7;
 
+	/// <summary>
+	/// Returns the length of one side of the square map
+	/// </summary>
+	public int Size => Grid.GetUpperBound(0) + 1;
+
     public Soil[,] Grid;
 
     public Soil GetSoil(int x, int y) => Grid[x, y];
