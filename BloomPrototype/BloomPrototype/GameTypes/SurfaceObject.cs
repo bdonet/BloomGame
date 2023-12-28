@@ -15,5 +15,5 @@ public abstract class SurfaceObject
 	protected int LocationX;
 	protected int LocationY;
 
-	public Soil Location => Map.GetSoil(LocationX, LocationY);
+	public Soil Location => Map.GetSoil(new MapCoordinate(LocationX, LocationY, Map));
 }

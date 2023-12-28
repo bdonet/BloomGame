@@ -13,6 +13,7 @@ public class MoveUpTest
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
+		var coordinate = new MapCoordinate(1, 0, map);
 
 		var player = new Player(map, 1, 1, 0);
 
@@ -20,7 +21,7 @@ public class MoveUpTest
 		player.MoveUp();
 
 		/// Assert
-		player.Location.ShouldBe(map.GetSoil(1, 0));
+		player.Location.ShouldBe(map.GetSoil(coordinate));
 	}
 
 	[Fact]
@@ -28,6 +29,7 @@ public class MoveUpTest
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
+		var coordinate = new MapCoordinate(1, 0, map);
 
 		var player = new Player(map, 1, 0, 0);
 
@@ -35,6 +37,6 @@ public class MoveUpTest
 		player.MoveUp();
 
 		/// Assert
-		player.Location.ShouldBe(map.GetSoil(1, 0));
+		player.Location.ShouldBe(map.GetSoil(coordinate));
 	}
 }

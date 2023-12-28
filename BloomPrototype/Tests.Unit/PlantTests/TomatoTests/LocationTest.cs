@@ -1,4 +1,5 @@
-﻿using BloomPrototype.GameTypes.Plants;
+﻿using BloomPrototype.GameTypes;
+using BloomPrototype.GameTypes.Plants;
 using Shouldly;
 using System;
 using System.Linq;
@@ -17,6 +18,7 @@ public class LocationTest
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
+		var coordinate = new MapCoordinate(expectedX, expectedY, map);
 
 		var tomato = new Tomato(map, expectedX, expectedY, PlantMaturity.Seedling);
 
@@ -24,6 +26,6 @@ public class LocationTest
 		var result = tomato.Location;
 
 		/// Assert
-		result.ShouldBe(map.GetSoil(expectedX, expectedY));
+		result.ShouldBe(map.GetSoil(coordinate));
 	}
 }

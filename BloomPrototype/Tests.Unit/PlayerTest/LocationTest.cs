@@ -20,10 +20,11 @@ public class LocationTest
 
 		var player = new Player(map, expectedX, expectedY, 0);
 
+		var expectedCoordinate = new MapCoordinate(expectedX, expectedY, map);
 		/// Act
 		var result = player.Location;
 
 		/// Assert
-		result.ShouldBe(map.GetSoil(expectedX, expectedY));
+		result.ShouldBe(map.GetSoil(expectedCoordinate));
 	}
 }

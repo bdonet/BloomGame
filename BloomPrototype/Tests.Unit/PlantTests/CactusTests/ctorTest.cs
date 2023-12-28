@@ -1,4 +1,5 @@
-﻿using BloomPrototype.GameTypes.Plants;
+﻿using BloomPrototype.GameTypes;
+using BloomPrototype.GameTypes.Plants;
 using Shouldly;
 using System;
 using System.Linq;
@@ -18,11 +19,13 @@ public class ctorTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
+		var coordinate = new MapCoordinate(expectedX, expectedY, map);
+
 		/// Act
 		var cactus = new Cactus(map, expectedX, expectedY, PlantMaturity.Seedling);
 
 		/// Assert
-		cactus.Location.ShouldBe(map.GetSoil(expectedX, expectedY));
+		cactus.Location.ShouldBe(map.GetSoil(coordinate));
 	}
 
 	[Fact]

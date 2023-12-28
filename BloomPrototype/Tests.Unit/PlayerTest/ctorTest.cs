@@ -18,11 +18,13 @@ public class ctorTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
+		var expectedCoordinate = new MapCoordinate(expectedX, expectedY, map);
+
 		/// Act
 		var player = new Player(map, expectedX, expectedY, 0);
 
 		/// Assert
-		player.Location.ShouldBe(map.GetSoil(expectedX, expectedY));
+		player.Location.ShouldBe(map.GetSoil(expectedCoordinate));
 	}
 
 	[Theory]

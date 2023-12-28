@@ -34,7 +34,8 @@ public class FertilizeSoilTest
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(1);
-		map.GetSoil(0, 0).Fertility = SoilFertility.Dead;
+		var coordinate = new MapCoordinate(0, 0, map);
+		map.GetSoil(coordinate).Fertility = SoilFertility.Dead;
 
 		var player = new Player(map, 0, 0, 1);
 
@@ -42,7 +43,7 @@ public class FertilizeSoilTest
 		player.FertilizeSoil(levelsToIncrease);
 
 		/// Assert
-		map.GetSoil(0, 0).Fertility.ShouldBe(expectedFertility);
+		map.GetSoil(coordinate).Fertility.ShouldBe(expectedFertility);
 	}
 
 	[Fact]
@@ -65,7 +66,8 @@ public class FertilizeSoilTest
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
-		map.GetSoil(1, 1).Fertility = SoilFertility.Dead;
+		var coordinate = new MapCoordinate(1, 1, map);
+		map.GetSoil(coordinate).Fertility = SoilFertility.Dead;
 
 		var player = new Player(map, 0, 0, 0);
 
@@ -73,6 +75,6 @@ public class FertilizeSoilTest
 		player.FertilizeSoil(1);
 
 		/// Assert
-		map.GetSoil(1, 1).Fertility.ShouldBe(SoilFertility.Dead);
+		map.GetSoil(coordinate).Fertility.ShouldBe(SoilFertility.Dead);
 	}
 }

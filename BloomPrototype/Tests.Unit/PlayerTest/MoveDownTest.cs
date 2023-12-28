@@ -16,11 +16,13 @@ public class MoveDownTest
 
 		var player = new Player(map, 1, 0, 0);
 
+		var coordinate = new MapCoordinate(1, 1, map);
+
 		/// Act
 		player.MoveDown();
 
 		/// Assert
-		player.Location.ShouldBe(map.GetSoil(1, 1));
+		player.Location.ShouldBe(map.GetSoil(coordinate));
 	}
 
 	[Fact]
@@ -31,10 +33,12 @@ public class MoveDownTest
 
 		var player = new Player(map, 1, 1, 0);
 
+		var coordinate = new MapCoordinate(1, 1, map);
+
 		/// Act
 		player.MoveDown();
 
 		/// Assert
-		player.Location.ShouldBe(map.GetSoil(1, 1));
+		player.Location.ShouldBe(map.GetSoil(coordinate));
 	}
 }

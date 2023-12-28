@@ -35,16 +35,16 @@ public class MapFactory
 		if (WorldSize >= 7)
 		{
 			var cactus = new Cactus(map, 1, 0, PlantMaturity.Seedling);
-			map.GetSoil(1, 0).GrowingPlant = cactus;
+			map.GetSoil(new MapCoordinate(1, 0, map)).GrowingPlant = cactus;
 
 			var tomato = new Tomato(map, 4, 1, PlantMaturity.Seedling);
-			map.GetSoil(4, 1).GrowingPlant = tomato;
+			map.GetSoil(new MapCoordinate(4, 1, map)).GrowingPlant = tomato;
 
 			var tree = new Tree(map, 2, 3, PlantMaturity.Seedling);
-			map.GetSoil(2, 3).GrowingPlant = tree;
+			map.GetSoil(new MapCoordinate(2, 3, map)).GrowingPlant = tree;
 
 			var wheat = new Wheat(map, 6, 4, PlantMaturity.Seedling);
-			map.GetSoil(6, 4).GrowingPlant = wheat;
+			map.GetSoil(new MapCoordinate(6, 4, map)).GrowingPlant = wheat;
 		}
 
 		return map;
