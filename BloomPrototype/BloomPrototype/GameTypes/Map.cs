@@ -42,10 +42,36 @@ public class Map
 		return result;
 	}
 
+	/// <summary>
+	/// Returns the portion of the map bounded by the given coordinates, inclusively
+	/// </summary>
+	public Soil[,] GetView(MapCoordinate startCoordinate, MapCoordinate endCoordinate)
+	{
+		if (!startCoordinate.MatchesMap(this) || !endCoordinate.MatchesMap(this))
+			throw new InvalidOperationException($"Given {nameof(MapCoordinate)} was created for a different {nameof(Map)}");
+
+		var result = new Soil[endCoordinate.X - startCoordinate.X + 1, endCoordinate.Y - startCoordinate.Y + 1];
+
+		for (int x = 0; x < endCoordinate.X - startCoordinate.X + 1; x++)
+		{
+			for (int y = 0; y < endCoordinate.Y - startCoordinate.Y + 1; y++)
+			{
+				result[x, y] = Grid[startCoordinate.X + x, startCoordinate.Y + y];
+			}
+		}
+
+		return result;
+	}
+
     public Soil[,] GetView(int startX, int startY)
     {
 		return GetView(startX, startY, startX + ViewSize - 1, startY + ViewSize - 1);
     }
+
+	public Soil[,] GetView(MapCoordinate startCoordinate)
+	{
+		return GetView(startCoordinate, new MapCoordinate(startCoordinate.X + ViewSize - 1, startCoordinate.Y + ViewSize - 1, this));
+	}
 
 	public Soil[,] GetViewWithTargetSoil(Soil targetSoil)
 	{
