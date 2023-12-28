@@ -5,8 +5,6 @@ namespace BloomPrototype.GameTypes.Plants;
 
 public class Wheat : Plant
 {
-	public Wheat() { }
-
 	public const SoilFertility SoilFertilityPreference = SoilFertility.Alive;
 
 	public const SoilRetention SoilRetentionPreference = SoilRetention.Holding;
@@ -16,4 +14,6 @@ public class Wheat : Plant
 	public const int LifespanDays = 2 * 12 * 30;
 
 	List<Grain>? Fruit;
+
+	public Wheat(Map map, int locationX, int locationY) : base(map, locationX, locationY) { }
 }

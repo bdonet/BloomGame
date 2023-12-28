@@ -4,8 +4,6 @@ namespace BloomPrototype.GameTypes.Plants;
 
 public class Tomato : Plant
 {
-	public Tomato() { }
-
 	List<Seeds.Tomato>? Fruit;
 
 	public const SoilFertility SoilFertilityPreference = SoilFertility.Alive;
@@ -15,4 +13,6 @@ public class Tomato : Plant
 	public const SoilWaterLevel SoilWaterLevelPreference = SoilWaterLevel.Wet;
 
 	public const int LifespanDays = 2 * 12 * 30;
+
+	public Tomato(Map map, int locationX, int locationY) : base(map, locationX, locationY) { }
 }

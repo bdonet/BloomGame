@@ -31,7 +31,23 @@ public class MapFactory
 	{
 		var map = new Map(GenerateSoilGrid(WorldSize));
         SmoothMap(map, true);
-        return map;
+
+		if (WorldSize >= 7)
+		{
+			var cactus = new Cactus(map, 1, 0);
+			map.GetSoil(1, 0).GrowingPlant = cactus;
+
+			var tomato = new Tomato(map, 4, 1);
+			map.GetSoil(4, 1).GrowingPlant = tomato;
+
+			var tree = new Tree(map, 2, 3);
+			map.GetSoil(2, 3).GrowingPlant = tree;
+
+			var wheat = new Wheat(map, 6, 4);
+			map.GetSoil(6, 4).GrowingPlant = wheat;
+		}
+
+		return map;
 	}
 
 	private Soil[,] GenerateSoilGrid(int gridSize)
@@ -51,20 +67,6 @@ public class MapFactory
 			}
 		}
 
-		if (gridSize >= 5)
-		{
-			var cactus = new Cactus();
-			result[1, 0].GrowingPlant = cactus;
-
-			var tomato = new Tomato();
-			result[4, 1].GrowingPlant = tomato;
-
-			var tree = new Tree();
-			result[2, 3].GrowingPlant = tree;
-
-			var wheat = new Wheat();
-			result[6, 4].GrowingPlant = wheat;
-		}
 		return result;
 	}
 

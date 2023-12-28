@@ -5,8 +5,6 @@ namespace BloomPrototype.GameTypes.Plants;
 
 public class Tree : Plant
 {
-	public Tree() { }
-
 	List<Acorn>? Fruit;
 
 	public const SoilFertility SoilFertilityPreference = SoilFertility.Thriving;
@@ -16,4 +14,6 @@ public class Tree : Plant
 	public const SoilWaterLevel SoilWaterLevelPreference = SoilWaterLevel.Moist;
 
 	public const int LifespanDays = 60 * 12 * 30;
+
+	public Tree(Map map, int locationX, int locationY) : base(map, locationX, locationY) { }
 }
