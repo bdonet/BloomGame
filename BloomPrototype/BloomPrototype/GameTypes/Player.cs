@@ -1,19 +1,12 @@
-﻿using BloomPrototype.GameTypes.Soils;
+﻿namespace BloomPrototype.GameTypes;
 
-namespace BloomPrototype.GameTypes;
-
-public class Player
+public class Player : SurfaceObject
 {
 	readonly int _actionsPerDay;
-	int _locationX;
-	int _locationY;
-	readonly Map _map;
 
 	public Player(Map map, int locationX, int locationY, int actionsPerDay)
+			: base(map, locationX, locationY)
 	{
-		_map = map;
-		_locationX = locationX;
-		_locationY = locationY;
 		Actions = actionsPerDay;
 		_actionsPerDay = actionsPerDay;
 	}
@@ -29,26 +22,26 @@ public class Player
 
 	public void MoveDown()
 	{
-		if (_locationY != _map.Grid.GetUpperBound(1))
-			_locationY++;
+		if (LocationY != Map.Grid.GetUpperBound(1))
+			LocationY++;
 	}
 
 	public void MoveLeft()
 	{
-		if (_locationX != 0)
-			_locationX--;
+		if (LocationX != 0)
+			LocationX--;
 	}
 
 	public void MoveRight()
 	{
-		if (_locationX != _map.Grid.GetUpperBound(0))
-			_locationX++;
+		if (LocationX != Map.Grid.GetUpperBound(0))
+			LocationX++;
 	}
 
 	public void MoveUp()
 	{
-		if (_locationY != 0)
-			_locationY--;
+		if (LocationY != 0)
+			LocationY--;
 	}
 
 	public void Sleep() { Actions = _actionsPerDay; }
@@ -72,6 +65,4 @@ public class Player
 	}
 
 	public int Actions { get; private set; }
-
-	public Soil Location => _map.GetSoil(_locationX, _locationY);
 }
