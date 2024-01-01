@@ -22,7 +22,7 @@ public class ctorTest
 		var coordinate = new MapCoordinate(expectedX, expectedY, map);
 
 		/// Act
-		var cactus = new Cactus(map, expectedX, expectedY, PlantMaturity.Seedling);
+		var cactus = new Cactus(map, expectedX, expectedY, PlantMaturity.Sprout);
 
 		/// Assert
 		cactus.Location.ShouldBe(map.GetSoil(coordinate));
@@ -35,9 +35,9 @@ public class ctorTest
 		var map = MapHelper.SetupTestMap(1);
 
 		/// Act
-		var cactus = new Cactus(map, 0, 0, PlantMaturity.Seedling);
+		var cactus = new Cactus(map, 0, 0, PlantMaturity.Sprout);
 
 		/// Assert
-		cactus.Maturity.ShouldBe(PlantMaturity.Seedling);
+		cactus.Maturity.ShouldBe(PlantMaturity.Sprout);
 	}
 }

@@ -19,7 +19,7 @@ public class LocationTest
 		/// Arrange
 		var map = MapHelper.SetupTestMap(2);
 
-		var cactus = new Cactus(map, expectedX, expectedY, PlantMaturity.Seedling);
+		var cactus = new Cactus(map, expectedX, expectedY, PlantMaturity.Sprout);
 
 		var expectedCoordinate = new MapCoordinate(expectedX, expectedY, map);
 

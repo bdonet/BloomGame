@@ -20,7 +20,7 @@ public class LocationTest
 		var map = MapHelper.SetupTestMap(2);
 		var coordinate = new MapCoordinate(expectedX, expectedY, map);
 
-		var tree = new Tree(map, expectedX, expectedY, PlantMaturity.Seedling);
+		var tree = new Tree(map, expectedX, expectedY, PlantMaturity.Sprout);
 
 		/// Act
 		var result = tree.Location;

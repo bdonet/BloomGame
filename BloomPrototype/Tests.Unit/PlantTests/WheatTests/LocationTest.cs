@@ -20,7 +20,7 @@ public class LocationTest
 		var map = MapHelper.SetupTestMap(2);
 		var coordinate = new MapCoordinate(expectedX, expectedY, map);
 
-		var wheat = new Wheat(map, expectedX, expectedY, PlantMaturity.Seedling);
+		var wheat = new Wheat(map, expectedX, expectedY, PlantMaturity.Sprout);
 
 		/// Act
 		var result = wheat.Location;

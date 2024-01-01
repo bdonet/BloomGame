@@ -2,9 +2,9 @@
 
 public enum PlantMaturity
 {
-    Seedling = 1,
-    Young = 2,
-    Grown = 3,
-    Old = 4,
-    Dying = 5,
+    Sprout = 1,
+    Seedling = 2,
+    Established = 3,
+    Mature = 4,
+    Old = 5
 }

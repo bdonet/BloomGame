@@ -21,7 +21,7 @@ public class ctorTest
 		var coordinate = new MapCoordinate(expectedX, expectedY, map);
 
 		/// Act
-		var tomato = new Tomato(map, expectedX, expectedY, PlantMaturity.Seedling);
+		var tomato = new Tomato(map, expectedX, expectedY, PlantMaturity.Sprout);
 
 		/// Assert
 		tomato.Location.ShouldBe(map.GetSoil(coordinate));
@@ -34,9 +34,9 @@ public class ctorTest
 		var map = MapHelper.SetupTestMap(1);
 
 		/// Act
-		var tomato = new Tomato(map, 0, 0, PlantMaturity.Seedling);
+		var tomato = new Tomato(map, 0, 0, PlantMaturity.Sprout);
 
 		/// Assert
-		tomato.Maturity.ShouldBe(PlantMaturity.Seedling);
+		tomato.Maturity.ShouldBe(PlantMaturity.Sprout);
 	}
 }
