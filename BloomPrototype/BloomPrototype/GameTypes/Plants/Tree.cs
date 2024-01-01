@@ -15,8 +15,8 @@ public class Tree : Plant
 
 	public const int LifespanDays = 60 * 12 * 30;
 
-	public Tree(Map map, int locationX, int locationY, PlantMaturity maturity)
-			: base(map, locationX, locationY, maturity) { }
+	public Tree(Map map, int locationX, int locationY, PlantMaturity maturity, PlantHealth health)
+			: base(map, locationX, locationY, maturity, health) { }
 
 	public override void IncreaseAge() { throw new NotImplementedException(); }
 }

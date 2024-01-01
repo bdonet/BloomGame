@@ -15,8 +15,8 @@ public class Wheat : Plant
 
 	List<Grain>? Fruit;
 
-	public Wheat(Map map, int locationX, int locationY, PlantMaturity maturity)
-			: base(map, locationX, locationY, maturity) { }
+	public Wheat(Map map, int locationX, int locationY, PlantMaturity maturity, PlantHealth health)
+			: base(map, locationX, locationY, maturity, health) { }
 
 	public override void IncreaseAge() { throw new NotImplementedException(); }
 }

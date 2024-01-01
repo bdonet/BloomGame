@@ -20,7 +20,7 @@ public class LocationTest
 		var map = MapHelper.SetupTestMap(2);
 		var coordinate = new MapCoordinate(expectedX, expectedY, map);
 
-		var tomato = new Tomato(map, expectedX, expectedY, PlantMaturity.Sprout);
+		var tomato = new Tomato(map, expectedX, expectedY, PlantMaturity.Sprout, PlantHealth.Stable);
 
 		/// Act
 		var result = tomato.Location;

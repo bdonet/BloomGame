@@ -25,7 +25,7 @@ public class IncreaseAgeTest
 		soil.WaterLevel = Cactus.SoilWaterLevelPreference;
 		soil.Fertility = Cactus.SoilFertilityPreference;
 
-		var cactus = new Cactus(map, 0, 0, originalMaturity);
+		var cactus = new Cactus(map, 0, 0, originalMaturity, PlantHealth.Stable);
 
 		/// Act
 		cactus.IncreaseAge();
@@ -46,7 +46,7 @@ public class IncreaseAgeTest
 		soil.WaterLevel = Cactus.SoilWaterLevelPreference;
 		soil.Fertility = Cactus.SoilFertilityPreference;
 
-		var cactus = new Cactus(map, 0, 0, PlantMaturity.Old);
+		var cactus = new Cactus(map, 0, 0, PlantMaturity.Old, PlantHealth.Stable);
 
 		/// Act
 		cactus.IncreaseAge();
