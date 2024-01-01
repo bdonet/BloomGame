@@ -20,10 +20,24 @@ public class Cactus : Plant
 
 	public override void IncreaseAge()
 	{
+		// Increase plant maturity
 		if (Maturity == PlantMaturity.Old)
+		{
+			// Plant is at the end of its lifespan
+			Health = PlantHealth.Dead;
+			return;
+		}
+
+		var maturityValue = (int)Maturity;
+		Maturity = (PlantMaturity)(maturityValue + 1);
+
+		// Increase plant health if possible
+		if (Health == PlantHealth.Dead || Health == PlantHealth.Thriving)
+			// Health cannot improve if already dead.
+			// Health cannot improve if maxed out.
 			return;
 
-		var intValue = (int)Maturity;
-		Maturity = (PlantMaturity)(intValue + 1);
+		var healthValue = (int)Health;
+		Health = (PlantHealth)(healthValue + 1);
 	}
 }
