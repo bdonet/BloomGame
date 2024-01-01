@@ -7,4 +7,6 @@ public abstract class Plant : SurfaceObject
 	{ Maturity = maturity; }
 
 	public PlantMaturity Maturity { get; protected set; }
+
+	public abstract void IncreaseAge();
 }

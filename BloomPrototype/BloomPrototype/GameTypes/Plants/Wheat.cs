@@ -17,4 +17,6 @@ public class Wheat : Plant
 
 	public Wheat(Map map, int locationX, int locationY, PlantMaturity maturity)
 			: base(map, locationX, locationY, maturity) { }
+
+	public override void IncreaseAge() { throw new NotImplementedException(); }
 }

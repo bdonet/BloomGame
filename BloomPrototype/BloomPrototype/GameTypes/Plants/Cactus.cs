@@ -17,4 +17,13 @@ public class Cactus : Plant
 
 	public Cactus(Map map, int locationX, int locationY, PlantMaturity maturity)
 			: base(map, locationX, locationY, maturity) { }
+
+	public override void IncreaseAge()
+	{
+		if (Maturity == PlantMaturity.Old)
+			return;
+
+		var intValue = (int)Maturity;
+		Maturity = (PlantMaturity)(intValue + 1);
+	}
 }
