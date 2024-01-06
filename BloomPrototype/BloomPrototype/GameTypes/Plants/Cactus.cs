@@ -37,13 +37,16 @@ public class Cactus : Plant
 			return;
 
 		var healthValue = (int)Health;
-		if (Location.Retention == SoilRetentionPreference && Location.WaterLevel == SoilWaterLevelPreference && Location.Fertility == SoilFertilityPreference)
-		{
-			if (Health != PlantHealth.Thriving)
-				// Health cannot improve if maxed out.
-				Health = (PlantHealth)(healthValue + 1);
-		}
-		else
+		var retentionDifference = (int)Location.Retention - SoilRetentionPreference;
+		var waterLevelDifference = (int)Location.WaterLevel - SoilWaterLevelPreference;
+		var fertilityDifference = (int)Location.Fertility - SoilFertilityPreference;
+		if (Math.Abs((decimal)retentionDifference)
+			+ Math.Abs((decimal)waterLevelDifference)
+			+ Math.Abs((decimal)fertilityDifference)
+			> 3)
 			Health = (PlantHealth)(healthValue - 1);
+		else if (Health != PlantHealth.Thriving)
+			// Health cannot improve if maxed out.
+			Health = (PlantHealth)(healthValue + 1);
 	}
 }
