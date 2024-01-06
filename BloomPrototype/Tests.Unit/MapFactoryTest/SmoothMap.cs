@@ -23,7 +23,7 @@ public class SmoothMap
 		Mock.Arrange(() => configuration["WorldSize"]).Returns(0.ToString());
 		Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 
-		var mapFactory = new MapFactory(soilFactory, configuration);
+		var mapFactory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		mapFactory.SmoothMap(MapHelper.SetupTestMap(5));
@@ -56,7 +56,7 @@ public class SmoothMap
 		Mock.Arrange(() => configuration["WorldSize"]).Returns(0.ToString());
 		Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 
-		var mapFactory = new MapFactory(soilFactory, configuration);
+		var mapFactory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		mapFactory.SmoothMap(MapHelper.SetupTestMap(5));
@@ -80,7 +80,7 @@ public class SmoothMap
 		Mock.Arrange(() => configuration["WorldSize"]).Returns(0.ToString());
 		Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 
-		var mapFactory = new MapFactory(soilFactory, configuration);
+		var mapFactory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		mapFactory.SmoothMap(MapHelper.SetupTestMap(5));
@@ -109,7 +109,7 @@ public class SmoothMap
 		Mock.Arrange(() => configuration["WorldSize"]).Returns(0.ToString());
 		Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 
-		var mapFactory = new MapFactory(soilFactory, configuration);
+		var mapFactory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		mapFactory.SmoothMap(MapHelper.SetupTestMap(5), true);
@@ -141,7 +141,7 @@ public class SmoothMap
 		Mock.Arrange(() => configuration["WorldSize"]).Returns(0.ToString());
 		Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(expectedOffsetChance.ToString());
 
-		var mapFactory = new MapFactory(soilFactory, configuration);
+		var mapFactory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		mapFactory.SmoothMap(MapHelper.SetupTestMap(5), false);

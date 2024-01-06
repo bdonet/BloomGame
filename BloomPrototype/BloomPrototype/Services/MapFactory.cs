@@ -14,9 +14,11 @@ public class MapFactory
 	private readonly int SoilOffsetPercentChance;
 
 	private readonly ISoilFactory _soilFactory;
+	readonly IRandomNumberGenerator random;
 
-	public MapFactory(ISoilFactory soilFactory, IConfiguration configuration)
+	public MapFactory(ISoilFactory soilFactory, IConfiguration configuration, IRandomNumberGenerator random)
 	{
+		this.random = random;
 		_soilFactory = soilFactory;
 
 		LowerGridSizeBound = Convert.ToInt32(configuration["LowerGridSizeBound"]);
@@ -34,16 +36,16 @@ public class MapFactory
 
 		if (WorldSize >= 7)
 		{
-			var cactus = new Cactus(map, 1, 0, PlantMaturity.Sprout, PlantHealth.Stable);
+			var cactus = new Cactus(map, 1, 0, PlantMaturity.Sprout, PlantHealth.Stable, 0, random);
 			map.GetSoil(new MapCoordinate(1, 0, map)).GrowingPlant = cactus;
 
-			var tomato = new Tomato(map, 4, 1, PlantMaturity.Sprout, PlantHealth.Stable);
+			var tomato = new Tomato(map, 4, 1, PlantMaturity.Sprout, PlantHealth.Stable, 0, random);
 			map.GetSoil(new MapCoordinate(4, 1, map)).GrowingPlant = tomato;
 
-			var tree = new Tree(map, 2, 3, PlantMaturity.Sprout, PlantHealth.Stable);
+			var tree = new Tree(map, 2, 3, PlantMaturity.Sprout, PlantHealth.Stable, 0, random);
 			map.GetSoil(new MapCoordinate(2, 3, map)).GrowingPlant = tree;
 
-			var wheat = new Wheat(map, 6, 4, PlantMaturity.Sprout, PlantHealth.Stable);
+			var wheat = new Wheat(map, 6, 4, PlantMaturity.Sprout, PlantHealth.Stable, 0, random);
 			map.GetSoil(new MapCoordinate(6, 4, map)).GrowingPlant = wheat;
 		}
 

@@ -1,5 +1,6 @@
 using BloomPrototype.GameTypes.Seeds;
 using BloomPrototype.GameTypes.Soils;
+using BloomPrototype.Services;
 
 namespace BloomPrototype.GameTypes.Plants;
 
@@ -15,8 +16,19 @@ public class Cactus : Plant
 
 	public const int LifespanDays = 1 * 12 * 30;
 
-	public Cactus(Map map, int locationX, int locationY, PlantMaturity maturity, PlantHealth health)
-			: base(map, locationX, locationY, maturity, health) { }
+	readonly IRandomNumberGenerator random;
+
+	public Cactus(Map map,
+				int locationX,
+				int locationY,
+				PlantMaturity maturity,
+				PlantHealth health,
+				int daysInCurrentMaturity,
+				IRandomNumberGenerator random)
+			: base(map, locationX, locationY, maturity, health, daysInCurrentMaturity)
+	{
+		this.random = random;
+	}
 
 	public override void IncreaseAge()
 	{
@@ -48,5 +60,10 @@ public class Cactus : Plant
 		else if (Health != PlantHealth.Thriving)
 			// Health cannot improve if maxed out.
 			Health = (PlantHealth)(healthValue + 1);
+	}
+
+	protected override bool CanIncreaseMaturity()
+	{
+		throw new NotImplementedException();
 	}
 }

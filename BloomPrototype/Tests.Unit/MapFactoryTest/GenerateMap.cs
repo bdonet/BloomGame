@@ -28,7 +28,7 @@ public class GenerateMap
 		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
 		Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 
-		var factory = new MapFactory(soilFactory, configuration);
+		var factory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		var result = factory.GenerateMap();
@@ -56,7 +56,7 @@ public class GenerateMap
 		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
 		Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 
-		var factory = new MapFactory(soilFactory, configuration);
+		var factory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		var exception = Record.Exception(() => factory.GenerateMap());
@@ -82,7 +82,7 @@ public class GenerateMap
 		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
 		Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 
-		var factory = new MapFactory(soilFactory, configuration);
+		var factory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		var exception = Record.Exception(() => factory.GenerateMap());
@@ -108,7 +108,7 @@ public class GenerateMap
 		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
 		Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 
-		var factory = new MapFactory(soilFactory, configuration);
+		var factory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		var result = factory.GenerateMap();
@@ -134,7 +134,7 @@ public class GenerateMap
 		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
 		Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 
-		var factory = new MapFactory(soilFactory, configuration);
+		var factory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		var result = factory.GenerateMap();
@@ -161,7 +161,7 @@ public class GenerateMap
 		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
 		Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 
-		var factory = new MapFactory(soilFactory, configuration);
+		var factory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		var result = factory.GenerateMap();
@@ -188,7 +188,7 @@ public class GenerateMap
 		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
 		Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 
-		var factory = new MapFactory(soilFactory, configuration);
+		var factory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		var result = factory.GenerateMap();
@@ -215,7 +215,7 @@ public class GenerateMap
 		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
 		Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 
-		var factory = new MapFactory(soilFactory, configuration);
+		var factory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		var result = factory.GenerateMap();
@@ -242,7 +242,7 @@ public class GenerateMap
 		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(1.ToString());
 		Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
 
-		var factory = new MapFactory(soilFactory, configuration);
+		var factory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		var result = factory.GenerateMap();

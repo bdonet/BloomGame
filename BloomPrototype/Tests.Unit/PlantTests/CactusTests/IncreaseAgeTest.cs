@@ -1,9 +1,11 @@
 ﻿using BloomPrototype.GameTypes;
 using BloomPrototype.GameTypes.Plants;
 using BloomPrototype.GameTypes.Soils;
+using BloomPrototype.Services;
 using Shouldly;
 using System;
 using System.Linq;
+using Telerik.JustMock;
 using Tests.Utilities;
 
 namespace Tests.Unit.PlantTests.CactusTests;
@@ -15,13 +17,20 @@ public class IncreaseAgeTest
 	[InlineData(PlantMaturity.Seedling, PlantMaturity.Established)]
 	[InlineData(PlantMaturity.Established, PlantMaturity.Mature)]
 	[InlineData(PlantMaturity.Mature, PlantMaturity.Old)]
-	public void IncreaseAge_PlantIsNotOld_IncreasesMaturityByOneLevel(PlantMaturity originalMaturity, PlantMaturity expectedMaturity)
+	public void IncreaseAge_PlantIsNotOld_IncreasesMaturityByOneLevel(PlantMaturity originalMaturity,
+																	PlantMaturity expectedMaturity)
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(1);
 		var soil = map.GetSoil(new MapCoordinate(0, 0, map));
 
-		var cactus = new Cactus(map, 0, 0, originalMaturity, PlantHealth.Stable);
+		var cactus = new Cactus(map,
+								0,
+								0,
+								originalMaturity,
+								PlantHealth.Stable,
+								0,
+								Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		cactus.IncreaseAge();
@@ -37,7 +46,13 @@ public class IncreaseAgeTest
 		var map = MapHelper.SetupTestMap(1);
 		var soil = map.GetSoil(new MapCoordinate(0, 0, map));
 
-		var cactus = new Cactus(map, 0, 0, PlantMaturity.Old, PlantHealth.Stable);
+		var cactus = new Cactus(map,
+								0,
+								0,
+								PlantMaturity.Old,
+								PlantHealth.Stable,
+								0,
+								Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		cactus.IncreaseAge();
@@ -53,7 +68,13 @@ public class IncreaseAgeTest
 		var map = MapHelper.SetupTestMap(1);
 		var soil = map.GetSoil(new MapCoordinate(0, 0, map));
 
-		var cactus = new Cactus(map, 0, 0, PlantMaturity.Old, PlantHealth.Stable);
+		var cactus = new Cactus(map,
+								0,
+								0,
+								PlantMaturity.Old,
+								PlantHealth.Stable,
+								0,
+								Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		cactus.IncreaseAge();
@@ -94,7 +115,11 @@ public class IncreaseAgeTest
 	[InlineData(PlantHealth.Improving, PlantHealth.Stable, SoilRetention.Tight, SoilWaterLevel.Parched, SoilFertility.Dead)]
 	[InlineData(PlantHealth.Stable, PlantHealth.Dying, SoilRetention.Tight, SoilWaterLevel.Parched, SoilFertility.Dead)]
 	[InlineData(PlantHealth.Dying, PlantHealth.Dead, SoilRetention.Tight, SoilWaterLevel.Parched, SoilFertility.Dead)]
-	public void IncreaseAge_SoilConditionsAreTerribleAndPlantIsNotDead_DecreasesPlantHealthOneLevel(PlantHealth originalHealth, PlantHealth expectedHealth, SoilRetention retention, SoilWaterLevel waterLevel, SoilFertility fertility)
+	public void IncreaseAge_SoilConditionsAreTerribleAndPlantIsNotDead_DecreasesPlantHealthOneLevel(PlantHealth originalHealth,
+																									PlantHealth expectedHealth,
+																									SoilRetention retention,
+																									SoilWaterLevel waterLevel,
+																									SoilFertility fertility)
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(1);
@@ -105,7 +130,13 @@ public class IncreaseAgeTest
 		soil.WaterLevel = waterLevel;
 		soil.Fertility = fertility;
 
-		var cactus = new Cactus(map, 0, 0, PlantMaturity.Seedling, originalHealth);
+		var cactus = new Cactus(map,
+								0,
+								0,
+								PlantMaturity.Seedling,
+								originalHealth,
+								0,
+								Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		cactus.IncreaseAge();
@@ -126,7 +157,13 @@ public class IncreaseAgeTest
 		soil.WaterLevel = SoilWaterLevel.Flooded;
 		soil.Fertility = SoilFertility.Overgrown;
 
-		var cactus = new Cactus(map, 0, 0, PlantMaturity.Seedling, PlantHealth.Dead);
+		var cactus = new Cactus(map,
+								0,
+								0,
+								PlantMaturity.Seedling,
+								PlantHealth.Dead,
+								0,
+								Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		cactus.IncreaseAge();
@@ -172,7 +209,13 @@ public class IncreaseAgeTest
 		soil.WaterLevel = waterLevel;
 		soil.Fertility = fertility;
 
-		var cactus = new Cactus(map, 0, 0, PlantMaturity.Seedling, originalHealth);
+		var cactus = new Cactus(map,
+								0,
+								0,
+								PlantMaturity.Seedling,
+								originalHealth,
+								0,
+								Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		cactus.IncreaseAge();
@@ -195,7 +238,13 @@ public class IncreaseAgeTest
 		soil.WaterLevel = SoilWaterLevel.Parched;
 		soil.Fertility = SoilFertility.Alive;
 
-		var cactus = new Cactus(map, 0, 0, PlantMaturity.Seedling, expectedHealth);
+		var cactus = new Cactus(map,
+								0,
+								0,
+								PlantMaturity.Seedling,
+								expectedHealth,
+								0,
+								Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		cactus.IncreaseAge();

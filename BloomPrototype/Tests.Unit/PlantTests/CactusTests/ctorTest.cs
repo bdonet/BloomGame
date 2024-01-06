@@ -1,8 +1,10 @@
 ﻿using BloomPrototype.GameTypes;
 using BloomPrototype.GameTypes.Plants;
+using BloomPrototype.Services;
 using Shouldly;
 using System;
 using System.Linq;
+using Telerik.JustMock;
 using Tests.Utilities;
 
 namespace Tests.Unit.PlantTests.CactusTests;
@@ -22,7 +24,13 @@ public class ctorTest
 		var coordinate = new MapCoordinate(expectedX, expectedY, map);
 
 		/// Act
-		var cactus = new Cactus(map, expectedX, expectedY, PlantMaturity.Sprout, PlantHealth.Stable);
+		var cactus = new Cactus(map,
+									expectedX,
+									expectedY,
+									PlantMaturity.Sprout,
+									PlantHealth.Stable,
+									0,
+									Mock.Create<IRandomNumberGenerator>());
 
 		/// Assert
 		cactus.Location.ShouldBe(map.GetSoil(coordinate));
@@ -35,7 +43,13 @@ public class ctorTest
 		var map = MapHelper.SetupTestMap(1);
 
 		/// Act
-		var cactus = new Cactus(map, 0, 0, PlantMaturity.Sprout, PlantHealth.Stable);
+		var cactus = new Cactus(map,
+									0,
+									0,
+									PlantMaturity.Sprout,
+									PlantHealth.Stable,
+									0,
+									Mock.Create<IRandomNumberGenerator>());
 
 		/// Assert
 		cactus.Maturity.ShouldBe(PlantMaturity.Sprout);
@@ -53,9 +67,38 @@ public class ctorTest
 		var map = MapHelper.SetupTestMap(1);
 
 		/// Act
-		var cactus = new Cactus(map, 0, 0, PlantMaturity.Sprout, expectedHealth);
+		var cactus = new Cactus(map,
+									0,
+									0,
+									PlantMaturity.Sprout,
+									expectedHealth,
+									0,
+									Mock.Create<IRandomNumberGenerator>());
 
 		/// Assert
 		cactus.Health.ShouldBe(expectedHealth);
+	}
+
+	[Theory]
+	[InlineData(0)]
+	[InlineData(1)]
+	[InlineData(64)]
+	[InlineData(int.MaxValue)]
+	public void ctor_GeneralCall_SetsDaysInCurrentMaturityToGivenNumber(int expectedDays)
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(1);
+
+		/// Act
+		var cactus = new Cactus(map,
+									0,
+									0,
+									PlantMaturity.Sprout,
+									PlantHealth.Stable,
+									expectedDays,
+									Mock.Create<IRandomNumberGenerator>());
+
+		/// Assert
+		cactus.DaysInCurrentMaturity.ShouldBe(expectedDays);
 	}
 }

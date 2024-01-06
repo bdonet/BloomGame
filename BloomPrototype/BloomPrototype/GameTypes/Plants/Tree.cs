@@ -1,5 +1,6 @@
 using BloomPrototype.GameTypes.Seeds;
 using BloomPrototype.GameTypes.Soils;
+using BloomPrototype.Services;
 
 namespace BloomPrototype.GameTypes.Plants;
 
@@ -15,8 +16,27 @@ public class Tree : Plant
 
 	public const int LifespanDays = 60 * 12 * 30;
 
-	public Tree(Map map, int locationX, int locationY, PlantMaturity maturity, PlantHealth health)
-			: base(map, locationX, locationY, maturity, health) { }
+	readonly IRandomNumberGenerator random;
 
-	public override void IncreaseAge() { throw new NotImplementedException(); }
+	public Tree(Map map,
+				int locationX,
+				int locationY,
+				PlantMaturity maturity,
+				PlantHealth health,
+				int daysInCurrentMaturity,
+				IRandomNumberGenerator random)
+			: base(map, locationX, locationY, maturity, health, daysInCurrentMaturity)
+	{
+		this.random = random;
+	}
+
+	public override void IncreaseAge()
+	{
+		throw new NotImplementedException();
+	}
+
+	protected override bool CanIncreaseMaturity()
+	{
+		throw new NotImplementedException();
+	}
 }

@@ -1,8 +1,10 @@
 ﻿using BloomPrototype.GameTypes;
 using BloomPrototype.GameTypes.Plants;
+using BloomPrototype.Services;
 using Shouldly;
 using System;
 using System.Linq;
+using Telerik.JustMock;
 using Tests.Utilities;
 
 namespace Tests.Unit.PlantTests.WheatTests;
@@ -21,7 +23,7 @@ public class ctorTest
 		var coordinate = new MapCoordinate(expectedX, expectedY, map);
 
 		/// Act
-		var wheat = new Wheat(map, expectedX, expectedY, PlantMaturity.Sprout, PlantHealth.Stable);
+		var wheat = new Wheat(map, expectedX, expectedY, PlantMaturity.Sprout, PlantHealth.Stable, 0, Mock.Create<IRandomNumberGenerator>());
 
 		/// Assert
 		wheat.Location.ShouldBe(map.GetSoil(coordinate));
@@ -34,7 +36,7 @@ public class ctorTest
 		var map = MapHelper.SetupTestMap(1);
 
 		/// Act
-		var wheat = new Wheat(map, 0, 0, PlantMaturity.Sprout, PlantHealth.Stable);
+		var wheat = new Wheat(map, 0, 0, PlantMaturity.Sprout, PlantHealth.Stable, 0, Mock.Create<IRandomNumberGenerator>());
 
 		/// Assert
 		wheat.Maturity.ShouldBe(PlantMaturity.Sprout);
@@ -52,9 +54,32 @@ public class ctorTest
 		var map = MapHelper.SetupTestMap(1);
 
 		/// Act
-		var wheat = new Wheat(map, 0, 0, PlantMaturity.Sprout, expectedHealth);
+		var wheat = new Wheat(map, 0, 0, PlantMaturity.Sprout, expectedHealth, 0, Mock.Create<IRandomNumberGenerator>());
 
 		/// Assert
 		wheat.Health.ShouldBe(expectedHealth);
+	}
+
+	[Theory]
+	[InlineData(0)]
+	[InlineData(1)]
+	[InlineData(64)]
+	[InlineData(int.MaxValue)]
+	public void ctor_GeneralCall_SetsDaysInCurrentMaturityToGivenNumber(int expectedDays)
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(1);
+
+		/// Act
+		var wheat = new Wheat(map,
+									0,
+									0,
+									PlantMaturity.Sprout,
+									PlantHealth.Stable,
+									expectedDays,
+									Mock.Create<IRandomNumberGenerator>());
+
+		/// Assert
+		wheat.DaysInCurrentMaturity.ShouldBe(expectedDays);
 	}
 }

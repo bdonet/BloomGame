@@ -2,6 +2,7 @@
 using BloomPrototype.GameTypes.Soils;
 using BloomPrototype.Services;
 using Shouldly;
+using Telerik.JustMock;
 
 namespace Tests.Integration.MapFactoryTest;
 public class GenerateMap : BaseMapFactoryIntegrationTest
@@ -10,7 +11,7 @@ public class GenerateMap : BaseMapFactoryIntegrationTest
 	public void GenerateMap_GridSizeIsValid_ReturnsMapWithGridFullOfGeneratedSoil()
 	{
 		/// Arrange
-		var factory = new MapFactory(SoilFactory, Configuration);
+		var factory = new MapFactory(SoilFactory, Configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		var result = factory.GenerateMap();
@@ -26,7 +27,7 @@ public class GenerateMap : BaseMapFactoryIntegrationTest
 	public void GenerateMap_GridSizeIsValid_ReturnsMapWithoutAliveOrThrivingOrOvergrownSoil()
 	{
 		/// Arrange
-		var factory = new MapFactory(SoilFactory, Configuration);
+		var factory = new MapFactory(SoilFactory, Configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		var result = factory.GenerateMap();
@@ -44,7 +45,7 @@ public class GenerateMap : BaseMapFactoryIntegrationTest
 	public void GenerateMap_GridSizeIsValid_ReturnsMapWithoutMoistOrWetOrFloodedSoil()
 	{
 		/// Arrange
-		var factory = new MapFactory(SoilFactory, Configuration);
+		var factory = new MapFactory(SoilFactory, Configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
 		var result = factory.GenerateMap();
