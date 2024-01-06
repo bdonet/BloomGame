@@ -41,6 +41,35 @@ public class IncreaseAgeTest
 		cactus.Maturity.ShouldBe(expectedMaturity);
 	}
 
+	[Theory]
+	[InlineData(PlantMaturity.Sprout)]
+	[InlineData(PlantMaturity.Seedling)]
+	[InlineData(PlantMaturity.Established)]
+	[InlineData(PlantMaturity.Mature)]
+	[InlineData(PlantMaturity.Old)]
+	public void IncreaseAge_MaturityRollSucceeds_SetsDaysInCurrentMaturityTo0(PlantMaturity originalMaturity)
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(1);
+
+		// A result of 1 simulates a successful roll
+		var random = Mock.Create<IRandomNumberGenerator>();
+		Mock.Arrange(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt)).Returns(1);
+		var cactus = new Cactus(map,
+								0,
+								0,
+								originalMaturity,
+								PlantHealth.Stable,
+								Cactus.MaxDaysInEachMaturity / 2,
+								random);
+
+		/// Act
+		cactus.IncreaseAge();
+
+		/// Assert
+		cactus.DaysInCurrentMaturity.ShouldBe(0);
+	}
+
 	[Fact]
 	public void IncreaseAge_PlantIsOldAndMaturityRollSucceeds_DoesNotChangeMaturity()
 	{
@@ -182,6 +211,35 @@ public class IncreaseAgeTest
 
 		/// Assert
 		cactus.Maturity.ShouldBe(PlantMaturity.Sprout);
+	}
+
+	[Theory]
+	[InlineData(0)]
+	[InlineData(1)]
+	[InlineData(Cactus.MaxDaysInEachMaturity / 2)]
+	[InlineData(Cactus.MaxDaysInEachMaturity - 1)]
+	public void IncreaseAge_MaturityRollFails_IncrementsDaysInCurrentMaturity(int originalDaysInMaturity)
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(1);
+
+		// A return of anything other than 1 simulates a failed roll
+		var random = Mock.Create<IRandomNumberGenerator>();
+		Mock.Arrange(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt)).Returns(0);
+
+		var cactus = new Cactus(map,
+								0,
+								0,
+								PlantMaturity.Sprout,
+								PlantHealth.Stable,
+								originalDaysInMaturity,
+								random);
+
+		/// Act
+		cactus.IncreaseAge();
+
+		/// Assert
+		cactus.DaysInCurrentMaturity.ShouldBe(originalDaysInMaturity + 1);
 	}
 
 	[Theory]

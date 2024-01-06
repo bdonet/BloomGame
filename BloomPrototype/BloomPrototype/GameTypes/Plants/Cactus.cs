@@ -38,9 +38,11 @@ public class Cactus : Plant
 			// Plant is at the end of its lifespan. No need to change maturity or health.
 			return;
 
-		// Increase plant maturity
 		if (DaysInCurrentMaturity >= MaxDaysInEachMaturity || CanIncreaseMaturity())
 		{
+			// Increase plant maturity
+			DaysInCurrentMaturity = 0;
+
 			if (Maturity == PlantMaturity.Old)
 			{
 				// Plant is at the end of its lifespan. Kill it.
@@ -51,6 +53,9 @@ public class Cactus : Plant
 			var maturityValue = (int)Maturity;
 			Maturity = (PlantMaturity)(maturityValue + 1);
 		}
+		else
+			// Not increasing maturity. Increment the number of days this plant has been in this maturity.
+			DaysInCurrentMaturity++;
 
 		// Increase plant health if possible
 		var healthValue = (int)Health;
