@@ -32,12 +32,18 @@ public class Cactus : Plant
 		Maturity = (PlantMaturity)(maturityValue + 1);
 
 		// Increase plant health if possible
-		if (Health == PlantHealth.Dead || Health == PlantHealth.Thriving)
-			// Health cannot improve if already dead.
-			// Health cannot improve if maxed out.
+		if (Health == PlantHealth.Dead)
+			// Health cannot change if already dead.
 			return;
 
 		var healthValue = (int)Health;
-		Health = (PlantHealth)(healthValue + 1);
+		if (Location.Retention == SoilRetentionPreference && Location.WaterLevel == SoilWaterLevelPreference && Location.Fertility == SoilFertilityPreference)
+		{
+			if (Health != PlantHealth.Thriving)
+				// Health cannot improve if maxed out.
+				Health = (PlantHealth)(healthValue + 1);
+		}
+		else
+			Health = (PlantHealth)(healthValue - 1);
 	}
 }
