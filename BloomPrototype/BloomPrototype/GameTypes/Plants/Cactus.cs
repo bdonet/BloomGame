@@ -16,6 +16,8 @@ public class Cactus : Plant
 
 	public const int LifespanDays = 1 * 12 * 30;
 
+	public const int MaxDaysInEachMaturity = LifespanDays / 5;
+
 	readonly IRandomNumberGenerator random;
 
 	public Cactus(Map map,
@@ -32,22 +34,25 @@ public class Cactus : Plant
 
 	public override void IncreaseAge()
 	{
-		// Increase plant maturity
-		if (Maturity == PlantMaturity.Old)
-		{
-			// Plant is at the end of its lifespan
-			Health = PlantHealth.Dead;
+		if (Health == PlantHealth.Dead)
+			// Plant is at the end of its lifespan. No need to change maturity or health.
 			return;
+
+		// Increase plant maturity
+		if (DaysInCurrentMaturity >= MaxDaysInEachMaturity || CanIncreaseMaturity())
+		{
+			if (Maturity == PlantMaturity.Old)
+			{
+				// Plant is at the end of its lifespan. Kill it.
+				Health = PlantHealth.Dead;
+				return;
+			}
+
+			var maturityValue = (int)Maturity;
+			Maturity = (PlantMaturity)(maturityValue + 1);
 		}
 
-		var maturityValue = (int)Maturity;
-		Maturity = (PlantMaturity)(maturityValue + 1);
-
 		// Increase plant health if possible
-		if (Health == PlantHealth.Dead)
-			// Health cannot change if already dead.
-			return;
-
 		var healthValue = (int)Health;
 		var retentionDifference = (int)Location.Retention - SoilRetentionPreference;
 		var waterLevelDifference = (int)Location.WaterLevel - SoilWaterLevelPreference;
@@ -60,5 +65,11 @@ public class Cactus : Plant
 		else if (Health != PlantHealth.Thriving)
 			// Health cannot improve if maxed out.
 			Health = (PlantHealth)(healthValue + 1);
+	}
+
+	bool CanIncreaseMaturity()
+	{
+		var roll = random.GenerateInt(1, MaxDaysInEachMaturity - DaysInCurrentMaturity);
+		return roll == 1;
 	}
 }

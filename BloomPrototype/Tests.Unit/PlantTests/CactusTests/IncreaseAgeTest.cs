@@ -17,20 +17,22 @@ public class IncreaseAgeTest
 	[InlineData(PlantMaturity.Seedling, PlantMaturity.Established)]
 	[InlineData(PlantMaturity.Established, PlantMaturity.Mature)]
 	[InlineData(PlantMaturity.Mature, PlantMaturity.Old)]
-	public void IncreaseAge_PlantIsNotOld_IncreasesMaturityByOneLevel(PlantMaturity originalMaturity,
+	public void IncreaseAge_PlantIsNotOldAndMaturityRollSucceeds_IncreasesMaturityByOneLevel(PlantMaturity originalMaturity,
 																	PlantMaturity expectedMaturity)
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(1);
-		var soil = map.GetSoil(new MapCoordinate(0, 0, map));
 
+		// A result of 1 simulates a successful roll
+		var random = Mock.Create<IRandomNumberGenerator>();
+		Mock.Arrange(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt)).Returns(1);
 		var cactus = new Cactus(map,
 								0,
 								0,
 								originalMaturity,
 								PlantHealth.Stable,
 								0,
-								Mock.Create<IRandomNumberGenerator>());
+								random);
 
 		/// Act
 		cactus.IncreaseAge();
@@ -40,19 +42,21 @@ public class IncreaseAgeTest
 	}
 
 	[Fact]
-	public void IncreaseAge_PlantIsOld_DoesNotChangeMaturity()
+	public void IncreaseAge_PlantIsOldAndMaturityRollSucceeds_DoesNotChangeMaturity()
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(1);
-		var soil = map.GetSoil(new MapCoordinate(0, 0, map));
 
+		// A result of 1 simulates a successful roll
+		var random = Mock.Create<IRandomNumberGenerator>();
+		Mock.Arrange(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt)).Returns(1);
 		var cactus = new Cactus(map,
 								0,
 								0,
 								PlantMaturity.Old,
 								PlantHealth.Stable,
 								0,
-								Mock.Create<IRandomNumberGenerator>());
+								random);
 
 		/// Act
 		cactus.IncreaseAge();
@@ -62,25 +66,122 @@ public class IncreaseAgeTest
 	}
 
 	[Fact]
-	public void IncreaseAge_PlantIsOld_ChangesPlantHealthToDead()
+	public void IncreaseAge_PlantIsOldAndMaturityRollSucceeds_ChangesPlantHealthToDead()
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(1);
-		var soil = map.GetSoil(new MapCoordinate(0, 0, map));
 
+		// A result of 1 simulates a successful roll
+		var random = Mock.Create<IRandomNumberGenerator>();
+		Mock.Arrange(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt)).Returns(1);
 		var cactus = new Cactus(map,
 								0,
 								0,
 								PlantMaturity.Old,
 								PlantHealth.Stable,
 								0,
-								Mock.Create<IRandomNumberGenerator>());
+								random);
 
 		/// Act
 		cactus.IncreaseAge();
 
 		/// Assert
 		cactus.Health.ShouldBe(PlantHealth.Dead);
+	}
+
+	[Fact]
+	public void IncreaseAge_PlantHasBeenInCurrentMaturityForOneFifthOfLifespanDays_IncreasesPlantMaturity()
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(1);
+
+		var cactus = new Cactus(map,
+								0,
+								0,
+								PlantMaturity.Sprout,
+								PlantHealth.Stable,
+								Cactus.MaxDaysInEachMaturity,
+								Mock.Create<IRandomNumberGenerator>());
+
+		/// Act
+		cactus.IncreaseAge();
+
+		/// Assert
+		cactus.Maturity.ShouldBe(PlantMaturity.Seedling);
+	}
+
+	[Fact]
+	public void IncreaseAge_PlantHasBeenInCurrentMaturityForOneFifthOfLifespanDays_DoesNotRollForMaturity()
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(1);
+
+		var random = Mock.Create<IRandomNumberGenerator>();
+		var cactus = new Cactus(map,
+								0,
+								0,
+								PlantMaturity.Sprout,
+								PlantHealth.Stable,
+								Cactus.MaxDaysInEachMaturity,
+								random);
+
+		/// Act
+		cactus.IncreaseAge();
+
+		/// Assert
+		Mock.Assert(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt), Occurs.Never());
+	}
+
+	[Theory]
+	[InlineData(0)]
+	[InlineData(1)]
+	[InlineData(Cactus.MaxDaysInEachMaturity / 2)]
+	[InlineData(Cactus.MaxDaysInEachMaturity - 1)]
+	public void IncreaseAge_PlantHasBeenInCurrentMaturityForLessThanOneFifthOfLifespanDays_GetsRandomNumberUpToDifferenceBetweenDaysInCurrentMaturityAndOneFifthOfLifespanDays(int expectedDaysInMaturity)
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(1);
+
+		var random = Mock.Create<IRandomNumberGenerator>();
+
+		var cactus = new Cactus(map,
+								0,
+								0,
+								PlantMaturity.Sprout,
+								PlantHealth.Stable,
+								expectedDaysInMaturity,
+								random);
+
+		/// Act
+		cactus.IncreaseAge();
+
+		/// Assert
+		Mock.Assert(() => random.GenerateInt(1, Cactus.MaxDaysInEachMaturity - expectedDaysInMaturity));
+	}
+
+	[Fact]
+	public void IncreaseAge_MaturityRollFails_DoesNotIncreasePlantMaturity()
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(1);
+
+		// A return of anything other than 1 simulates a failed roll
+		var random = Mock.Create<IRandomNumberGenerator>();
+		Mock.Arrange(() => random.GenerateInt(Arg.AnyInt, Arg.AnyInt)).Returns(0);
+
+		var cactus = new Cactus(map,
+								0,
+								0,
+								PlantMaturity.Sprout,
+								PlantHealth.Stable,
+								0,
+								random);
+
+		/// Act
+		cactus.IncreaseAge();
+
+		/// Assert
+		cactus.Maturity.ShouldBe(PlantMaturity.Sprout);
 	}
 
 	[Theory]
