@@ -61,9 +61,4 @@ public class Cactus : Plant
 			// Health cannot improve if maxed out.
 			Health = (PlantHealth)(healthValue + 1);
 	}
-
-	protected override bool CanIncreaseMaturity()
-	{
-		throw new NotImplementedException();
-	}
 }

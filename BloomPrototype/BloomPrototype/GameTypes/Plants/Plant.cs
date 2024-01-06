@@ -17,6 +17,4 @@ public abstract class Plant : SurfaceObject
 	public int DaysInCurrentMaturity { get; protected set; }
 
 	public abstract void IncreaseAge();
-
-	protected abstract bool CanIncreaseMaturity();
 }

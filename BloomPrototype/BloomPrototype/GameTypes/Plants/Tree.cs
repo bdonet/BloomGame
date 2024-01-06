@@ -34,9 +34,4 @@ public class Tree : Plant
 	{
 		throw new NotImplementedException();
 	}
-
-	protected override bool CanIncreaseMaturity()
-	{
-		throw new NotImplementedException();
-	}
 }
