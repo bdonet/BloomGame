@@ -393,9 +393,9 @@ public class IncreaseAgeTest
 		var soil = map.GetSoil(new MapCoordinate(0, 0, map));
 
 		// Set the soil to have the acceptable conditions for a cactus
-		soil.Retention = SoilRetention.Holding;
-		soil.WaterLevel = SoilWaterLevel.Parched;
-		soil.Fertility = SoilFertility.Alive;
+		soil.Retention = Cactus.SoilRetentionPreference;
+		soil.WaterLevel = Cactus.SoilWaterLevelPreference;
+		soil.Fertility = Cactus.SoilFertilityPreference;
 
 		var cactus = new Cactus(map,
 								0,

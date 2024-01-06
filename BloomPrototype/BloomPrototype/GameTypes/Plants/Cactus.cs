@@ -18,8 +18,6 @@ public class Cactus : Plant
 
 	public const int MaxDaysInEachMaturity = LifespanDays / 5;
 
-	readonly IRandomNumberGenerator random;
-
 	public Cactus(Map map,
 				int locationX,
 				int locationY,
@@ -27,54 +25,10 @@ public class Cactus : Plant
 				PlantHealth health,
 				int daysInCurrentMaturity,
 				IRandomNumberGenerator random)
-			: base(map, locationX, locationY, maturity, health, daysInCurrentMaturity)
-	{
-		this.random = random;
-	}
+			: base(map, locationX, locationY, maturity, health, daysInCurrentMaturity, random) { }
 
 	public override void IncreaseAge()
 	{
-		if (Health == PlantHealth.Dead)
-			// Plant is at the end of its lifespan. No need to change maturity or health.
-			return;
-
-		if (DaysInCurrentMaturity >= MaxDaysInEachMaturity || CanIncreaseMaturity())
-		{
-			// Increase plant maturity
-			DaysInCurrentMaturity = 0;
-
-			if (Maturity == PlantMaturity.Old)
-			{
-				// Plant is at the end of its lifespan. Kill it.
-				Health = PlantHealth.Dead;
-				return;
-			}
-
-			var maturityValue = (int)Maturity;
-			Maturity = (PlantMaturity)(maturityValue + 1);
-		}
-		else
-			// Not increasing maturity. Increment the number of days this plant has been in this maturity.
-			DaysInCurrentMaturity++;
-
-		// Increase plant health if possible
-		var healthValue = (int)Health;
-		var retentionDifference = (int)Location.Retention - SoilRetentionPreference;
-		var waterLevelDifference = (int)Location.WaterLevel - SoilWaterLevelPreference;
-		var fertilityDifference = (int)Location.Fertility - SoilFertilityPreference;
-		if (Math.Abs((decimal)retentionDifference)
-			+ Math.Abs((decimal)waterLevelDifference)
-			+ Math.Abs((decimal)fertilityDifference)
-			> 3)
-			Health = (PlantHealth)(healthValue - 1);
-		else if (Health != PlantHealth.Thriving)
-			// Health cannot improve if maxed out.
-			Health = (PlantHealth)(healthValue + 1);
-	}
-
-	bool CanIncreaseMaturity()
-	{
-		var roll = random.GenerateInt(1, MaxDaysInEachMaturity - DaysInCurrentMaturity);
-		return roll == 1;
+		IncreaseAge(MaxDaysInEachMaturity, SoilRetentionPreference, SoilWaterLevelPreference, SoilFertilityPreference);
 	}
 }

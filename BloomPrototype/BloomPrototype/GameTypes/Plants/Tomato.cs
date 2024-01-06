@@ -14,8 +14,7 @@ public class Tomato : Plant
 	public const SoilWaterLevel SoilWaterLevelPreference = SoilWaterLevel.Wet;
 
 	public const int LifespanDays = 2 * 12 * 30;
-
-	readonly IRandomNumberGenerator random;
+	public const int MaxDaysInEachMaturity = LifespanDays / 5;
 
 	public Tomato(Map map,
 				int locationX,
@@ -24,13 +23,10 @@ public class Tomato : Plant
 				PlantHealth health,
 				int daysInCurrentMaturity,
 				IRandomNumberGenerator random)
-			: base(map, locationX, locationY, maturity, health, daysInCurrentMaturity)
-	{
-		this.random = random;
-	}
+			: base(map, locationX, locationY, maturity, health, daysInCurrentMaturity, random) { }
 
 	public override void IncreaseAge()
 	{
-		throw new NotImplementedException();
+		IncreaseAge(MaxDaysInEachMaturity, SoilRetentionPreference, SoilWaterLevelPreference, SoilFertilityPreference);
 	}
 }
