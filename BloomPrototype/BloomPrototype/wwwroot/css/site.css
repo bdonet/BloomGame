@@ -113,8 +113,24 @@
     content: url("../img/tree.png");
 }
 
-.cactus {
-    content: url("../img/cactus.png");
+.cactus-thriving {
+    content: url("../img/cactus_thriving.png");
+}
+
+.cactus-improving {
+    content: url("../img/cactus_thriving.png");
+}
+
+.cactus-stable {
+    content: url("../img/cactus_stable.png");
+}
+
+.cactus-dying {
+    content: url("../img/cactus_dying.png");
+}
+
+.cactus-dead {
+    content: url("../img/cactus_dead.png");
 }
 
 .wheat {
