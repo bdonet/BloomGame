@@ -1,4 +1,6 @@
-﻿using BloomPrototype.GameTypes.Soils;
+﻿using BloomPrototype.GameTypes;
+using BloomPrototype.GameTypes.Plants;
+using BloomPrototype.GameTypes.Soils;
 using BloomPrototype.Services;
 using Microsoft.Extensions.Configuration;
 using Shouldly;
@@ -7,10 +9,10 @@ using Tests.Utilities;
 
 namespace Tests.Unit.MapFactoryTest;
 
-public class SmoothMap
+public class AgeMap
 {
 	[Fact]
-	public void SmoothMap_GeneralCall_SmoothsSoilUsingAvailableSurroundingSoilsAsContextSoils()
+	public void AgeMap_GeneralCall_SmoothsSoilUsingAvailableSurroundingSoilsAsContextSoils()
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
@@ -26,7 +28,7 @@ public class SmoothMap
 		var mapFactory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
-		mapFactory.SmoothMap(MapHelper.SetupTestMap(5));
+		mapFactory.AgeMap(MapHelper.SetupTestMap(5));
 
 		/// Assert
 		// Should not have some context soils when near grid edge
@@ -43,7 +45,7 @@ public class SmoothMap
 	}
 
 	[Fact]
-	public void SmoothMap_GeneralCall_SmoothsSoilUsingSoilFactoryForEachSoilInMap()
+	public void AgeMap_GeneralCall_SmoothsSoilUsingSoilFactoryForEachSoilInMap()
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
@@ -59,7 +61,7 @@ public class SmoothMap
 		var mapFactory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
-		mapFactory.SmoothMap(MapHelper.SetupTestMap(5));
+		mapFactory.AgeMap(MapHelper.SetupTestMap(5));
 
 		/// Assert
 		Mock.Assert(() => soilFactory.SmoothSoil(Arg.IsAny<Soil>(), Arg.IsAny<List<Soil>>(), 2, 20),
@@ -67,7 +69,7 @@ public class SmoothMap
 	}
 
 	[Fact]
-	public void SmoothMap_GeneralCall_SmoothsSoilUsingSurroundingSoilsAsContextSoils()
+	public void AgeMap_GeneralCall_SmoothsSoilUsingSurroundingSoilsAsContextSoils()
 	{
 		/// Arrange
 		var soilFactory = Mock.Create<ISoilFactory>();
@@ -83,7 +85,7 @@ public class SmoothMap
 		var mapFactory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
-		mapFactory.SmoothMap(MapHelper.SetupTestMap(5));
+		mapFactory.AgeMap(MapHelper.SetupTestMap(5));
 
 		/// Assert
 		// Should have (r + 1)^2 + r^2 - 1 context soils in center where r is the context radius
@@ -92,7 +94,7 @@ public class SmoothMap
 	}
 
 	[Fact]
-	public void SmoothMap_IsInitialGeneration_SmoothsSoilWith0OffsetChance()
+	public void AgeMap_IsInitialGeneration_SmoothsSoilWith0OffsetChance()
 	{
 		/// Arrange
 		int? actualOffsetChance = null;
@@ -112,7 +114,7 @@ public class SmoothMap
 		var mapFactory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
-		mapFactory.SmoothMap(MapHelper.SetupTestMap(5), true);
+		mapFactory.AgeMap(MapHelper.SetupTestMap(5), true);
 
 		/// Assert
 		actualOffsetChance.ShouldBe(0);
@@ -124,7 +126,7 @@ public class SmoothMap
 	[InlineData(10)]
 	[InlineData(20)]
 	[InlineData(50)]
-	public void SmoothMap_IsNotInitialGeneration_SmoothsSoilWithConfiguredOffsetChance(int expectedOffsetChance)
+	public void AgeMap_IsNotInitialGeneration_SmoothsSoilWithConfiguredOffsetChance(int expectedOffsetChance)
 	{
 		/// Arrange
 		int? actualOffsetChance = null;
@@ -144,9 +146,95 @@ public class SmoothMap
 		var mapFactory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
 
 		/// Act
-		mapFactory.SmoothMap(MapHelper.SetupTestMap(5), false);
+		mapFactory.AgeMap(MapHelper.SetupTestMap(5), false);
 
 		/// Assert
 		actualOffsetChance.ShouldBe(expectedOffsetChance);
+	}
+
+	[Fact]
+	public void AgeMap_GeneralCall_IncreasesAgeOfPlants()
+	{
+		/// Arrange
+		var soilFactory = Mock.Create<ISoilFactory>();
+
+		var configuration = Mock.Create<IConfiguration>();
+		Mock.Arrange(() => configuration["ContextRadius"]).Returns(2.ToString());
+		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(2.ToString());
+		Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(0.ToString());
+		Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(0.ToString());
+		Mock.Arrange(() => configuration["WorldSize"]).Returns(0.ToString());
+		Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
+
+		var mapFactory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
+
+		var map = MapHelper.SetupTestMap(5);
+
+		var plant = new Cactus(map,
+							3,
+							3,
+							PlantMaturity.Seedling,
+							PlantHealth.Stable,
+							0,
+							Mock.Create<IRandomNumberGenerator>());
+		var soil = map.GetSoil(new MapCoordinate(3, 3, map));
+		soil.GrowingPlant = plant;
+		soil.Retention = Cactus.SoilRetentionPreference;
+		soil.WaterLevel = Cactus.SoilWaterLevelPreference;
+		soil.Fertility = Cactus.SoilFertilityPreference;
+
+		/// Act
+		mapFactory.AgeMap(map);
+
+		/// Assert
+		// Calling Plant.IncreaseAge is guarenteed to change the health of the plant but not necessarily the maturity
+		plant.Health.ShouldNotBe(PlantHealth.Stable);
+	}
+
+	[Fact]
+	public void AgeMap_GeneralCall_IncreasesAgeOfPlantsBeforeChangingSoil()
+	{
+		/// Arrange
+		var map = MapHelper.SetupTestMap(5);
+
+		var plant = new Cactus(map,
+							3,
+							3,
+							PlantMaturity.Seedling,
+							PlantHealth.Stable,
+							0,
+							Mock.Create<IRandomNumberGenerator>());
+		var soil = map.GetSoil(new MapCoordinate(3, 3, map));
+		soil.GrowingPlant = plant;
+		soil.Retention = Cactus.SoilRetentionPreference;
+		soil.WaterLevel = Cactus.SoilWaterLevelPreference;
+		soil.Fertility = Cactus.SoilFertilityPreference;
+
+
+		var soilFactory = Mock.Create<ISoilFactory>();
+		Mock.Arrange(() => soilFactory.SmoothSoil(soil, Arg.IsAny<List<Soil>>(), Arg.AnyDouble, Arg.AnyInt))
+			.DoInstead(()
+					=>
+			{
+				soil.Retention = SoilRetention.Packed;
+				soil.WaterLevel = SoilWaterLevel.Flooded;
+				soil.Fertility = SoilFertility.Overgrown;
+			});
+
+		var configuration = Mock.Create<IConfiguration>();
+		Mock.Arrange(() => configuration["ContextRadius"]).Returns(2.ToString());
+		Mock.Arrange(() => configuration["ExtremesWeight"]).Returns(2.ToString());
+		Mock.Arrange(() => configuration["LowerGridSizeBound"]).Returns(0.ToString());
+		Mock.Arrange(() => configuration["UpperGridSizeBound"]).Returns(0.ToString());
+		Mock.Arrange(() => configuration["WorldSize"]).Returns(0.ToString());
+		Mock.Arrange(() => configuration["SoilOffsetPercentChance"]).Returns(20.ToString());
+
+		var mapFactory = new MapFactory(soilFactory, configuration, Mock.Create<IRandomNumberGenerator>());
+
+		/// Act
+		mapFactory.AgeMap(map);
+
+		/// Assert
+		plant.Health.ShouldBe(PlantHealth.Improving);
 	}
 }

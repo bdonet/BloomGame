@@ -3,10 +3,10 @@ using Shouldly;
 
 namespace Tests.Integration.MapFactoryTest;
 
-public class SmoothMap : BaseMapFactoryIntegrationTest
+public class AgeMap : BaseMapFactoryIntegrationTest
 {
 	[Fact]
-	public void SmoothMap_GeneralCall_DoesNotThrowException()
+	public void AgeMap_GeneralCall_DoesNotThrowException()
 	{
 		/// Arrange
 		var random = new RandomNumberGenerator();
@@ -15,7 +15,7 @@ public class SmoothMap : BaseMapFactoryIntegrationTest
 		var map = mapFactory.GenerateMap();
 
 		/// Act
-		var exception = Record.Exception(() => mapFactory.SmoothMap(map));
+		var exception = Record.Exception(() => mapFactory.AgeMap(map));
 
 		/// Assert
 		exception.ShouldBeNull();

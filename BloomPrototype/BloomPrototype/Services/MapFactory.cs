@@ -32,7 +32,7 @@ public class MapFactory
 	public Map GenerateMap()
 	{
 		var map = new Map(GenerateSoilGrid(WorldSize));
-        SmoothMap(map, true);
+        AgeMap(map, true);
 
 		if (WorldSize >= 7)
 		{
@@ -72,7 +72,7 @@ public class MapFactory
 		return result;
 	}
 
-    public void SmoothMap(Map map, bool isInitialGeneration = false)
+    public void AgeMap(Map map, bool isInitialGeneration = false)
     {
         var originalGrid = map.CopyGrid();
 
@@ -83,10 +83,14 @@ public class MapFactory
                 // Add surrounding pieces of soil to the context if they are available
                 var contextSoils = GetContextSoils(x, y, originalGrid);
 
+				var soil = map.Grid[x, y];
+				if (soil.GrowingPlant != null)
+					soil.GrowingPlant.IncreaseAge();
+
 				if (isInitialGeneration)
-					_soilFactory.SmoothSoil(map.Grid[x, y], contextSoils, ExtremesWeight, 0);
+					_soilFactory.SmoothSoil(soil, contextSoils, ExtremesWeight, 0);
 				else
-					_soilFactory.SmoothSoil(map.Grid[x, y], contextSoils, ExtremesWeight, SoilOffsetPercentChance);
+					_soilFactory.SmoothSoil(soil, contextSoils, ExtremesWeight, SoilOffsetPercentChance);
 			}
 		}
     }
