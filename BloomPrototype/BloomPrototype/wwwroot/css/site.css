@@ -110,7 +110,7 @@
 }
 
 .tomato-improving {
-    content: url("../img/tomato_thriving.png");
+    content: url("../img/tomato_improving.png");
 }
 
 .tomato-stable {
@@ -134,7 +134,7 @@
 }
 
 .cactus-improving {
-    content: url("../img/cactus_thriving.png");
+    content: url("../img/cactus_improving.png");
 }
 
 .cactus-stable {
