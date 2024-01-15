@@ -45,16 +45,8 @@
 		if (Soil.GrowingPlant != null)
 		{
 			ContentsCss += "plant ";
-
-			if (Soil.GrowingPlant is not Wheat)
-			{
-				ContentsCss += $"{Soil.GrowingPlant.GetType().Name.ToLower()}-";
-				ContentsCss += $"{Soil.GrowingPlant.Health.ToString().ToLower()} ";
-			}
-			else
-			{
-				ContentsCss += $"{Soil.GrowingPlant.GetType().Name.ToLower()} ";
-			}
+			ContentsCss += $"{Soil.GrowingPlant.GetType().Name.ToLower()}-";
+			ContentsCss += $"{Soil.GrowingPlant.Health.ToString().ToLower()} ";
 		}
 
 		//if (Soil.GrowingSeed != null)

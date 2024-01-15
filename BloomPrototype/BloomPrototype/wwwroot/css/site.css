@@ -165,6 +165,22 @@
     content: url("../img/cactus_dead.png");
 }
 
-.wheat {
-    content: url("../img/wheat.png");
+.wheat-thriving {
+    content: url("../img/wheat_thriving.png");
+}
+
+.wheat-improving {
+    content: url("../img/wheat_improving.png");
+}
+
+.wheat-stable {
+    content: url("../img/wheat_stable.png");
+}
+
+.wheat-dying {
+    content: url("../img/wheat_dying.png");
+}
+
+.wheat-dead {
+    content: url("../img/wheat_dead.png");
 }
