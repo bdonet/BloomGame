@@ -125,8 +125,24 @@
     content: url("../img/tomato_dead.png");
 }
 
-.tree {
-    content: url("../img/tree.png");
+.tree-thriving {
+    content: url("../img/tree_thriving.png");
+}
+
+.tree-improving {
+    content: url("../img/tree_improving.png");
+}
+
+.tree-stable {
+    content: url("../img/tree_stable.png");
+}
+
+.tree-dying {
+    content: url("../img/tree_dying.png");
+}
+
+.tree-dead {
+    content: url("../img/tree_dead.png");
 }
 
 .cactus-thriving {

@@ -46,7 +46,7 @@
 		{
 			ContentsCss += "plant ";
 
-			if (Soil.GrowingPlant is Cactus || Soil.GrowingPlant is Tomato)
+			if (Soil.GrowingPlant is not Wheat)
 			{
 				ContentsCss += $"{Soil.GrowingPlant.GetType().Name.ToLower()}-";
 				ContentsCss += $"{Soil.GrowingPlant.Health.ToString().ToLower()} ";
