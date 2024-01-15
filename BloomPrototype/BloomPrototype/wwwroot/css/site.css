@@ -105,8 +105,24 @@
     width: 50%;
 }
 
-.tomato {
-    content: url("../img/tomato.png");
+.tomato-thriving {
+    content: url("../img/tomato_thriving.png");
+}
+
+.tomato-improving {
+    content: url("../img/tomato_thriving.png");
+}
+
+.tomato-stable {
+    content: url("../img/tomato_stable.png");
+}
+
+.tomato-dying {
+    content: url("../img/tomato_dying.png");
+}
+
+.tomato-dead {
+    content: url("../img/tomato_dead.png");
 }
 
 .tree {
