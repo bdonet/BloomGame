@@ -170,25 +170,15 @@ public class AgeMap
 
 		var map = MapHelper.SetupTestMap(5);
 
-		var plant = new Cactus(map,
-							3,
-							3,
-							PlantMaturity.Seedling,
-							PlantHealth.Stable,
-							0,
-							Mock.Create<IRandomNumberGenerator>());
+		var plant = Mock.Create<IPlant>();
 		var soil = map.GetSoil(new MapCoordinate(3, 3, map));
 		soil.GrowingPlant = plant;
-		soil.Retention = Cactus.SoilRetentionPreference;
-		soil.WaterLevel = Cactus.SoilWaterLevelPreference;
-		soil.Fertility = Cactus.SoilFertilityPreference;
 
 		/// Act
 		mapFactory.AgeMap(map);
 
 		/// Assert
-		// Calling Plant.IncreaseAge is guarenteed to change the health of the plant but not necessarily the maturity
-		plant.Health.ShouldNotBe(PlantHealth.Stable);
+		Mock.Assert(() => plant.IncreaseAge(), Occurs.Once());
 	}
 
 	[Fact]
@@ -197,19 +187,22 @@ public class AgeMap
 		/// Arrange
 		var map = MapHelper.SetupTestMap(5);
 
-		var plant = new Cactus(map,
-							3,
-							3,
-							PlantMaturity.Seedling,
-							PlantHealth.Stable,
-							0,
-							Mock.Create<IRandomNumberGenerator>());
+		SoilFertility? soilFertilityAtCall = null;
+		SoilWaterLevel? soilWaterLevelAtCall = null;
+		SoilRetention? soilRetentionAtCall = null;
 		var soil = map.GetSoil(new MapCoordinate(3, 3, map));
-		soil.GrowingPlant = plant;
-		soil.Retention = Cactus.SoilRetentionPreference;
-		soil.WaterLevel = Cactus.SoilWaterLevelPreference;
-		soil.Fertility = Cactus.SoilFertilityPreference;
 
+		var plant = Mock.Create<IPlant>();
+		Mock.Arrange(() => plant.IncreaseAge())
+			.DoInstead(()
+					=>
+			{
+				soilRetentionAtCall = soil.Retention;
+				soilWaterLevelAtCall = soil.WaterLevel;
+				soilFertilityAtCall = soil.Fertility;
+			});
+
+		soil.GrowingPlant = plant;
 
 		var soilFactory = Mock.Create<ISoilFactory>();
 		Mock.Arrange(() => soilFactory.SmoothSoil(soil, Arg.IsAny<List<Soil>>(), Arg.AnyDouble, Arg.AnyInt))
@@ -235,6 +228,8 @@ public class AgeMap
 		mapFactory.AgeMap(map);
 
 		/// Assert
-		plant.Health.ShouldBe(PlantHealth.Improving);
+		soilFertilityAtCall.ShouldNotBe(SoilFertility.Overgrown);
+		soilWaterLevelAtCall.ShouldNotBe(SoilWaterLevel.Flooded);
+		soilRetentionAtCall.ShouldNotBe(SoilRetention.Packed);
 	}
 }

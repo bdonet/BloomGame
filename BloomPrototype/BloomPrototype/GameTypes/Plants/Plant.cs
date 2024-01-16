@@ -4,11 +4,17 @@ using System;
 
 namespace BloomPrototype.GameTypes.Plants;
 
-public abstract class Plant : SurfaceObject
+public abstract class Plant : SurfaceObject, IPlant
 {
-	private readonly IRandomNumberGenerator random;
+	readonly IRandomNumberGenerator random;
 
-	public Plant(Map map, int locationX, int locationY, PlantMaturity maturity, PlantHealth health, int daysInCurrentMaturity, IRandomNumberGenerator random)
+	public Plant(Map map,
+				int locationX,
+				int locationY,
+				PlantMaturity maturity,
+				PlantHealth health,
+				int daysInCurrentMaturity,
+				IRandomNumberGenerator random)
 			: base(map, locationX, locationY)
 	{
 		DaysInCurrentMaturity = daysInCurrentMaturity;
@@ -25,7 +31,10 @@ public abstract class Plant : SurfaceObject
 
 	public abstract void IncreaseAge();
 
-	protected void IncreaseAge(int maxDaysInEachMaturity, SoilRetention retentionPreference, SoilWaterLevel waterLevelPreference, SoilFertility fertilityPreference)
+	protected void IncreaseAge(int maxDaysInEachMaturity,
+							SoilRetention retentionPreference,
+							SoilWaterLevel waterLevelPreference,
+							SoilFertility fertilityPreference)
 	{
 		if (Health == PlantHealth.Dead)
 			// Plant is at the end of its lifespan. No need to change maturity or health.
@@ -65,7 +74,7 @@ public abstract class Plant : SurfaceObject
 			Health = (PlantHealth)(healthValue + 1);
 	}
 
-	private bool CanIncreaseMaturity(int maxDaysInEachMaturity)
+	bool CanIncreaseMaturity(int maxDaysInEachMaturity)
 	{
 		var roll = random.GenerateInt(1, maxDaysInEachMaturity - DaysInCurrentMaturity);
 		return roll == 1;

@@ -2,7 +2,7 @@
 
 namespace BloomPrototype.GameTypes;
 
-public abstract class SurfaceObject
+public abstract class SurfaceObject : ISurfaceObject
 {
 	public SurfaceObject(Map map, int locationX, int locationY)
 	{

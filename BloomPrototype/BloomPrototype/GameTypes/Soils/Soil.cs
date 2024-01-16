@@ -7,7 +7,7 @@ public class Soil
 {
 	public void Fertilize(int levels)
 	{
-		var integerValue = ((int)Fertility) + levels;
+		var integerValue = (int)Fertility + levels;
 
 		if (integerValue > (int)SoilFertility.Overgrown)
 			Fertility = SoilFertility.Overgrown;
@@ -19,7 +19,7 @@ public class Soil
 
 	public void Tighten(int levels)
 	{
-		var integerValue = ((int)Retention) + levels;
+		var integerValue = (int)Retention + levels;
 
 		if (integerValue > (int)SoilRetention.Packed)
 			Retention = SoilRetention.Packed;
@@ -31,7 +31,7 @@ public class Soil
 
 	public void Water(int levels)
 	{
-		var integerValue = ((int)WaterLevel) + levels;
+		var integerValue = (int)WaterLevel + levels;
 
 		if (integerValue > (int)SoilWaterLevel.Flooded)
 			WaterLevel = SoilWaterLevel.Flooded;
@@ -43,7 +43,7 @@ public class Soil
 
 	public SoilFertility Fertility { get; set; }
 
-	public Plant? GrowingPlant { get; set; }
+	public IPlant? GrowingPlant { get; set; }
 
 	public Seed? GrowingSeed { get; set; }
 
