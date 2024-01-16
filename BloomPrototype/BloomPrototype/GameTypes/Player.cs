@@ -1,6 +1,6 @@
 ﻿namespace BloomPrototype.GameTypes;
 
-public class Player : SurfaceObject
+public class Player : SurfaceObject, ISurfaceObject
 {
 	readonly int _actionsPerDay;
 
