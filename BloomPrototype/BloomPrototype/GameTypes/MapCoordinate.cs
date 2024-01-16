@@ -1,6 +1,6 @@
 ﻿namespace BloomPrototype.GameTypes;
 
-public class MapCoordinate
+public struct MapCoordinate
 {
 	public MapCoordinate(int x, int y, Map map)
 	{
