@@ -105,82 +105,402 @@
     width: 50%;
 }
 
-.tomato-thriving {
-    content: url("../img/tomato_thriving.png");
+.tomato-sprout-thriving {
+    content: url("../img/tomato_sprout_thriving.png");
 }
 
-.tomato-improving {
-    content: url("../img/tomato_improving.png");
+.tomato-sprout-improving {
+    content: url("../img/tomato_sprout_improving.png");
 }
 
-.tomato-stable {
-    content: url("../img/tomato_stable.png");
+.tomato-sprout-stable {
+    content: url("../img/tomato_sprout_stable.png");
 }
 
-.tomato-dying {
-    content: url("../img/tomato_dying.png");
+.tomato-sprout-dying {
+    content: url("../img/tomato_sprout_dying.png");
 }
 
-.tomato-dead {
-    content: url("../img/tomato_dead.png");
+.tomato-sprout-dead {
+    content: url("../img/tomato_sprout_dead.png");
 }
 
-.tree-thriving {
-    content: url("../img/tree_thriving.png");
+.tomato-seedling-thriving {
+    content: url("../img/tomato_seedling_thriving.png");
 }
 
-.tree-improving {
-    content: url("../img/tree_improving.png");
+.tomato-seedling-improving {
+    content: url("../img/tomato_seedling_improving.png");
 }
 
-.tree-stable {
-    content: url("../img/tree_stable.png");
+.tomato-seedling-stable {
+    content: url("../img/tomato_seedling_stable.png");
 }
 
-.tree-dying {
-    content: url("../img/tree_dying.png");
+.tomato-seedling-dying {
+    content: url("../img/tomato_seedling_dying.png");
 }
 
-.tree-dead {
-    content: url("../img/tree_dead.png");
+.tomato-seedling-dead {
+    content: url("../img/tomato_seedling_dead.png");
 }
 
-.cactus-thriving {
-    content: url("../img/cactus_thriving.png");
+.tomato-established-thriving {
+    content: url("../img/tomato_established_thriving.png");
 }
 
-.cactus-improving {
-    content: url("../img/cactus_improving.png");
+.tomato-established-improving {
+    content: url("../img/tomato_established_improving.png");
 }
 
-.cactus-stable {
-    content: url("../img/cactus_stable.png");
+.tomato-established-stable {
+    content: url("../img/tomato_established_stable.png");
 }
 
-.cactus-dying {
-    content: url("../img/cactus_dying.png");
+.tomato-established-dying {
+    content: url("../img/tomato_established_dying.png");
 }
 
-.cactus-dead {
-    content: url("../img/cactus_dead.png");
+.tomato-established-dead {
+    content: url("../img/tomato_established_dead.png");
 }
 
-.wheat-thriving {
-    content: url("../img/wheat_thriving.png");
+.tomato-mature-thriving {
+    content: url("../img/tomato_mature_thriving.png");
 }
 
-.wheat-improving {
-    content: url("../img/wheat_improving.png");
+.tomato-mature-improving {
+    content: url("../img/tomato_mature_improving.png");
 }
 
-.wheat-stable {
-    content: url("../img/wheat_stable.png");
+.tomato-mature-stable {
+    content: url("../img/tomato_mature_stable.png");
 }
 
-.wheat-dying {
-    content: url("../img/wheat_dying.png");
+.tomato-mature-dying {
+    content: url("../img/tomato_mature_dying.png");
 }
 
-.wheat-dead {
-    content: url("../img/wheat_dead.png");
+.tomato-mature-dead {
+    content: url("../img/tomato_mature_dead.png");
+}
+
+.tomato-old-thriving {
+    content: url("../img/tomato_old_thriving.png");
+}
+
+.tomato-old-improving {
+    content: url("../img/tomato_old_improving.png");
+}
+
+.tomato-old-stable {
+    content: url("../img/tomato_old_stable.png");
+}
+
+.tomato-old-dying {
+    content: url("../img/tomato_old_dying.png");
+}
+
+.tomato-old-dead {
+    content: url("../img/tomato_old_dead.png");
+}
+
+.tree-sprout-thriving {
+    content: url("../img/tree_sprout_thriving.png");
+}
+
+.tree-sprout-improving {
+    content: url("../img/tree_sprout_improving.png");
+}
+
+.tree-sprout-stable {
+    content: url("../img/tree_sprout_stable.png");
+}
+
+.tree-sprout-dying {
+    content: url("../img/tree_sprout_dying.png");
+}
+
+.tree-sprout-dead {
+    content: url("../img/tree_sprout_dead.png");
+}
+
+.tree-seedling-thriving {
+    content: url("../img/tree_seedling_thriving.png");
+}
+
+.tree-seedling-improving {
+    content: url("../img/tree_seedling_improving.png");
+}
+
+.tree-seedling-stable {
+    content: url("../img/tree_seedling_stable.png");
+}
+
+.tree-seedling-dying {
+    content: url("../img/tree_seedling_dying.png");
+}
+
+.tree-seedling-dead {
+    content: url("../img/tree_seedling_dead.png");
+}
+
+.tree-established-thriving {
+    content: url("../img/tree_established_thriving.png");
+}
+
+.tree-established-improving {
+    content: url("../img/tree_established_improving.png");
+}
+
+.tree-established-stable {
+    content: url("../img/tree_established_stable.png");
+}
+
+.tree-established-dying {
+    content: url("../img/tree_established_dying.png");
+}
+
+.tree-established-dead {
+    content: url("../img/tree_established_dead.png");
+}
+
+.tree-mature-thriving {
+    content: url("../img/tree_mature_thriving.png");
+}
+
+.tree-mature-improving {
+    content: url("../img/tree_mature_improving.png");
+}
+
+.tree-mature-stable {
+    content: url("../img/tree_mature_stable.png");
+}
+
+.tree-mature-dying {
+    content: url("../img/tree_mature_dying.png");
+}
+
+.tree-mature-dead {
+    content: url("../img/tree_mature_dead.png");
+}
+
+.tree-old-thriving {
+    content: url("../img/tree_old_thriving.png");
+}
+
+.tree-old-improving {
+    content: url("../img/tree_old_improving.png");
+}
+
+.tree-old-stable {
+    content: url("../img/tree_old_stable.png");
+}
+
+.tree-old-dying {
+    content: url("../img/tree_old_dying.png");
+}
+
+.tree-old-dead {
+    content: url("../img/tree_old_dead.png");
+}
+
+.cactus-sprout-thriving {
+    content: url("../img/cactus_sprout_thriving.png");
+}
+
+.cactus-sprout-improving {
+    content: url("../img/cactus_sprout_improving.png");
+}
+
+.cactus-sprout-stable {
+    content: url("../img/cactus_sprout_stable.png");
+}
+
+.cactus-sprout-dying {
+    content: url("../img/cactus_sprout_dying.png");
+}
+
+.cactus-sprout-dead {
+    content: url("../img/cactus_sprout_dead.png");
+}
+
+.cactus-seedling-thriving {
+    content: url("../img/cactus_seedling_thriving.png");
+}
+
+.cactus-seedling-improving {
+    content: url("../img/cactus_seedling_improving.png");
+}
+
+.cactus-seedling-stable {
+    content: url("../img/cactus_seedling_stable.png");
+}
+
+.cactus-seedling-dying {
+    content: url("../img/cactus_seedling_dying.png");
+}
+
+.cactus-seedling-dead {
+    content: url("../img/cactus_seedling_dead.png");
+}
+
+.cactus-established-thriving {
+    content: url("../img/cactus_established_thriving.png");
+}
+
+.cactus-established-improving {
+    content: url("../img/cactus_established_improving.png");
+}
+
+.cactus-established-stable {
+    content: url("../img/cactus_established_stable.png");
+}
+
+.cactus-established-dying {
+    content: url("../img/cactus_established_dying.png");
+}
+
+.cactus-established-dead {
+    content: url("../img/cactus_established_dead.png");
+}
+
+.cactus-mature-thriving {
+    content: url("../img/cactus_mature_thriving.png");
+}
+
+.cactus-mature-improving {
+    content: url("../img/cactus_mature_improving.png");
+}
+
+.cactus-mature-stable {
+    content: url("../img/cactus_mature_stable.png");
+}
+
+.cactus-mature-dying {
+    content: url("../img/cactus_mature_dying.png");
+}
+
+.cactus-mature-dead {
+    content: url("../img/cactus_mature_dead.png");
+}
+
+.cactus-old-thriving {
+    content: url("../img/cactus_old_thriving.png");
+}
+
+.cactus-old-improving {
+    content: url("../img/cactus_old_improving.png");
+}
+
+.cactus-old-stable {
+    content: url("../img/cactus_old_stable.png");
+}
+
+.cactus-old-dying {
+    content: url("../img/cactus_old_dying.png");
+}
+
+.cactus-old-dead {
+    content: url("../img/cactus_old_dead.png");
+}
+
+.wheat-sprout-thriving {
+    content: url("../img/wheat_sprout_thriving.png");
+}
+
+.wheat-sprout-improving {
+    content: url("../img/wheat_sprout_improving.png");
+}
+
+.wheat-sprout-stable {
+    content: url("../img/wheat_sprout_stable.png");
+}
+
+.wheat-sprout-dying {
+    content: url("../img/wheat_sprout_dying.png");
+}
+
+.wheat-sprout-dead {
+    content: url("../img/wheat_sprout_dead.png");
+}
+
+.wheat-seedling-thriving {
+    content: url("../img/wheat_seedling_thriving.png");
+}
+
+.wheat-seedling-improving {
+    content: url("../img/wheat_seedling_improving.png");
+}
+
+.wheat-seedling-stable {
+    content: url("../img/wheat_seedling_stable.png");
+}
+
+.wheat-seedling-dying {
+    content: url("../img/wheat_seedling_dying.png");
+}
+
+.wheat-seedling-dead {
+    content: url("../img/wheat_seedling_dead.png");
+}
+
+.wheat-established-thriving {
+    content: url("../img/wheat_established_thriving.png");
+}
+
+.wheat-established-improving {
+    content: url("../img/wheat_established_improving.png");
+}
+
+.wheat-established-stable {
+    content: url("../img/wheat_established_stable.png");
+}
+
+.wheat-established-dying {
+    content: url("../img/wheat_established_dying.png");
+}
+
+.wheat-established-dead {
+    content: url("../img/wheat_established_dead.png");
+}
+
+.wheat-mature-thriving {
+    content: url("../img/wheat_mature_thriving.png");
+}
+
+.wheat-mature-improving {
+    content: url("../img/wheat_mature_improving.png");
+}
+
+.wheat-mature-stable {
+    content: url("../img/wheat_mature_stable.png");
+}
+
+.wheat-mature-dying {
+    content: url("../img/wheat_mature_dying.png");
+}
+
+.wheat-mature-dead {
+    content: url("../img/wheat_mature_dead.png");
+}
+
+.wheat-old-thriving {
+    content: url("../img/wheat_old_thriving.png");
+}
+
+.wheat-old-improving {
+    content: url("../img/wheat_old_improving.png");
+}
+
+.wheat-old-stable {
+    content: url("../img/wheat_old_stable.png");
+}
+
+.wheat-old-dying {
+    content: url("../img/wheat_old_dying.png");
+}
+
+.wheat-old-dead {
+    content: url("../img/wheat_old_dead.png");
 }

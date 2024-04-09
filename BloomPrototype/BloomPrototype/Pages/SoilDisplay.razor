@@ -46,6 +46,7 @@
 		{
 			ContentsCss += "plant ";
 			ContentsCss += $"{Soil.GrowingPlant.GetType().Name.ToLower()}-";
+			ContentsCss += $"{Soil.GrowingPlant.Maturity.ToString().ToLower()}-";
 			ContentsCss += $"{Soil.GrowingPlant.Health.ToString().ToLower()} ";
 		}
 
