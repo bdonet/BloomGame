@@ -39,7 +39,7 @@ public class MapFactory
 			var cactus = new Cactus(map, 1, 0, PlantMaturity.Established, PlantHealth.Stable, 0, random);
 			map.GetSoil(new MapCoordinate(1, 0, map)).GrowingPlant = cactus;
 
-			var tomato = new Tomato(map, 4, 1, PlantMaturity.Seedling, PlantHealth.Stable, 0, random);
+			var tomato = new Tomato(map, 4, 1, PlantMaturity.Established, PlantHealth.Stable, 0, random);
 			map.GetSoil(new MapCoordinate(4, 1, map)).GrowingPlant = tomato;
 
 			var tree = new Tree(map, 2, 3, PlantMaturity.Established, PlantHealth.Stable, 0, random);
