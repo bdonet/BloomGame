@@ -39,14 +39,26 @@ public class MapFactory
 			var cactus = new Cactus(map, 1, 0, PlantMaturity.Established, PlantHealth.Stable, 0, random);
 			map.GetSoil(new MapCoordinate(1, 0, map)).GrowingPlant = cactus;
 
+			var cactusSprout = new Cactus(map, 1, 1, PlantMaturity.Sprout, PlantHealth.Stable, 0, random);
+			map.GetSoil(new MapCoordinate(1, 1, map)).GrowingPlant = cactusSprout;
+
 			var tomato = new Tomato(map, 4, 1, PlantMaturity.Established, PlantHealth.Stable, 0, random);
 			map.GetSoil(new MapCoordinate(4, 1, map)).GrowingPlant = tomato;
+
+			var tomatoSprout = new Tomato(map, 4, 2, PlantMaturity.Sprout, PlantHealth.Stable, 0, random);
+			map.GetSoil(new MapCoordinate(4, 2, map)).GrowingPlant = tomatoSprout;
 
 			var tree = new Tree(map, 2, 3, PlantMaturity.Established, PlantHealth.Stable, 0, random);
 			map.GetSoil(new MapCoordinate(2, 3, map)).GrowingPlant = tree;
 
+			var treeSprout = new Tree(map, 1, 3, PlantMaturity.Sprout, PlantHealth.Stable, 0, random);
+			map.GetSoil(new MapCoordinate(1, 3, map)).GrowingPlant = treeSprout;
+
 			var wheat = new Wheat(map, 6, 4, PlantMaturity.Established, PlantHealth.Stable, 0, random);
 			map.GetSoil(new MapCoordinate(6, 4, map)).GrowingPlant = wheat;
+
+			var wheatSprout = new Wheat(map, 6, 5, PlantMaturity.Sprout, PlantHealth.Stable, 0, random);
+			map.GetSoil(new MapCoordinate(6, 5, map)).GrowingPlant = wheatSprout;
 		}
 
 		return map;
