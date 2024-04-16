@@ -14,7 +14,7 @@ public class Cactus : Plant
 
 	public const SoilWaterLevel SoilWaterLevelPreference = SoilWaterLevel.Dry;
 
-	public const int LifespanDays = 1 * 12 * 30;
+	public const int LifespanDays = 8 * 30;
 
 	public const int MaxDaysInEachMaturity = LifespanDays / 5;
 

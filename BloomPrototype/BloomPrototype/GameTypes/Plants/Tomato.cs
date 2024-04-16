@@ -13,7 +13,7 @@ public class Tomato : Plant
 
 	public const SoilWaterLevel SoilWaterLevelPreference = SoilWaterLevel.Wet;
 
-	public const int LifespanDays = 2 * 12 * 30;
+	public const int LifespanDays = 3 * 30;
 	public const int MaxDaysInEachMaturity = LifespanDays / 5;
 
 	public Tomato(Map map,

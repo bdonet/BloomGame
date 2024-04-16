@@ -14,7 +14,7 @@ public class Tree : Plant
 
 	public const SoilWaterLevel SoilWaterLevelPreference = SoilWaterLevel.Moist;
 
-	public const int LifespanDays = 60 * 12 * 30;
+	public const int LifespanDays = 100 * 4 * 30;
 	public const int MaxDaysInEachMaturity = LifespanDays / 5;
 
 	public Tree(Map map,
