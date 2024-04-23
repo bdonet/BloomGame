@@ -117,6 +117,10 @@
     content: url("../img/tomato_sprout_stable.png");
 }
 
+.tomato-sprout-struggling {
+    content: url("../img/tomato_sprout_struggling.png");
+}
+
 .tomato-sprout-dying {
     content: url("../img/tomato_sprout_dying.png");
 }
@@ -135,6 +139,10 @@
 
 .tomato-seedling-stable {
     content: url("../img/tomato_seedling_stable.png");
+}
+
+.tomato-seedling-struggling {
+    content: url("../img/tomato_seedling_struggling.png");
 }
 
 .tomato-seedling-dying {
@@ -157,6 +165,10 @@
     content: url("../img/tomato_established_stable.png");
 }
 
+.tomato-established-struggling {
+    content: url("../img/tomato_established_struggling.png");
+}
+
 .tomato-established-dying {
     content: url("../img/tomato_established_dying.png");
 }
@@ -175,6 +187,10 @@
 
 .tomato-mature-stable {
     content: url("../img/tomato_mature_stable.png");
+}
+
+.tomato-mature-struggling {
+    content: url("../img/tomato_mature_struggling.png");
 }
 
 .tomato-mature-dying {
@@ -197,6 +213,10 @@
     content: url("../img/tomato_old_stable.png");
 }
 
+.tomato-old-struggling {
+    content: url("../img/tomato_old_struggling.png");
+}
+
 .tomato-old-dying {
     content: url("../img/tomato_old_dying.png");
 }
@@ -215,6 +235,10 @@
 
 .tree-sprout-stable {
     content: url("../img/tree_sprout_stable.png");
+}
+
+.tree-sprout-struggling {
+    content: url("../img/tree_sprout_struggling.png");
 }
 
 .tree-sprout-dying {
@@ -237,6 +261,10 @@
     content: url("../img/tree_seedling_stable.png");
 }
 
+.tree-seedling-struggling {
+    content: url("../img/tree_seedling_struggling.png");
+}
+
 .tree-seedling-dying {
     content: url("../img/tree_seedling_dying.png");
 }
@@ -255,6 +283,10 @@
 
 .tree-established-stable {
     content: url("../img/tree_established_stable.png");
+}
+
+.tree-established-struggling {
+    content: url("../img/tree_established_struggling.png");
 }
 
 .tree-established-dying {
@@ -277,6 +309,10 @@
     content: url("../img/tree_mature_stable.png");
 }
 
+.tree-mature-struggling {
+    content: url("../img/tree_mature_struggling.png");
+}
+
 .tree-mature-dying {
     content: url("../img/tree_mature_dying.png");
 }
@@ -295,6 +331,10 @@
 
 .tree-old-stable {
     content: url("../img/tree_old_stable.png");
+}
+
+.tree-old-struggling {
+    content: url("../img/tree_old_struggling.png");
 }
 
 .tree-old-dying {
@@ -317,6 +357,10 @@
     content: url("../img/cactus_sprout_stable.png");
 }
 
+.cactus-sprout-struggling {
+    content: url("../img/cactus_sprout_struggling.png");
+}
+
 .cactus-sprout-dying {
     content: url("../img/cactus_sprout_dying.png");
 }
@@ -335,6 +379,10 @@
 
 .cactus-seedling-stable {
     content: url("../img/cactus_seedling_stable.png");
+}
+
+.cactus-seedling-struggling {
+    content: url("../img/cactus_seedling_struggling.png");
 }
 
 .cactus-seedling-dying {
@@ -357,6 +405,10 @@
     content: url("../img/cactus_established_stable.png");
 }
 
+.cactus-established-struggling {
+    content: url("../img/cactus_established_struggling.png");
+}
+
 .cactus-established-dying {
     content: url("../img/cactus_established_dying.png");
 }
@@ -375,6 +427,10 @@
 
 .cactus-mature-stable {
     content: url("../img/cactus_mature_stable.png");
+}
+
+.cactus-mature-struggling {
+    content: url("../img/cactus_mature_struggling.png");
 }
 
 .cactus-mature-dying {
@@ -397,6 +453,10 @@
     content: url("../img/cactus_old_stable.png");
 }
 
+.cactus-old-struggling {
+    content: url("../img/cactus_old_struggling.png");
+}
+
 .cactus-old-dying {
     content: url("../img/cactus_old_dying.png");
 }
@@ -415,6 +475,10 @@
 
 .wheat-sprout-stable {
     content: url("../img/wheat_sprout_stable.png");
+}
+
+.wheat-sprout-struggling {
+    content: url("../img/wheat_sprout_struggling.png");
 }
 
 .wheat-sprout-dying {
@@ -437,6 +501,10 @@
     content: url("../img/wheat_seedling_stable.png");
 }
 
+.wheat-seedling-struggling {
+    content: url("../img/wheat_seedling_struggling.png");
+}
+
 .wheat-seedling-dying {
     content: url("../img/wheat_seedling_dying.png");
 }
@@ -455,6 +523,10 @@
 
 .wheat-established-stable {
     content: url("../img/wheat_established_stable.png");
+}
+
+.wheat-established-struggling {
+    content: url("../img/wheat_established_struggling.png");
 }
 
 .wheat-established-dying {
@@ -477,6 +549,10 @@
     content: url("../img/wheat_mature_stable.png");
 }
 
+.wheat-mature-struggling {
+    content: url("../img/wheat_mature_struggling.png");
+}
+
 .wheat-mature-dying {
     content: url("../img/wheat_mature_dying.png");
 }
@@ -495,6 +571,10 @@
 
 .wheat-old-stable {
     content: url("../img/wheat_old_stable.png");
+}
+
+.wheat-old-struggling {
+    content: url("../img/wheat_old_struggling.png");
 }
 
 .wheat-old-dying {
