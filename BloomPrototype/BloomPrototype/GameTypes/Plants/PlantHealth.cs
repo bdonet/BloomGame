@@ -2,8 +2,9 @@
 
 public enum PlantHealth
 {
-	Dead = 1, 
-	Dying = 2,
+	Dead = 0, 
+	Dying = 1,
+	Struggling = 2,
 	Stable = 3,
 	Improving = 4,
 	Thriving = 5

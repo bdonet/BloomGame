@@ -248,7 +248,8 @@ public class IncreaseAgeTest
 	[InlineData(PlantHealth.Thriving, PlantHealth.Improving, SoilRetention.Dust, SoilWaterLevel.Flooded, SoilFertility.Struggling)]
 	[InlineData(PlantHealth.Thriving, PlantHealth.Improving, SoilRetention.Loose, SoilWaterLevel.Moist, SoilFertility.Overgrown)]
 	[InlineData(PlantHealth.Improving, PlantHealth.Stable, SoilRetention.Packed, SoilWaterLevel.Flooded, SoilFertility.Overgrown)]
-	[InlineData(PlantHealth.Stable, PlantHealth.Dying, SoilRetention.Packed, SoilWaterLevel.Flooded, SoilFertility.Overgrown)]
+	[InlineData(PlantHealth.Stable, PlantHealth.Struggling, SoilRetention.Packed, SoilWaterLevel.Flooded, SoilFertility.Overgrown)]
+	[InlineData(PlantHealth.Struggling, PlantHealth.Dying, SoilRetention.Packed, SoilWaterLevel.Flooded, SoilFertility.Overgrown)]
 	[InlineData(PlantHealth.Dying, PlantHealth.Dead, SoilRetention.Packed, SoilWaterLevel.Flooded, SoilFertility.Overgrown)]
 	public void IncreaseAge_SoilConditionsAreTerribleAndPlantIsNotDead_DecreasesPlantHealthOneLevel(PlantHealth originalHealth,
 																									PlantHealth expectedHealth,
@@ -281,7 +282,7 @@ public class IncreaseAgeTest
 	}
 
 	[Fact]
-	public void IncreaseAge_SoilConditionsAreTerribleAndPlantIsDead_DoesNotChangePlanthHealth()
+	public void IncreaseAge_SoilConditionsAreTerribleAndPlantIsDead_DoesNotChangePlantHealth()
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(1);
@@ -313,7 +314,8 @@ public class IncreaseAgeTest
 	[InlineData(PlantHealth.Improving, PlantHealth.Thriving, SoilRetention.Loose, SoilWaterLevel.Flooded, SoilFertility.Struggling)]
 	[InlineData(PlantHealth.Improving, PlantHealth.Thriving, SoilRetention.Loose, SoilWaterLevel.Dry, SoilFertility.Overgrown)]
 	[InlineData(PlantHealth.Stable, PlantHealth.Improving, SoilRetention.Loose, SoilWaterLevel.Dry, SoilFertility.Struggling)]
-	[InlineData(PlantHealth.Dying, PlantHealth.Stable, SoilRetention.Loose, SoilWaterLevel.Dry, SoilFertility.Struggling)]
+	[InlineData(PlantHealth.Struggling, PlantHealth.Stable, SoilRetention.Loose, SoilWaterLevel.Dry, SoilFertility.Struggling)]
+	[InlineData(PlantHealth.Dying, PlantHealth.Struggling, SoilRetention.Loose, SoilWaterLevel.Dry, SoilFertility.Struggling)]
 	public void IncreaseAge_SoilConditionsAreAcceptableAndPlantIsNotDeadOrThriving_IncreasesPlantHealthOneLevel(PlantHealth originalHealth, PlantHealth expectedHealth, SoilRetention retention, SoilWaterLevel waterLevel, SoilFertility fertility)
 	{
 		/// Arrange
@@ -343,7 +345,7 @@ public class IncreaseAgeTest
 	[Theory]
 	[InlineData(PlantHealth.Dead)]
 	[InlineData(PlantHealth.Thriving)]
-	public void IncreaseAge_SoilConditionsAreAcceptableAndPlantIsDeadOrThriving_DoesNotChangePlanthHealth(PlantHealth expectedHealth)
+	public void IncreaseAge_SoilConditionsAreAcceptableAndPlantIsDeadOrThriving_DoesNotChangePlantHealth(PlantHealth expectedHealth)
 	{
 		/// Arrange
 		var map = MapHelper.SetupTestMap(1);
