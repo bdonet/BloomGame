@@ -13,8 +13,8 @@ namespace Tests.Unit.PlantTests.TomatoTests;
 public class IncreaseAgeTest
 {
 	[Theory]
-	[InlineData(PlantMaturity.Sprout, PlantMaturity.Seedling)]
-	[InlineData(PlantMaturity.Seedling, PlantMaturity.Established)]
+	[InlineData(PlantMaturity.Sprout, PlantMaturity.Infant)]
+	[InlineData(PlantMaturity.Infant, PlantMaturity.Established)]
 	[InlineData(PlantMaturity.Established, PlantMaturity.Mature)]
 	[InlineData(PlantMaturity.Mature, PlantMaturity.Old)]
 	public void IncreaseAge_PlantIsNotOldAndMaturityRollSucceeds_IncreasesMaturityByOneLevel(PlantMaturity originalMaturity,
@@ -43,7 +43,7 @@ public class IncreaseAgeTest
 
 	[Theory]
 	[InlineData(PlantMaturity.Sprout)]
-	[InlineData(PlantMaturity.Seedling)]
+	[InlineData(PlantMaturity.Infant)]
 	[InlineData(PlantMaturity.Established)]
 	[InlineData(PlantMaturity.Mature)]
 	[InlineData(PlantMaturity.Old)]
@@ -136,7 +136,7 @@ public class IncreaseAgeTest
 		tomato.IncreaseAge();
 
 		/// Assert
-		tomato.Maturity.ShouldBe(PlantMaturity.Seedling);
+		tomato.Maturity.ShouldBe(PlantMaturity.Infant);
 	}
 
 	[Fact]
@@ -269,7 +269,7 @@ public class IncreaseAgeTest
 		var tomato = new Tomato(map,
 								0,
 								0,
-								PlantMaturity.Seedling,
+								PlantMaturity.Infant,
 								originalHealth,
 								0,
 								Mock.Create<IRandomNumberGenerator>());
@@ -296,7 +296,7 @@ public class IncreaseAgeTest
 		var tomato = new Tomato(map,
 								0,
 								0,
-								PlantMaturity.Seedling,
+								PlantMaturity.Infant,
 								PlantHealth.Dead,
 								0,
 								Mock.Create<IRandomNumberGenerator>());
@@ -330,7 +330,7 @@ public class IncreaseAgeTest
 		var tomato = new Tomato(map,
 								0,
 								0,
-								PlantMaturity.Seedling,
+								PlantMaturity.Infant,
 								originalHealth,
 								0,
 								Mock.Create<IRandomNumberGenerator>());
@@ -359,7 +359,7 @@ public class IncreaseAgeTest
 		var tomato = new Tomato(map,
 								0,
 								0,
-								PlantMaturity.Seedling,
+								PlantMaturity.Infant,
 								expectedHealth,
 								0,
 								Mock.Create<IRandomNumberGenerator>());

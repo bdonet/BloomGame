@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Unit", "Tests.Unit\Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Integration", "Tests.Integration\Tests.Integration.csproj", "{41BBC9FC-6822-4602-AAFD-CE63DD3B6358}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Utilities", "Tests.Utilities\Tests.Utilities.csproj", "{1A95C792-3316-42E5-A0C6-F91F4842637A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Utilities", "Tests.Utilities\Tests.Utilities.csproj", "{1A95C792-3316-42E5-A0C6-F91F4842637A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
