@@ -14,8 +14,8 @@ public class IncreaseAgeTest
 {
 	[Theory]
 	[InlineData(PlantMaturity.Sprout, PlantMaturity.Infant)]
-	[InlineData(PlantMaturity.Infant, PlantMaturity.Established)]
-	[InlineData(PlantMaturity.Established, PlantMaturity.Mature)]
+	[InlineData(PlantMaturity.Infant, PlantMaturity.Young)]
+	[InlineData(PlantMaturity.Young, PlantMaturity.Mature)]
 	[InlineData(PlantMaturity.Mature, PlantMaturity.Old)]
 	public void IncreaseAge_PlantIsNotOldAndMaturityRollSucceeds_IncreasesMaturityByOneLevel(PlantMaturity originalMaturity,
 																	PlantMaturity expectedMaturity)
@@ -44,7 +44,7 @@ public class IncreaseAgeTest
 	[Theory]
 	[InlineData(PlantMaturity.Sprout)]
 	[InlineData(PlantMaturity.Infant)]
-	[InlineData(PlantMaturity.Established)]
+	[InlineData(PlantMaturity.Young)]
 	[InlineData(PlantMaturity.Mature)]
 	[InlineData(PlantMaturity.Old)]
 	public void IncreaseAge_MaturityRollSucceeds_SetsDaysInCurrentMaturityTo0(PlantMaturity originalMaturity)

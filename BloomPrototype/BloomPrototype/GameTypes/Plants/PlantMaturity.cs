@@ -4,7 +4,7 @@ public enum PlantMaturity
 {
     Sprout = 1,
     Infant = 2,
-    Established = 3,
+    Young = 3,
     Mature = 4,
     Old = 5
 }
